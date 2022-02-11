@@ -6,7 +6,7 @@ This is a simple project used for testing cloud technologies, especifically AWS.
 
 This projects aims to use AWS technologies, while trying to stay agnosthic and aparthed from the services that is being used. 
 
-It's business is based on DDD, made from techniques like Event Storming and Leanception. It's documentation is mainly on Notion.
+It's business rules are based on DDD, made from techniques like event storming and entity modeling. It's documentation is mainly on Notion.
 
 ## Getting Started
 
@@ -36,7 +36,7 @@ Ricardo Melo: @RicardoDMelo
 ## Version History
 
 No version released yet.
-See [commit change]() for more information on development status.
+See [commit change](https://github.com/RicardoDMelo/CloudPokeSystem/commits/main) for more information on development status.
 
 ## License
 

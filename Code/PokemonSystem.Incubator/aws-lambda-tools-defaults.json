@@ -12,5 +12,5 @@
   "function-runtime": "dotnetcore3.1",
   "function-memory-size": 256,
   "function-timeout": 30,
-  "function-handler": "PokemonSystem.Learning.Api::PokemonSystem.Learning.Api.Function::FunctionHandler"
+  "function-handler": "PokemonSystem.Incubator::PokemonSystem.Incubator.Function::FunctionHandler"
 }
