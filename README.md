@@ -1,0 +1,43 @@
+# Cloud Pokemon System
+
+This is a simple project used for testing cloud technologies, especifically AWS.
+
+## Description
+
+This projects aims to use AWS technologies, while trying to stay agnosthic and aparthed from the services that is being used. 
+
+It's business is based on DDD, made from techniques like Event Storming and Leanception. It's documentation is mainly on Notion.
+
+## Getting Started
+
+### Dependencies
+
+* TODO
+
+### Installing
+
+* TODO
+
+### Executing program
+
+* TODO
+```
+TODO
+```
+
+## Help
+
+Contact me, @RicardoDMelo, for help. I can not guarantee any support.
+
+## Authors
+
+Ricardo Melo: @RicardoDMelo
+
+## Version History
+
+No version released yet.
+See [commit change]() for more information on development status.
+
+## License
+
+This project is licensed under the Apache License 2.0 - see the LICENSE.md file for details
