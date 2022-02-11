@@ -27,7 +27,10 @@ TODO
 
 ## Help
 
-Contact me, @RicardoDMelo, for help. I can not guarantee any support.
+You can check the domain documentation (in portuguese) in this link.
+https://ricksmelo.notion.site/Pokemon-System-3fd4dc89168140e0812d53864ca66f5c
+
+At last resort, contact me, @RicardoDMelo, for help. I can not guarantee any support.
 
 ## Authors
 
@@ -40,4 +43,4 @@ See [commit change](https://github.com/RicardoDMelo/CloudPokeSystem/commits/main
 
 ## License
 
-This project is licensed under the Apache License 2.0 - see the LICENSE.md file for details
+This project is licensed under the Apache License 2.0 - see the LICENSE file for details
