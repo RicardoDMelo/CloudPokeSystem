@@ -6,6 +6,12 @@ namespace PokemonSystem.Common.ValueObjects
 {
     public class Typing : ValueObject
     {
+        public Typing(PokemonType type1)
+        {
+            Type1 = type1;
+            Type2 = null;
+        }
+
         public Typing(PokemonType type1, PokemonType type2)
         {
             Type1 = type1;
@@ -13,7 +19,7 @@ namespace PokemonSystem.Common.ValueObjects
         }
 
         public PokemonType Type1 { get;  private set; }
-        public PokemonType Type2 { get;  private set; }
+        public PokemonType? Type2 { get;  private set; }
 
         protected override IEnumerable<object> GetEqualityComponents()
         {

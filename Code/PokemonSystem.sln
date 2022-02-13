@@ -18,6 +18,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Docs", "_Docs", "{238B9FE7
 		..\README.md = ..\README.md
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PokemonSystem.Tests", "PokemonSystem.Tests\PokemonSystem.Tests.csproj", "{AC96CD10-4868-4908-9F37-1273DAC76417}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -40,6 +42,10 @@ Global
 		{BF048BD9-75AA-40C8-8E12-54D9A51794F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BF048BD9-75AA-40C8-8E12-54D9A51794F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BF048BD9-75AA-40C8-8E12-54D9A51794F8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AC96CD10-4868-4908-9F37-1273DAC76417}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AC96CD10-4868-4908-9F37-1273DAC76417}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AC96CD10-4868-4908-9F37-1273DAC76417}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AC96CD10-4868-4908-9F37-1273DAC76417}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
