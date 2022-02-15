@@ -81,32 +81,4 @@ namespace PokemonSystem.Tests.Incubator
             );
         }
     }
-    public class MoveSetBuilder
-    {
-        private List<MoveByLevel> _moveSet = new List<MoveByLevel>();
-
-        public MoveSetBuilder()
-        {
-            _moveSet.Add(new MoveByLevel(new Level(1), new Move("Tackle", PokemonType.Normal, MoveCategory.Physical, 60, 0.9, 30)));
-            _moveSet.Add(new MoveByLevel(new Level(2), new Move("Tail Whip", PokemonType.Normal, MoveCategory.Status, null, 1, 30)));
-        }
-
-        public MoveSetBuilder AddMove(MoveByLevel moveByLevel)
-        {
-            _moveSet.Add(moveByLevel);
-            return this;
-        }
-
-        public MoveSetBuilder ResetMoves()
-        {
-            _moveSet.Clear();
-            return this;
-        }
-
-        public List<MoveByLevel> Build()
-        {
-            return _moveSet;
-        }
-    }
-
 }

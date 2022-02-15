@@ -1,7 +1,7 @@
 using NUnit.Framework;
 using PokemonSystem.Common.Enums;
 using PokemonSystem.Incubator.PokemonAggregate;
-using PokemonSystem.Incubator.SpeciesAggregate;
+using System;
 
 namespace PokemonSystem.Tests.Incubator
 {
@@ -16,15 +16,24 @@ namespace PokemonSystem.Tests.Incubator
         }
 
         [Test]
-        public void Create_Pokemon()
+        public void Constructor_Null_Exception()
         {
-            var pokemonAlias = "Albero";
-            var species = _speciesBuilder.Build();
+            var nickname = "Albero";
             var pokemonGender = Gender.Male;
 
-            var pokemon = new Pokemon(pokemonAlias, species, pokemonGender);
+            Assert.Throws<ArgumentNullException>(() => new Pokemon(nickname, null, pokemonGender));
+        }
 
-            Assert.AreEqual(pokemonAlias, pokemon.Alias);
+        [Test]
+        public void Create_Pokemon()
+        {
+            var species = _speciesBuilder.Build();
+            var nickname = "Albero";
+            var pokemonGender = Gender.Male;
+
+            var pokemon = new Pokemon(nickname, species, pokemonGender);
+
+            Assert.AreEqual(nickname, pokemon.Nickname);
             Assert.AreEqual(species, pokemon.PokemonSpecies);
             Assert.AreEqual(pokemonGender, pokemon.Gender);
         }
