@@ -2,7 +2,7 @@
 using PokemonSystem.Incubator.Domain.SpeciesAggregate;
 using System;
 
-namespace PokemonSystem.Incubator.PokemonAggregate
+namespace PokemonSystem.Incubator.Domain.PokemonAggregate
 {
     public class IncubatorService : IIncubatorService
     {

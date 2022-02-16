@@ -1,7 +1,7 @@
 ﻿using PokemonSystem.Common.Enums;
 using PokemonSystem.Common.ValueObjects;
 
-namespace PokemonSystem.Tests.Incubator
+namespace PokemonSystem.Tests.Incubator.Builders
 {
     public static class Levels
     {
@@ -10,7 +10,6 @@ namespace PokemonSystem.Tests.Incubator
         public static Level Ten = new Level(10);
         public static Level Fifty = new Level(50);
         public static Level Max = new Level(100);
-
     }
 
     public static class Moves

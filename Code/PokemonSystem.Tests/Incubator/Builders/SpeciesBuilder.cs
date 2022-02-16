@@ -1,9 +1,9 @@
 ﻿using PokemonSystem.Common.Enums;
 using PokemonSystem.Common.ValueObjects;
-using PokemonSystem.Incubator.SpeciesAggregate;
+using PokemonSystem.Incubator.Domain.SpeciesAggregate;
 using System.Collections.Generic;
 
-namespace PokemonSystem.Tests.Incubator
+namespace PokemonSystem.Tests.Incubator.Builders
 {
     public class SpeciesBuilder
     {
@@ -11,7 +11,7 @@ namespace PokemonSystem.Tests.Incubator
         private string _name = "Tauros";
         private Typing _type = new Typing(PokemonType.Normal);
         private Stats _baseStats = new Stats(1, 2, 3, 4, 5, 6);
-        private Species _evolutionSpecies = null;
+        private EvolutionCriteria _evolutionCriteria = null;
         private double _maleFactor = 0.6;
 
         private MoveSetBuilder _moveSetBuilder;
@@ -46,11 +46,12 @@ namespace PokemonSystem.Tests.Incubator
             _maleFactor = maleFactor;
             return this;
         }
-        public SpeciesBuilder WithEvolutionSpecies(Species evolutionSpecies)
+        public SpeciesBuilder WithEvolutionCriteria(EvolutionCriteria evolutionCriteria)
         {
-            _evolutionSpecies = evolutionSpecies;
+            _evolutionCriteria = evolutionCriteria;
             return this;
         }
+
         public SpeciesBuilder AddMove(MoveByLevel moveByLevel)
         {
             _moveSetBuilder.AddMove(moveByLevel);
@@ -76,7 +77,7 @@ namespace PokemonSystem.Tests.Incubator
                 _type,
                 _baseStats,
                 _maleFactor,
-                _evolutionSpecies,
+                _evolutionCriteria,
                 _moveSetBuilder.Build()
             );
         }

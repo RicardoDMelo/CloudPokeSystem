@@ -2,13 +2,22 @@
 using PokemonSystem.Common.Enums;
 using System;
 using System.Collections.Generic;
+using PokemonSystem.Common.Properties;
 
 namespace PokemonSystem.Common.ValueObjects
 {
     public class Move : ValueObject
     {
-        public Move(string name, PokemonType type, MoveCategory category, int? power, double accuracy, int pp)
+        const uint MIN_ACCURACY = 0;
+        const uint MAX_ACCURACY = 1;
+
+        public Move(string name, PokemonType type, MoveCategory category, uint? power, double accuracy, uint pp)
         {
+            if (accuracy > MAX_ACCURACY || accuracy < MIN_ACCURACY)
+            {
+                throw new ArgumentException(string.Format(Errors.Between, nameof(accuracy), MIN_ACCURACY, MAX_ACCURACY));
+            }
+
             Name = name ?? throw new ArgumentNullException(nameof(name));
             Type = type;
             Category = category;
@@ -20,9 +29,9 @@ namespace PokemonSystem.Common.ValueObjects
         public string Name { get; private set; }
         public PokemonType Type { get; private set; }
         public MoveCategory Category { get; private set; }
-        public int? Power { get; private set; }
+        public uint? Power { get; private set; }
         public double Accuracy { get; private set; }
-        public int PP { get; private set; }
+        public uint PP { get; private set; }
 
         protected override IEnumerable<object> GetEqualityComponents()
         {

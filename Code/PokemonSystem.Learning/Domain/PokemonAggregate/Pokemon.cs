@@ -3,7 +3,7 @@ using PokemonSystem.Common.ValueObjects;
 using System;
 using System.Collections.Generic;
 
-namespace PokemonSystem.Learning.PokemonAggregate
+namespace PokemonSystem.Learning.Domain.PokemonAggregate
 {
     public class Pokemon : Entity, IAggregateRoot
     {

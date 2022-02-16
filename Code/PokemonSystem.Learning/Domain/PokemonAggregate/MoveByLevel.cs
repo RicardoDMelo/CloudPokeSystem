@@ -2,7 +2,7 @@
 using PokemonSystem.Common.ValueObjects;
 using System;
 
-namespace PokemonSystem.Learning.PokemonAggregate
+namespace PokemonSystem.Learning.Domain.PokemonAggregate
 {
     public class MoveByLevel : Entity
     {

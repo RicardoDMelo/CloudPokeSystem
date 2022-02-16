@@ -1,9 +1,7 @@
-﻿using PokemonSystem.Common.Enums;
-using PokemonSystem.Common.ValueObjects;
-using PokemonSystem.Incubator.SpeciesAggregate;
+﻿using PokemonSystem.Incubator.Domain.SpeciesAggregate;
 using System.Collections.Generic;
 
-namespace PokemonSystem.Tests.Incubator
+namespace PokemonSystem.Tests.Incubator.Builders
 {
     public class MoveSetBuilder
     {

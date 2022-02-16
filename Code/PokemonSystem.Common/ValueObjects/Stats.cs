@@ -5,7 +5,7 @@ namespace PokemonSystem.Common.ValueObjects
 {
     public class Stats : ValueObject
     {
-        public Stats(int hp, int attack, int defense, int specialAttack, int specialDefense, int speed)
+        public Stats(uint hp, uint attack, uint defense, uint specialAttack, uint specialDefense, uint speed)
         {
             HP = hp;
             Attack = attack;
@@ -15,12 +15,12 @@ namespace PokemonSystem.Common.ValueObjects
             Speed = speed;
         }
 
-        public int HP { get; private set; }
-        public int Attack { get; private set; }
-        public int Defense { get; private set; }
-        public int SpecialAttack { get; private set; }
-        public int SpecialDefense { get; private set; }
-        public int Speed { get; private set; }
+        public uint HP { get; private set; }
+        public uint Attack { get; private set; }
+        public uint Defense { get; private set; }
+        public uint SpecialAttack { get; private set; }
+        public uint SpecialDefense { get; private set; }
+        public uint Speed { get; private set; }
 
         protected override IEnumerable<object> GetEqualityComponents()
         {

@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace PokemonSystem.Learning.PokemonAggregate
+namespace PokemonSystem.Learning.Domain.PokemonAggregate
 {
     public class Species : Entity
     {

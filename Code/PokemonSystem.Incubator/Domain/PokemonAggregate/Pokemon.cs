@@ -1,9 +1,9 @@
 ﻿using PokemonSystem.Common.Enums;
 using PokemonSystem.Common.SeedWork;
-using PokemonSystem.Incubator.SpeciesAggregate;
+using PokemonSystem.Incubator.Domain.SpeciesAggregate;
 using System;
 
-namespace PokemonSystem.Incubator.PokemonAggregate
+namespace PokemonSystem.Incubator.Domain.PokemonAggregate
 {
     public class Pokemon : Entity, IAggregateRoot
     {

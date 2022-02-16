@@ -1,29 +1,44 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+	<PropertyGroup>
+		<TargetFramework>netcoreapp3.1</TargetFramework>
 
-    <IsPackable>false</IsPackable>
-  </PropertyGroup>
+		<IsPackable>false</IsPackable>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Bogus" Version="34.0.1" />
-    <PackageReference Include="NSubstitute" Version="4.3.0" />
-    <PackageReference Include="NUnit" Version="3.12.0" />
-    <PackageReference Include="NUnit3TestAdapter" Version="3.16.1" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.5.0" />
-  </ItemGroup>
+	<PropertyGroup Label="FineCodeCoverage">
+		<Enabled>
+			True
+		</Enabled>
+		<Include>
+			[*]*
+		</Include>
+		<Exclude>
+			[*]*.Tests.*
+		</Exclude>
+		<ExcludeByFile>
+			**/SeedWork/*
+			**/Api/*
+		</ExcludeByFile>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <Folder Include="Learning\" />
-    <Folder Include="Evolution\" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="NSubstitute" Version="4.3.0" />
+		<PackageReference Include="NUnit" Version="3.12.0" />
+		<PackageReference Include="NUnit3TestAdapter" Version="3.16.1" />
+		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.5.0" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\PokemonSystem.Common\PokemonSystem.Common.csproj" />
-    <ProjectReference Include="..\PokemonSystem.Evolution\PokemonSystem.Evolution.csproj" />
-    <ProjectReference Include="..\PokemonSystem.Incubator\PokemonSystem.Incubator.csproj" />
-    <ProjectReference Include="..\PokemonSystem.Learning\PokemonSystem.Learning.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<Folder Include="Learning\" />
+		<Folder Include="Evolution\" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\PokemonSystem.Common\PokemonSystem.Common.csproj" />
+		<ProjectReference Include="..\PokemonSystem.Evolution\PokemonSystem.Evolution.csproj" />
+		<ProjectReference Include="..\PokemonSystem.Incubator\PokemonSystem.Incubator.csproj" />
+		<ProjectReference Include="..\PokemonSystem.Learning\PokemonSystem.Learning.csproj" />
+	</ItemGroup>
 
 </Project>

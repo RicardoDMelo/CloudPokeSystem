@@ -1,6 +1,4 @@
-﻿using PokemonSystem.Incubator.SpeciesAggregate;
-
-namespace PokemonSystem.Incubator.PokemonAggregate
+﻿namespace PokemonSystem.Incubator.Domain.PokemonAggregate
 {
     public interface IIncubatorService
     {

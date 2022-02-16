@@ -1,21 +1,12 @@
 using NUnit.Framework;
-using PokemonSystem.Common.Enums;
-using PokemonSystem.Common.ValueObjects;
-using PokemonSystem.Incubator.SpeciesAggregate;
+using PokemonSystem.Incubator.Domain.SpeciesAggregate;
+using PokemonSystem.Tests.Incubator.Builders;
 using System;
 
 namespace PokemonSystem.Tests.Incubator
 {
     public class MoveByLevelTests
     {
-        private MoveSetBuilder _moveSetBuilder;
-
-        [SetUp]
-        public void Setup()
-        {
-            _moveSetBuilder = new MoveSetBuilder();
-        }
-
         [Test]
         public void Constructor_Null_Exception()
         {

@@ -1,7 +1,8 @@
 using NUnit.Framework;
 using PokemonSystem.Common.Enums;
 using PokemonSystem.Common.ValueObjects;
-using PokemonSystem.Incubator.SpeciesAggregate;
+using PokemonSystem.Incubator.Domain.SpeciesAggregate;
+using PokemonSystem.Tests.Incubator.Builders;
 using System;
 
 namespace PokemonSystem.Tests.Incubator
@@ -23,13 +24,13 @@ namespace PokemonSystem.Tests.Incubator
             var name = "Tauros";
             var type = new Typing(PokemonType.Normal);
             var baseStats = new Stats(1, 2, 3, 4, 5, 6);
-            Species evolutionSpecies = null;
+            EvolutionCriteria evolutionCriteria = null;
             var maleFactor = 0.6;
             var moveset = _moveSetBuilder.Build();
 
-            Assert.Throws<ArgumentException>(() => new Species(number, null, type, baseStats, maleFactor, evolutionSpecies, moveset));
-            Assert.Throws<ArgumentNullException>(() => new Species(number, name, type, null, maleFactor, evolutionSpecies, moveset));
-            Assert.Throws<ArgumentNullException>(() => new Species(number, name, type, baseStats, maleFactor, evolutionSpecies, null));
+            Assert.Throws<ArgumentException>(() => new Species(number, null, type, baseStats, maleFactor, evolutionCriteria, moveset));
+            Assert.Throws<ArgumentNullException>(() => new Species(number, name, type, null, maleFactor, evolutionCriteria, moveset));
+            Assert.Throws<ArgumentNullException>(() => new Species(number, name, type, baseStats, maleFactor, evolutionCriteria, null));
         }
 
         [Test]
@@ -39,7 +40,7 @@ namespace PokemonSystem.Tests.Incubator
             var name = "Tauros";
             var type = new Typing(PokemonType.Normal);
             var baseStats = new Stats(1, 2, 3, 4, 5, 6);
-            Species evolutionSpecies = null;
+            EvolutionCriteria evolutionCriteria = null;
             var maleFactor = 0.6;
             var moveset = _moveSetBuilder.Build();
 
@@ -49,7 +50,7 @@ namespace PokemonSystem.Tests.Incubator
                 type,
                 baseStats,
                 maleFactor,
-                evolutionSpecies,
+                evolutionCriteria,
                 moveset
             );
 

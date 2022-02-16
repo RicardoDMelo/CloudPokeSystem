@@ -1,6 +1,7 @@
 using NUnit.Framework;
 using PokemonSystem.Common.Enums;
-using PokemonSystem.Incubator.PokemonAggregate;
+using PokemonSystem.Incubator.Domain.PokemonAggregate;
+using PokemonSystem.Tests.Incubator.Builders;
 using System;
 
 namespace PokemonSystem.Tests.Incubator
