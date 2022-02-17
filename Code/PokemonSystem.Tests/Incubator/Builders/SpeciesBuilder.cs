@@ -15,8 +15,20 @@ namespace PokemonSystem.Tests.Incubator.Builders
         private double _maleFactor = 0.6;
 
         private MoveSetBuilder _moveSetBuilder;
+
         public SpeciesBuilder()
         {
+            Reset();
+        }
+
+        public void Reset()
+        {
+            _number = 128;
+            _name = "Tauros";
+            _type = new Typing(PokemonType.Normal);
+            _baseStats = new Stats(1, 2, 3, 4, 5, 6);
+            _evolutionCriteria = null;
+            _maleFactor = 0.6;
             _moveSetBuilder = new MoveSetBuilder();
         }
 
@@ -71,7 +83,7 @@ namespace PokemonSystem.Tests.Incubator.Builders
 
         public Species Build()
         {
-            return new Species(
+            var species = new Species(
                 _number,
                 _name,
                 _type,
@@ -80,6 +92,8 @@ namespace PokemonSystem.Tests.Incubator.Builders
                 _evolutionCriteria,
                 _moveSetBuilder.Build()
             );
+            Reset();
+            return species;
         }
     }
 }

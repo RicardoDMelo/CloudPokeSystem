@@ -56,9 +56,7 @@ namespace PokemonSystem.Tests.Evolution.Builders
                 _baseStats,
                 _evolutionCriteria
             );
-
             Reset();
-
             return species;
         }
     }

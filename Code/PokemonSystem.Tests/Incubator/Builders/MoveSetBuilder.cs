@@ -10,6 +10,12 @@ namespace PokemonSystem.Tests.Incubator.Builders
 
         public MoveSetBuilder()
         {
+            Reset();
+        }
+
+        public void Reset()
+        {
+            _moveSet.Clear();
             _moveSet.Add(new MoveByLevel(Levels.One, Moves.Tackle));
             _moveSet.Add(new MoveByLevel(Levels.Two, Moves.TailWhip));
         }
@@ -28,7 +34,9 @@ namespace PokemonSystem.Tests.Incubator.Builders
 
         public List<MoveByLevel> Build()
         {
-            return _moveSet;
+            var moveSet = _moveSet;
+            Reset();
+            return moveSet;
         }
     }
 }
