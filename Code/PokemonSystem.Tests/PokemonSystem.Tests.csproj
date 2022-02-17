@@ -31,7 +31,6 @@
 
 	<ItemGroup>
 		<Folder Include="Learning\" />
-		<Folder Include="Evolution\" />
 	</ItemGroup>
 
 	<ItemGroup>

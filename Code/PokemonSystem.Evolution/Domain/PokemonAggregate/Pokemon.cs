@@ -8,10 +8,12 @@ namespace PokemonSystem.Evolution.Domain.PokemonAggregate
 {
     public class Pokemon : Entity, IAggregateRoot
     {
-        private const uint MAX_EXPERIENCE = 1_000_000;
+        public const uint MAX_EXPERIENCE = 1_000_000;
+
         public Pokemon(Species pokemonSpecies)
         {
             PokemonSpecies = pokemonSpecies ?? throw new ArgumentNullException(nameof(pokemonSpecies));
+            Level = GetLevelFromExperience();
         }
 
         public Species PokemonSpecies { get; private set; }
@@ -47,17 +49,18 @@ namespace PokemonSystem.Evolution.Domain.PokemonAggregate
             if (oldLevel < Level)
             {
                 AddDomainEvent(new PokemonLevelRaisedDomainEvent(this));
-                if (PokemonSpecies.EvolutionCriteria.CanEvolveByLevel(Level) )
+                if (PokemonSpecies.EvolutionCriteria != null && PokemonSpecies.EvolutionCriteria.CanEvolveByLevel(Level))
                 {
                     PokemonSpecies = PokemonSpecies.EvolutionCriteria.EvolutionSpecies;
-                    AddDomainEvent(new PokemonLevelRaisedDomainEvent(this));
+                    AddDomainEvent(new PokemonEvolvedDomainEvent(this));
                 }
             }
         }
 
         private Level GetLevelFromExperience()
         {
-            return new Level((uint)Math.Floor(Math.Pow(Experience, 1.0 / 3)));
+            var currentExperience = Experience == 0 ? 1 : Experience;
+            return new Level((uint)Math.Round(Math.Pow(currentExperience, 1.0 / 3), 10));
         }
 
         private Stats GetCalculcatedStats()

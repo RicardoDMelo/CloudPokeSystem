@@ -1,6 +1,6 @@
 using NUnit.Framework;
 using PokemonSystem.Incubator.Domain.SpeciesAggregate;
-using PokemonSystem.Tests.Incubator.Builders;
+using PokemonSystem.Tests.ValueObjects;
 using System;
 
 namespace PokemonSystem.Tests.Incubator

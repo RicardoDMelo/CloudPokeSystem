@@ -1,5 +1,6 @@
 using NUnit.Framework;
 using PokemonSystem.Common.ValueObjects;
+using PokemonSystem.Tests.ValueObjects;
 using System;
 
 namespace PokemonSystem.Tests.Common
@@ -22,6 +23,14 @@ namespace PokemonSystem.Tests.Common
             var level = new Level(levelValue);
 
             Assert.AreEqual(levelValue, level.Value);
+        }
+
+        [Test]
+        public void Error_Create_Level_Less_Than_1()
+        {
+            uint levelValue = 0;
+
+            Assert.Throws<ArgumentException>(() => new Level(levelValue));
         }
 
         [Test]
@@ -99,6 +108,148 @@ namespace PokemonSystem.Tests.Common
             var obj = new object();
 
             Assert.Throws<ArgumentException>(() => level.CompareTo(obj));
+        }
+
+        [Test]
+        public void Level_Equal_Operator()
+        {
+            uint levelValue = 1;
+            var level1 = new Level(levelValue);
+            var level2 = new Level(levelValue);
+
+            Assert.True(level1 == level2);
+        }
+
+        [Test]
+        public void Level_Equal_Operator_Both_Null()
+        {
+            Level level1 = null;
+            Level level2 = null;
+
+            Assert.True(level1 == level2);
+        }
+
+        [Test]
+        public void Level_Equal_Operator_One_Is_Null()
+        {
+            var level1 = Levels.One;
+            Level level2 = null;
+
+            Assert.False(level1 == level2);
+        }
+
+        [Test]
+        public void Level_Different_Operator()
+        {
+            uint levelValue = 1;
+            var level1 = new Level(levelValue);
+            var level2 = new Level(++levelValue);
+
+            Assert.True(level1 != level2);
+        }
+
+        [Test]
+        public void Level_Different_Operator_Both_Null()
+        {
+            Level level1 = null;
+            Level level2 = null;
+
+            Assert.False(level1 != level2);
+        }
+
+        [Test]
+        public void Level_Different_Operator_One_Is_Null()
+        {
+            var level1 = Levels.One;
+            Level level2 = null;
+
+            Assert.True(level1 != level2);
+        }
+
+        [Test]
+        public void Level_Greater_Operator()
+        {
+            uint levelValue = 2;
+            var level1 = new Level(levelValue);
+            var level2 = new Level(--levelValue);
+
+            Assert.True(level1 > level2);
+        }
+
+        [Test]
+        public void Level_Greater_Operator_Some_Is_Null()
+        {
+            var level1 = Levels.One;
+            Level level2 = null;
+
+            Assert.False(level1 > level2);
+        }
+
+        [Test]
+        public void Level_Greater_Or_Equals_Operator()
+        {
+            uint levelValue = 2;
+            var level1 = new Level(levelValue);
+            var level2 = new Level(--levelValue);
+
+            Assert.True(level1 >= level2);
+        }
+
+        [Test]
+        public void Level_Greater_Or_Equals_Operator_Some_Is_Null()
+        {
+            var level1 = Levels.One;
+            Level level2 = null;
+
+            Assert.False(level1 >= level2);
+        }
+
+        [Test]
+        public void Level_Less_Operator()
+        {
+            uint levelValue = 1;
+            var level1 = new Level(levelValue);
+            var level2 = new Level(++levelValue);
+
+            Assert.True(level1 < level2);
+        }
+
+        [Test]
+        public void Level_Less_Operator_Some_Is_Null()
+        {
+            var level1 = Levels.One;
+            Level level2 = null;
+
+            Assert.False(level1 < level2);
+        }
+
+        [Test]
+        public void Level_Less_Or_Equal_Operator()
+        {
+            uint levelValue = 1;
+            var level1 = new Level(levelValue);
+            var level2 = new Level(++levelValue);
+
+            Assert.True(level1 <= level2);
+        }
+
+        [Test]
+        public void Level_Less_Or_Equal_Operator_Some_Is_Null()
+        {
+            var level1 = Levels.One;
+            Level level2 = null;
+
+            Assert.False(level1 <= level2);
+        }
+
+        [Test]
+        public void Level_GetHashcode()
+        {
+            uint levelValue = 1;
+            var level1 = new Level(levelValue);
+            var level2 = new Level(levelValue);
+
+            Assert.AreEqual(level1.GetHashCode(), level2.GetHashCode());
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using PokemonSystem.Incubator.Domain.SpeciesAggregate;
+using PokemonSystem.Tests.ValueObjects;
 using System.Collections.Generic;
 
 namespace PokemonSystem.Tests.Incubator.Builders

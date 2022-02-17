@@ -8,12 +8,13 @@ namespace PokemonSystem.Common.ValueObjects
 {
     public class Level : ValueObject, IComparable
     {
+        const uint MIN_LEVEL = 1;
         const uint MAX_LEVEL = 100;
         public Level(uint value)
         {
-            if (value > 100)
+            if (value > MAX_LEVEL || value < MIN_LEVEL)
             {
-                throw new ArgumentException(string.Format(Errors.LessOrEquals, nameof(value), MAX_LEVEL));
+                throw new ArgumentException(string.Format(Errors.Between, nameof(value), MIN_LEVEL, MAX_LEVEL));
             }
 
             Value = value;
@@ -23,7 +24,7 @@ namespace PokemonSystem.Common.ValueObjects
 
         public int CompareTo([AllowNull] object other)
         {
-            if (other == null)
+            if (other is null)
                 throw new ArgumentNullException(nameof(other));
             if (other.GetType() != typeof(Level))
                 throw new ArgumentException(string.Format(Errors.NotTheSameType, nameof(other)));
@@ -39,34 +40,58 @@ namespace PokemonSystem.Common.ValueObjects
 
         public static bool operator ==(Level x, Level y)
         {
+            if (x is null && y is null)
+                return true;
+
+            if (x is null || y is null)
+                return false;
+
             return x.CompareTo(y) == 0;
         }
 
         public static bool operator !=(Level x, Level y)
         {
+            if (x is null && y is null)
+                return false;
+
+            if (x is null || y is null)
+                return true;
+
             return x.CompareTo(y) != 0;
         }
 
         public static bool operator <(Level x, Level y)
         {
+            if (x is null || y is null)
+                return false;
+
             return x.CompareTo(y) == -1;
         }
 
         public static bool operator >(Level x, Level y)
         {
+            if (x is null || y is null)
+                return false;
+
             return x.CompareTo(y) == 1;
         }
 
         public static bool operator <=(Level x, Level y)
         {
+            if (x is null || y is null)
+                return false;
+
             var result = x.CompareTo(y);
-            return result == -1 || result == 0;
+            return result <= 0;
         }
 
         public static bool operator >=(Level x, Level y)
         {
+            if (x is null || y is null)
+                return false;
+
             var result = x.CompareTo(y);
-            return result == 1 || result == 0;
+            return result >= 0;
         }
 
         protected override IEnumerable<object> GetEqualityComponents()

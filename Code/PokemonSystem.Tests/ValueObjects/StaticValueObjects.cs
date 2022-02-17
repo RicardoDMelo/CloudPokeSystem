@@ -1,7 +1,7 @@
 ﻿using PokemonSystem.Common.Enums;
 using PokemonSystem.Common.ValueObjects;
 
-namespace PokemonSystem.Tests.Incubator.Builders
+namespace PokemonSystem.Tests.ValueObjects
 {
     public static class Levels
     {

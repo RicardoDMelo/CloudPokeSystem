@@ -1,7 +1,7 @@
 ﻿using PokemonSystem.Common.Enums;
 using PokemonSystem.Common.ValueObjects;
 using PokemonSystem.Incubator.Domain.SpeciesAggregate;
-using System.Collections.Generic;
+using PokemonSystem.Tests.ValueObjects;
 
 namespace PokemonSystem.Tests.Incubator.Builders
 {
