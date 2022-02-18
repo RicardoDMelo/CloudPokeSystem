@@ -12,7 +12,8 @@ It's business rules are based on DDD, made from techniques like event storming a
 
 ### Dependencies
 
-* TODO
+* AWS Lambda
+* AWS CodeBuild
 
 ### Installing
 
