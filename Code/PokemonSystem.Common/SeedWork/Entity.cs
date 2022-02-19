@@ -5,6 +5,11 @@ namespace PokemonSystem.Common.SeedWork
 {
     public abstract class Entity
     {
+        public Entity()
+        {
+            _Id = Guid.NewGuid();
+        }
+
         int? _requestedHashCode;
         Guid _Id;
         private List<INotification> _domainEvents;

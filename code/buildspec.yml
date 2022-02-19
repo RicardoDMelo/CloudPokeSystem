@@ -1,0 +1,15 @@
+version: 0.2
+phases:
+  pre_build:
+    commands:
+      - echo Restore started on `date`
+      - dotnet restore Code/PokemonSystem.sln
+  build:
+    commands:
+      - echo Build started on `date`
+      - dotnet publish -c release -o ./Build_Output/Incubator -r linux-x64 -f "netcoreapp3.1" code/PokemonSystem.Incubator/PokemonSystem.Incubator.csproj
+      - dotnet publish -c release -o ./Build_Output/Evolution -r linux-x64 -f "netcoreapp3.1" code/PokemonSystem.Evolution/PokemonSystem.Evolution.csproj
+      - dotnet publish -c release -o ./Build_Output/Learning -r linux-x64 -f "netcoreapp3.1" code/PokemonSystem.Learning/PokemonSystem.Learning.csproj
+artifacts:
+  files:
+    - Build_Output/**/*

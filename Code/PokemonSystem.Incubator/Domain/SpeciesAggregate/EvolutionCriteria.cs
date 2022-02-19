@@ -8,7 +8,7 @@ namespace PokemonSystem.Incubator.Domain.SpeciesAggregate
 {
     public class EvolutionCriteria : Entity
     {
-        public EvolutionCriteria(EvolutionType evolutionType, Level minimumLevel, Species evolutionSpecies)
+        public EvolutionCriteria(EvolutionType evolutionType, Level minimumLevel, Species evolutionSpecies) : base()
         {
             EvolutionType = evolutionType;
             if (evolutionType == EvolutionType.Level && minimumLevel == null)

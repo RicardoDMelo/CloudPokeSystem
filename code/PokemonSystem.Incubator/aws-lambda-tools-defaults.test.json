@@ -9,9 +9,9 @@
   "region": "sa-east-1",
   "configuration": "Release",
   "framework": "netcoreapp3.1",
-  "function-name": "PokemonGenerator",
+  "function-name": "PokemonGenerator2",
   "function-runtime": "dotnetcore3.1",
   "function-memory-size": 256,
   "function-timeout": 30,
-  "function-handler": "PokemonSystem.Incubator::PokemonSystem.Incubator.Api.PokemonGenerator::FunctionHandler"
+  "function-handler": "PokemonSystem.Incubator::PokemonSystem.Incubator.Api.PokemonGenerator2::FunctionHandler"
 }

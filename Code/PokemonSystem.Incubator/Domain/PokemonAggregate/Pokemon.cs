@@ -7,7 +7,7 @@ namespace PokemonSystem.Incubator.Domain.PokemonAggregate
 {
     public class Pokemon : Entity, IAggregateRoot
     {
-        public Pokemon(string nickname, Species pokemonSpecies, Gender gender)
+        public Pokemon(string nickname, Species pokemonSpecies, Gender gender) : base()
         {
             Nickname = nickname;
             PokemonSpecies = pokemonSpecies ?? throw new ArgumentNullException(nameof(pokemonSpecies));

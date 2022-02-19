@@ -1,5 +1,0 @@
-version: 0.0
-os: linux
-files:
-  - source: Build_Output
-    destination: /home/ec2-user/aspnetcoreapp

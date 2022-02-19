@@ -6,7 +6,7 @@ namespace PokemonSystem.Incubator.Domain.SpeciesAggregate
 {
     public class MoveByLevel : Entity
     {
-        public MoveByLevel(Level level, Move move)
+        public MoveByLevel(Level level, Move move) : base()
         {
             Level = level ?? throw new ArgumentNullException(nameof(level));
             Move = move ?? throw new ArgumentNullException(nameof(move));

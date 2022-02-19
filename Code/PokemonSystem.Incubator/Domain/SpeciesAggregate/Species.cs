@@ -1,16 +1,25 @@
-﻿using PokemonSystem.Common.SeedWork;
+﻿using PokemonSystem.Common.Properties;
+using PokemonSystem.Common.SeedWork;
 using PokemonSystem.Common.ValueObjects;
+using System;
 using System.Collections.Generic;
 
 namespace PokemonSystem.Incubator.Domain.SpeciesAggregate
 {
     public class Species : Entity, IAggregateRoot
     {
-        public Species(int number, string name, Typing typing, Stats baseStats, double maleFactor, EvolutionCriteria evolutionCriteria, List<MoveByLevel> moveSet)
+        private const double MIN_MALE_FACTOR = 0;
+        private const double MAX_MALE_FACTOR = 1;
+        public Species(int number, string name, Typing typing, Stats baseStats, double maleFactor, EvolutionCriteria evolutionCriteria, List<MoveByLevel> moveSet) : base()
         {
             if (string.IsNullOrEmpty(name))
             {
-                throw new System.ArgumentException($"'{nameof(name)}' cannot be null or empty.", nameof(name));
+                throw new ArgumentException($"'{nameof(name)}' cannot be null or empty.", nameof(name));
+            }
+
+            if (maleFactor < MIN_MALE_FACTOR || maleFactor > MAX_MALE_FACTOR)
+            {
+                throw new ArgumentException(string.Format(Errors.Between, nameof(maleFactor), MIN_MALE_FACTOR, MAX_MALE_FACTOR));
             }
 
             Number = number;
