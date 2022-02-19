@@ -8,8 +8,11 @@ phases:
     commands:
       - echo Build started on `date`
       - dotnet publish -c release -o ./Build_Output/Incubator -r linux-x64 -f "netcoreapp3.1" code/PokemonSystem.Incubator/PokemonSystem.Incubator.csproj
+      - zip -r incubator.zip ./Build_Output/Incubator
       - dotnet publish -c release -o ./Build_Output/Evolution -r linux-x64 -f "netcoreapp3.1" code/PokemonSystem.Evolution/PokemonSystem.Evolution.csproj
+      - zip -r evolution.zip ./Build_Output/Evolution
       - dotnet publish -c release -o ./Build_Output/Learning -r linux-x64 -f "netcoreapp3.1" code/PokemonSystem.Learning/PokemonSystem.Learning.csproj
+      - zip -r learning.zip ./Build_Output/Learning
 artifacts:
   files:
     - Build_Output/**/*
