@@ -3,7 +3,9 @@ phases:
   pre_build:
     commands:
       - echo Restore started on `date`
-      - dotnet restore Code/PokemonSystem.sln
+      - dotnet restore code/PokemonSystem.Incubator/PokemonSystem.Incubator.csproj
+      - dotnet restore code/PokemonSystem.Evolution/PokemonSystem.Evolution.csproj
+      - dotnet restore code/PokemonSystem.Learning/PokemonSystem.Learning.csproj
   build:
     commands:
       - echo Build started on `date`
