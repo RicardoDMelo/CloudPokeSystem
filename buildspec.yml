@@ -22,8 +22,8 @@ phases:
       - dotnet tool install -g Amazon.Lambda.Tools
       - dotnet tool update -g Amazon.Lambda.Tools
       - cd code/PokemonSystem.Incubator/
-      - dotnet lambda deploy-function "PokemonIncubator" --funtion-handler "PokemonSystem.Incubator::PokemonSystem.Incubator.Api.IncubatorFunction::FunctionHandler" --function-role "arn:aws:iam::$AWS_ACCOUNT_ID:role/$LAMBDA_ROLE" --framework "netcoreapp3.1" --function-runtime "dotnetcore3.1" --region "$AWS_REGION"      
+      - dotnet lambda deploy-function "PokemonIncubator" --funtion-handler "PokemonSystem.Incubator::PokemonSystem.Incubator.Api.IncubatorFunction::FunctionHandler" --function-timeout 30 --function-memory-size 256 --function-role "arn:aws:iam::$AWS_ACCOUNT_ID:role/$LAMBDA_ROLE" --framework "netcoreapp3.1" --function-runtime "dotnetcore3.1" --region "$AWS_REGION"      
       - cd ../PokemonSystem.Evolution/
-      - dotnet lambda deploy-function "PokemonEvolution" --funtion-handler "PokemonSystem.Evolution::PokemonSystem.Evolution.Api.EvolutionFunction::FunctionHandler" --function-role "arn:aws:iam::$AWS_ACCOUNT_ID:role/$LAMBDA_ROLE" --framework "netcoreapp3.1" --function-runtime "dotnetcore3.1" --region "$AWS_REGION"      
+      - dotnet lambda deploy-function "PokemonEvolution" --funtion-handler "PokemonSystem.Evolution::PokemonSystem.Evolution.Api.EvolutionFunction::FunctionHandler" --function-timeout 30 --function-memory-size 256 --function-role "arn:aws:iam::$AWS_ACCOUNT_ID:role/$LAMBDA_ROLE" --framework "netcoreapp3.1" --function-runtime "dotnetcore3.1" --region "$AWS_REGION"      
       - cd ../PokemonSystem.Learning/
-      - dotnet lambda deploy-function "PokemonLearning" --funtion-handler "PokemonSystem.Learning::PokemonSystem.Learning.Api.LearningFunction::FunctionHandler" --function-role "arn:aws:iam::$AWS_ACCOUNT_ID:role/$LAMBDA_ROLE" --framework "netcoreapp3.1" --function-runtime "dotnetcore3.1" --region "$AWS_REGION"
+      - dotnet lambda deploy-function "PokemonLearning" --funtion-handler "PokemonSystem.Learning::PokemonSystem.Learning.Api.LearningFunction::FunctionHandler" --function-timeout 30 --function-memory-size 256 --function-role "arn:aws:iam::$AWS_ACCOUNT_ID:role/$LAMBDA_ROLE" --framework "netcoreapp3.1" --function-runtime "dotnetcore3.1" --region "$AWS_REGION"
