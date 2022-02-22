@@ -8,10 +8,10 @@ using PokemonSystem.Incubator.Infra;
 
 namespace PokemonSystem.Incubator.Api
 {
-    public class PokemonGenerator
+    public class IncubatorFunction
     {
         private readonly IIncubatorService _incubatorService;
-        public PokemonGenerator()
+        public IncubatorFunction()
         {
             var repository = new SpeciesRepository();
             _incubatorService = new IncubatorService(repository);

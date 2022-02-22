@@ -10,7 +10,7 @@ using Amazon.Lambda.Core;
 
 namespace PokemonSystem.Learning.Api
 {
-    public class Function
+    public class LearningFunction
     {
         
         /// <summary>
