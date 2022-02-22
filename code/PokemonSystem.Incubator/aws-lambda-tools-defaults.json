@@ -9,7 +9,7 @@
   "region": "sa-east-1",
   "configuration": "Release",
   "framework": "netcoreapp3.1",
-  "function-name": "PokemonGenerator",
+  "function-name": "PokemonIncubator",
   "function-runtime": "dotnetcore3.1",
   "function-memory-size": 256,
   "function-timeout": 30,

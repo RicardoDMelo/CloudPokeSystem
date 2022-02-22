@@ -1,20 +1,29 @@
 version: 0.2
+env:
+  variables:
+    DOTNET_ROOT: /root/.dotnet
 phases:
+  install:
+    runtime-versions:
+      dotnet: 3.1
   pre_build:
     commands:
       - echo Restore started on `date`
+      - export PATH="$PATH:/root/.dotnet/tools"
+      - pip install --upgrade awscli
+      - aws configure set profile $Profile
+      - aws configure set region $Region
+      - aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
+      - aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
       - dotnet restore code/PokemonSystem.Incubator/PokemonSystem.Incubator.csproj
       - dotnet restore code/PokemonSystem.Evolution/PokemonSystem.Evolution.csproj
       - dotnet restore code/PokemonSystem.Learning/PokemonSystem.Learning.csproj
   build:
     commands:
       - echo Build started on `date`
-      - dotnet publish -c release -o ./Build_Output/Incubator -r linux-x64 -f "netcoreapp3.1" code/PokemonSystem.Incubator/PokemonSystem.Incubator.csproj
-      - zip -r incubator.zip ./Build_Output/Incubator
-      - dotnet publish -c release -o ./Build_Output/Evolution -r linux-x64 -f "netcoreapp3.1" code/PokemonSystem.Evolution/PokemonSystem.Evolution.csproj
-      - zip -r evolution.zip ./Build_Output/Evolution
-      - dotnet publish -c release -o ./Build_Output/Learning -r linux-x64 -f "netcoreapp3.1" code/PokemonSystem.Learning/PokemonSystem.Learning.csproj
-      - zip -r learning.zip ./Build_Output/Learning
-artifacts:
-  files:
-    - Build_Output/**/*
+      - dotnet new -i Amazon.Lambda.Templates::*
+      - dotnet tool install -g Amazon.Lambda.Tools
+      - dotnet tool update -g Amazon.Lambda.Tools
+      - dotnet lambda deploy-function "PokemonIncubator" --funtion-handler "PokemonSystem.Incubator::PokemonSystem.Incubator.Api.PokemonGenerator::FunctionHandler" --function-role "arn:aws:iam::$AWS_ACCOUNT_ID:role/$LAMBDA_ROLE" --framework "dotnetcore3.1" --function-runtime "dotnetcore3.1" --region "$Region"
+      - dotnet lambda deploy-function "PokemonEvolution" --funtion-handler "PokemonSystem.Evolution::PokemonSystem.Evolution.Api.PokemonGenerator::FunctionHandler" --function-role "arn:aws:iam::$AWS_ACCOUNT_ID:role/$LAMBDA_ROLE" --framework "dotnetcore3.1" --function-runtime "dotnetcore3.1" --region "$Region"
+      - dotnet lambda deploy-function "PokemonLearning" --funtion-handler "PokemonSystem.Learning::PokemonSystem.Learning.Api.PokemonGenerator::FunctionHandler" --function-role "arn:aws:iam::$AWS_ACCOUNT_ID:role/$LAMBDA_ROLE" --framework "dotnetcore3.1" --function-runtime "dotnetcore3.1" --region "$Region"
