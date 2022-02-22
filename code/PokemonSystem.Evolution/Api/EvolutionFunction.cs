@@ -10,7 +10,7 @@ using Amazon.Lambda.Core;
 
 namespace PokemonSystem.Evolution.Api
 {
-    public class Function
+    public class EvolutionFunction
     {
         
         /// <summary>
