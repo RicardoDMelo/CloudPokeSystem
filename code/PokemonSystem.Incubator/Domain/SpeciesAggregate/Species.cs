@@ -35,7 +35,7 @@ namespace PokemonSystem.Incubator.Domain.SpeciesAggregate
         public string Name { get; private set; }
         public Typing Typing { get; private set; }
         public Stats BaseStats { get; private set; }
-        public double MaleFactor { get; private set; }
+        public double? MaleFactor { get; private set; }
         public EvolutionCriteria EvolutionCriteria { get; private set; }
         protected List<MoveByLevel> _moveSet { get; set; }
         public IReadOnlyCollection<MoveByLevel> MoveSet { get => _moveSet.AsReadOnly(); }

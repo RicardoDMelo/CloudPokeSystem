@@ -13,7 +13,9 @@ It's business rules are based on DDD, made from techniques like event storming a
 ### Dependencies
 
 * AWS Lambda
+* AWS CodePipeline
 * AWS CodeBuild
+* Terraform
 
 ### Installing
 

@@ -1,4 +1,5 @@
 ﻿using PokemonSystem.Common.Enums;
+using PokemonSystem.Common.ValueObjects;
 using PokemonSystem.Incubator.Domain.SpeciesAggregate;
 using System;
 
@@ -15,19 +16,13 @@ namespace PokemonSystem.Incubator.Domain.PokemonAggregate
             _speciesRepository = speciesRepository ?? throw new ArgumentNullException(nameof(speciesRepository));
         }
 
-        public Pokemon GenerateRandomPokemon(string nickname = null)
+        public Pokemon GenerateRandomPokemon(string nickname = null, Level levelToGrow = null)
         {
             var species = _speciesRepository.GetRandomSpecies();
-            var gender = _random.NextDouble();
+            var gender = _random.NextDouble() <= species.MaleFactor ? Gender.Male : Gender.Female;
 
-            if (gender <= species.MaleFactor)
-            {
-                return new Pokemon(nickname, species, Gender.Male);
-            }
-            else
-            {
-                return new Pokemon(nickname, species, Gender.Female);
-            }
+            return new Pokemon(nickname, species, gender, levelToGrow);
+
         }
     }
 }
