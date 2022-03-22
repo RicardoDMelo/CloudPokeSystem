@@ -4,6 +4,11 @@ using System.Net.NetworkInformation;
 
 namespace PokemonSystem.PokedexInjector
 {
+    internal enum ConnectionType
+    {
+        Local, Remote
+    }
+
     internal static class DynamoConnector
     {
         private static readonly string Ip = "localhost";
@@ -31,9 +36,9 @@ namespace PokemonSystem.PokedexInjector
             return isAvailable;
         }
 
-        internal static AmazonDynamoDBClient CreateClient(bool useDynamoDbLocal = true)
+        internal static AmazonDynamoDBClient CreateClient(ConnectionType connectionType)
         {
-            if (useDynamoDbLocal)
+            if (connectionType == ConnectionType.Local)
             {
                 // First, check to see whether anyone is listening on the DynamoDB local port
                 // (by default, this is port 8000, so if you are using a different port, modify this accordingly)
@@ -44,17 +49,10 @@ namespace PokemonSystem.PokedexInjector
                 }
 
                 // DynamoDB-Local is running, so create a client
-                Console.WriteLine("  -- Setting up a DynamoDB-Local client (DynamoDB Local seems to be running)");
                 AmazonDynamoDBConfig ddbConfig = new AmazonDynamoDBConfig();
                 ddbConfig.ServiceURL = EndpointUrl;
-                try
-                {
-                    return new AmazonDynamoDBClient(ddbConfig);
-                }
-                catch (Exception ex)
-                {
-                    throw new Exception("FAILED to create a DynamoDBLocal client; " + ex.Message);
-                }
+
+                return new AmazonDynamoDBClient(ddbConfig);
             }
             else
             {

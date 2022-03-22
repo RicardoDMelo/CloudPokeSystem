@@ -108,5 +108,10 @@ namespace PokemonSystem.Common.ValueObjects
         {
             return base.GetHashCode();
         }
+
+        public override string ToString()
+        {
+            return Value.ToString();
+        }
     }
 }

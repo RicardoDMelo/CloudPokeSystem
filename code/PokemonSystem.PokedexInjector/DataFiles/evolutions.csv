@@ -1,0 +1,424 @@
+from,to,condition,type
+Bulbasaur,Ivysaur,16,1
+Ivysaur,Venusaur,32,1
+Charmander,Charmeleon,16,1
+Charmeleon,Charizard,36,1
+Squirtle,Wartortle,16,1
+Wartortle,Blastoise,36,1
+Caterpie,Metapod,7,1
+Metapod,Butterfree,10,1
+Weedle,Kakuna,7,1
+Kakuna,Beedrill,10,1
+Pidgey,Pidgeotto,18,1
+Pidgeotto,Pidgeot,36,1
+Rattata,Raticate,20,1
+Rattata Alolan Rattata,Raticate Alolan Raticate,20,1
+Spearow,Fearow,20,1
+Ekans,Arbok,22,1
+Sandshrew,Sandslash,22,1
+Nidoran?,Nidorina,16,1
+Nidoran?,Nidorino,16,1
+Zubat,Golbat,22,1
+Oddish,Gloom,21,1
+Paras,Parasect,24,1
+Venonat,Venomoth,31,1
+Diglett,Dugtrio,26,1
+Diglett Alolan Diglett,Dugtrio Alolan Dugtrio,26,1
+Meowth,Persian,28,1
+Meowth Galarian Meowth,Perrserker,28,1
+Psyduck,Golduck,33,1
+Mankey,Primeape,28,1
+Poliwag,Poliwhirl,25,1
+Abra,Kadabra,16,1
+Machop,Machoke,28,1
+Bellsprout,Weepinbell,21,1
+Tentacool,Tentacruel,30,1
+Geodude,Graveler,25,1
+Geodude Alolan Geodude,Graveler Alolan Graveler,25,1
+Ponyta,Rapidash,40,1
+Ponyta Galarian Ponyta,Rapidash Galarian Rapidash,40,1
+Slowpoke,Slowbro,37,1
+Magnemite,Magneton,30,1
+Doduo,Dodrio,31,1
+Seel,Dewgong,34,1
+Grimer,Muk,38,1
+Grimer Alolan Grimer,Muk Alolan Muk,38,1
+Gastly,Haunter,25,1
+Drowzee,Hypno,26,1
+Krabby,Kingler,28,1
+Voltorb,Electrode,30,1
+Cubone,Marowak,28,1
+Cubone,Marowak Alolan Marowak,28,1
+Tyrogue,Hitmonlee,20,1
+Tyrogue,Hitmonchan,20,1
+Tyrogue,Hitmontop,20,1
+Koffing,Weezing,35,1
+Koffing,Weezing Galarian Weezing,35,1
+Rhyhorn,Rhydon,42,1
+Horsea,Seadra,32,1
+Goldeen,Seaking,33,1
+Mr. Mime Galarian Mr. Mime,Mr. Rime,42,1
+Smoochum,Jynx,30,1
+Elekid,Electabuzz,30,1
+Magby,Magmar,30,1
+Magikarp,Gyarados,20,1
+Omanyte,Omastar,40,1
+Kabuto,Kabutops,40,1
+Dratini,Dragonair,30,1
+Dragonair,Dragonite,55,1
+Chikorita,Bayleef,16,1
+Bayleef,Meganium,32,1
+Cyndaquil,Quilava,14,1
+Quilava,Typhlosion,36,1
+Cyndaquil,Quilava,17,1
+Quilava,Typhlosion Hisuian Typhlosion,36,1
+Totodile,Croconaw,18,1
+Croconaw,Feraligatr,30,1
+Sentret,Furret,15,1
+Hoothoot,Noctowl,20,1
+Ledyba,Ledian,18,1
+Spinarak,Ariados,22,1
+Chinchou,Lanturn,27,1
+Natu,Xatu,25,1
+Mareep,Flaaffy,15,1
+Flaaffy,Ampharos,30,1
+Marill,Azumarill,18,1
+Hoppip,Skiploom,18,1
+Skiploom,Jumpluff,27,1
+Wooper,Quagsire,20,1
+Wynaut,Wobbuffet,15,1
+Pineco,Forretress,31,1
+Snubbull,Granbull,23,1
+Teddiursa,Ursaring,30,1
+Slugma,Magcargo,38,1
+Swinub,Piloswine,33,1
+Remoraid,Octillery,25,1
+Houndour,Houndoom,24,1
+Phanpy,Donphan,25,1
+Larvitar,Pupitar,30,1
+Pupitar,Tyranitar,55,1
+Treecko,Grovyle,16,1
+Grovyle,Sceptile,36,1
+Torchic,Combusken,16,1
+Combusken,Blaziken,36,1
+Mudkip,Marshtomp,16,1
+Marshtomp,Swampert,36,1
+Poochyena,Mightyena,18,1
+Zigzagoon,Linoone,20,1
+Zigzagoon Galarian Zigzagoon,Linoone Galarian Linoone,20,1
+Linoone Galarian Linoone,Obstagoon,35,1
+Wurmple,Silcoon,7,1
+Silcoon,Beautifly,10,1
+Wurmple,Cascoon,7,1
+Cascoon,Dustox,10,1
+Lotad,Lombre,14,1
+Seedot,Nuzleaf,14,1
+Taillow,Swellow,22,1
+Wingull,Pelipper,25,1
+Ralts,Kirlia,20,1
+Kirlia,Gardevoir,30,1
+Surskit,Masquerain,22,1
+Shroomish,Breloom,23,1
+Slakoth,Vigoroth,18,1
+Vigoroth,Slaking,36,1
+Nincada,Ninjask,20,1
+Nincada,Shedinja,20,1
+Whismur,Loudred,20,1
+Loudred,Exploud,40,1
+Makuhita,Hariyama,24,1
+Aron,Lairon,32,1
+Lairon,Aggron,42,1
+Meditite,Medicham,37,1
+Electrike,Manectric,26,1
+Gulpin,Swalot,26,1
+Carvanha,Sharpedo,30,1
+Wailmer,Wailord,40,1
+Numel,Camerupt,33,1
+Spoink,Grumpig,32,1
+Trapinch,Vibrava,35,1
+Vibrava,Flygon,45,1
+Cacnea,Cacturne,32,1
+Swablu,Altaria,35,1
+Barboach,Whiscash,30,1
+Corphish,Crawdaunt,30,1
+Baltoy,Claydol,36,1
+Lileep,Cradily,40,1
+Anorith,Armaldo,40,1
+Shuppet,Banette,37,1
+Duskull,Dusclops,37,1
+Snorunt,Glalie,42,1
+Spheal,Sealeo,32,1
+Sealeo,Walrein,44,1
+Bagon,Shelgon,30,1
+Shelgon,Salamence,50,1
+Beldum,Metang,20,1
+Metang,Metagross,45,1
+Turtwig,Grotle,18,1
+Grotle,Torterra,32,1
+Chimchar,Monferno,14,1
+Monferno,Infernape,36,1
+Piplup,Prinplup,16,1
+Prinplup,Empoleon,36,1
+Starly,Staravia,14,1
+Staravia,Staraptor,34,1
+Bidoof,Bibarel,15,1
+Kricketot,Kricketune,10,1
+Shinx,Luxio,15,1
+Luxio,Luxray,30,1
+Cranidos,Rampardos,30,1
+Shieldon,Bastiodon,30,1
+Burmy Plant Cloak,Mothim,20,1
+Burmy Plant Cloak,Wormadam Plant Cloak,20,1
+Burmy Sandy Cloak,Wormadam Sandy Cloak,20,1
+Burmy Trash Cloak,Wormadam Trash Cloak,20,1
+Combee,Vespiquen,21,1
+Buizel,Floatzel,26,1
+Cherubi,Cherrim,25,1
+Shellos,Gastrodon,30,1
+Drifloon,Drifblim,28,1
+Glameow,Purugly,38,1
+Stunky,Skuntank,34,1
+Bronzor,Bronzong,33,1
+Gible,Gabite,24,1
+Gabite,Garchomp,48,1
+Hippopotas,Hippowdon,34,1
+Skorupi,Drapion,40,1
+Croagunk,Toxicroak,37,1
+Finneon,Lumineon,31,1
+Snover,Abomasnow,40,1
+Snivy,Servine,17,1
+Servine,Serperior,36,1
+Tepig,Pignite,17,1
+Pignite,Emboar,36,1
+Oshawott,Dewott,17,1
+Dewott,Samurott,36,1
+Dewott,Samurott Hisuian Samurott,36,1
+Patrat,Watchog,20,1
+Lillipup,Herdier,16,1
+Herdier,Stoutland,32,1
+Purrloin,Liepard,20,1
+Pidove,Tranquill,21,1
+Tranquill,Unfezant,32,1
+Blitzle,Zebstrika,27,1
+Roggenrola,Boldore,25,1
+Drilbur,Excadrill,31,1
+Timburr,Gurdurr,25,1
+Tympole,Palpitoad,25,1
+Palpitoad,Seismitoad,36,1
+Sewaddle,Swadloon,20,1
+Venipede,Whirlipede,22,1
+Whirlipede,Scolipede,30,1
+Sandile,Krokorok,29,1
+Krokorok,Krookodile,40,1
+Darumaka,Darmanitan Standard Mode,35,1
+Dwebble,Crustle,34,1
+Scraggy,Scrafty,39,1
+Yamask,Cofagrigus,34,1
+Tirtouga,Carracosta,37,1
+Archen,Archeops,37,1
+Trubbish,Garbodor,36,1
+Zorua,Zoroark,30,1
+Zorua Hisuian Zorua,Zoroark Hisuian Zoroark,30,1
+Gothita,Gothorita,32,1
+Gothorita,Gothitelle,41,1
+Solosis,Duosion,32,1
+Duosion,Reuniclus,41,1
+Ducklett,Swanna,35,1
+Vanillite,Vanillish,35,1
+Vanillish,Vanilluxe,47,1
+Deerling,Sawsbuck,34,1
+Foongus,Amoonguss,39,1
+Frillish,Jellicent,40,1
+Joltik,Galvantula,36,1
+Ferroseed,Ferrothorn,40,1
+Klink,Klang,38,1
+Klang,Klinklang,49,1
+Tynamo,Eelektrik,39,1
+Elgyem,Beheeyem,42,1
+Litwick,Lampent,41,1
+Axew,Fraxure,38,1
+Fraxure,Haxorus,48,1
+Cubchoo,Beartic,37,1
+Mienfoo,Mienshao,50,1
+Golett,Golurk,43,1
+Pawniard,Bisharp,52,1
+Rufflet,Braviary,54,1
+Rufflet,Braviary Hisuian Braviary,54,1
+Vullaby,Mandibuzz,54,1
+Deino,Zweilous,50,1
+Zweilous,Hydreigon,64,1
+Larvesta,Volcarona,59,1
+Chespin,Quilladin,16,1
+Quilladin,Chesnaught,36,1
+Fennekin,Braixen,16,1
+Braixen,Delphox,36,1
+Froakie,Frogadier,16,1
+Frogadier,Greninja,36,1
+Bunnelby,Diggersby,20,1
+Fletchling,Fletchinder,17,1
+Fletchinder,Talonflame,35,1
+Scatterbug,Spewpa,9,1
+Spewpa,Vivillon,12,1
+Litleo,Pyroar,35,1
+Flabébé,Floette,19,1
+Skiddo,Gogoat,32,1
+Pancham,Pangoro,32,1
+Espurr,Meowstic Male,25,1
+Honedge,Doublade,35,1
+Inkay,Malamar,30,1
+Binacle,Barbaracle,39,1
+Skrelp,Dragalge,48,1
+Clauncher,Clawitzer,37,1
+Tyrunt,Tyrantrum,39,1
+Amaura,Aurorus,39,1
+Goomy,Sliggoo,40,1
+Sliggoo,Goodra,50,1
+Goomy,Sliggoo Hisuian Sliggoo,40,1
+Sliggoo Hisuian Sliggoo,Goodra Hisuian Goodra,50,1
+Bergmite,Avalugg,37,1
+Bergmite,Avalugg Hisuian Avalugg,37,1
+Noibat,Noivern,48,1
+Rowlet,Dartrix,17,1
+Dartrix,Decidueye,34,1
+Dartrix,Decidueye Hisuian Decidueye,36,1
+Litten,Torracat,17,1
+Torracat,Incineroar,34,1
+Popplio,Brionne,17,1
+Brionne,Primarina,34,1
+Pikipek,Trumbeak,14,1
+Trumbeak,Toucannon,28,1
+Yungoos,Gumshoos,20,1
+Grubbin,Charjabug,20,1
+Cutiefly,Ribombee,25,1
+Rockruff,Lycanroc Midday Form,25,1
+Rockruff,Lycanroc Midnight Form,25,1
+Rockruff Own Tempo Rockruff,Lycanroc Dusk Form,25,1
+Mareanie,Toxapex,38,1
+Mudbray,Mudsdale,30,1
+Dewpider,Araquanid,22,1
+Fomantis,Lurantis,34,1
+Morelull,Shiinotic,24,1
+Salandit,Salazzle,33,1
+Stufful,Bewear,27,1
+Bounsweet,Steenee,18,1
+Wimpod,Golisopod,30,1
+Sandygast,Palossand,42,1
+Jangmo-o,Hakamo-o,35,1
+Hakamo-o,Kommo-o,45,1
+Cosmog,Cosmoem,43,1
+Cosmoem,Solgaleo,53,1
+Cosmoem,Lunala,53,1
+Grookey,Thwackey,16,1
+Thwackey,Rillaboom,35,1
+Scorbunny,Raboot,16,1
+Raboot,Cinderace,35,1
+Sobble,Drizzile,16,1
+Drizzile,Inteleon,35,1
+Blipbug,Dottler,10,1
+Dottler,Orbeetle,30,1
+Rookidee,Corvisquire,18,1
+Corvisquire,Corviknight,38,1
+Skwovet,Greedent,24,1
+Nickit,Thievul,18,1
+Wooloo,Dubwool,24,1
+Chewtle,Drednaw,22,1
+Yamper,Boltund,25,1
+Gossifleur,Eldegoss,20,1
+Sizzlipede,Centiskorch,28,1
+Rolycoly,Carkol,18,1
+Carkol,Coalossal,34,1
+Arrokuda,Barraskewda,26,1
+Corsola Galarian Corsola,Cursola,38,1
+Impidimp,Morgrem,32,1
+Morgrem,Grimmsnarl,42,1
+Hatenna,Hattrem,32,1
+Hattrem,Hatterene,42,1
+Cufant,Copperajah,34,1
+Toxel,Toxtricity Low Key Form,30,1
+Toxel,Toxtricity Amped Form,30,1
+Silicobra,Sandaconda,36,1
+Dreepy,Drakloak,50,1
+Drakloak,Dragapult,60,1
+Pikachu,Raichu,Thunder Stone,2
+Pikachu,Raichu Alolan Raichu,Thunder Stone,2
+Sandshrew Alolan Sandshrew,Sandslash Alolan Sandslash,Ice Stone,2
+Nidorina,Nidoqueen,Moon Stone,2
+Nidorino,Nidoking,Moon Stone,2
+Clefairy,Clefable,Moon Stone,2
+Vulpix,Ninetales,Fire Stone,2
+Vulpix Alolan Vulpix,Ninetales Alolan Ninetales,Ice Stone,2
+Jigglypuff,Wigglytuff,Moon Stone,2
+Gloom,Vileplume,Leaf Stone,2
+Gloom,Bellossom,Sun Stone,2
+Growlithe,Arcanine,Fire Stone,2
+Growlithe Hisuian Growlithe,Arcanine Hisuian Arcanine,Fire Stone,2
+Poliwhirl,Poliwrath,Water Stone,2
+Weepinbell,Victreebel,Leaf Stone,2
+Slowpoke Galarian Slowpoke,Slowbro Galarian Slowbro,Galarica Cuff,2
+Slowpoke Galarian Slowpoke,Slowking Galarian Slowking,Galarica Wreath,2
+Shellder,Cloyster,Water Stone,2
+Voltorb Hisuian Voltorb,Electrode Hisuian Electrode,Leaf Stone,2
+Exeggcute,Exeggutor,Leaf Stone,2
+Exeggcute,Exeggutor Alolan Exeggutor,Leaf Stone,2
+Staryu,Starmie,Water Stone,2
+Scyther,Kleavor,Black Augurite,2
+Eevee,Vaporeon,Water Stone,2
+Eevee,Jolteon,Thunder Stone,2
+Eevee,Flareon,Fire Stone,2
+Togetic,Togekiss,Shiny Stone,2
+Sunkern,Sunflora,Sun Stone,2
+Murkrow,Honchkrow,Dusk Stone,2
+Misdreavus,Mismagius,Dusk Stone,2
+Sneasel Hisuian Sneasel,Sneasler,Razor Claw,2
+Ursaring,Ursaluna,Peat Block,2
+Lombre,Ludicolo,Water Stone,2
+Nuzleaf,Shiftry,Leaf Stone,2
+Kirlia,Gallade,Dawn Stone,2
+Skitty,Delcatty,Moon Stone,2
+Roselia,Roserade,Shiny Stone,2
+Snorunt,Froslass,Dawn Stone,2
+Pansage,Simisage,Leaf Stone,2
+Pansear,Simisear,Fire Stone,2
+Panpour,Simipour,Water Stone,2
+Munna,Musharna,Moon Stone,2
+Cottonee,Whimsicott,Sun Stone,2
+Petilil,Lilligant,Sun Stone,2
+Petilil,Lilligant Hisuian Lilligant,Sun Stone,2
+Darumaka Galarian Darumaka,Darmanitan Galarian Standard Mode,Ice Stone,2
+Minccino,Cinccino,Shiny Stone,2
+Eelektrik,Eelektross,Thunder Stone,2
+Lampent,Chandelure,Dusk Stone,2
+Floette,Florges,Shiny Stone,2
+Doublade,Aegislash Shield Forme,Dusk Stone,2
+Helioptile,Heliolisk,Sun Stone,2
+Charjabug,Vikavolt,Thunder Stone,2
+Applin,Flapple,Tart Apple,2
+Applin,Appletun,Sweet Apple,2
+Sinistea,Polteageist,Cracked Pot,2
+Poliwhirl,Politoed,Kings Rock,3
+Kadabra,Alakazam,,3
+Machoke,Machamp,,3
+Graveler,Golem,,3
+Graveler Alolan Graveler,Golem Alolan Golem,,3
+Slowpoke,Slowking,Kings Rock,3
+Haunter,Gengar,,3
+Onix,Steelix,Metal Coat,3
+Rhydon,Rhyperior,Protector,3
+Seadra,Kingdra,Dragon Scale,3
+Scyther,Scizor,Metal Coat,3
+Electabuzz,Electivire,Electirizer,3
+Magmar,Magmortar,Magmarizer,3
+Porygon,Porygon2,Upgrade,3
+Porygon2,Porygon-Z,Dubious Disc,3
+Feebas,Milotic,Prism Scale,3
+Dusclops,Dusknoir,Reaper Cloth,3
+Clamperl,Huntail,Deep Sea Tooth,3
+Clamperl,Gorebyss,Deep Sea Scale,3
+Boldore,Gigalith,,3
+Gurdurr,Conkeldurr,,3
+Karrablast,Escavalier,Trade with Shelmet,3
+Shelmet,Accelgor,Trade with Karrablast,3
+Spritzee,Aromatisse,Sachet,3
+Swirlix,Slurpuff,Whipped Dream,3
+Phantump,Trevenant,,3
+Pumpkaboo Average Size,Gourgeist Average Size,,3

@@ -10,14 +10,14 @@ namespace PokemonSystem.Incubator.Domain.SpeciesAggregate
     {
         private const double MIN_MALE_FACTOR = 0;
         private const double MAX_MALE_FACTOR = 1;
-        public Species(int number, string name, Typing typing, Stats baseStats, double maleFactor, EvolutionCriteria evolutionCriteria, List<MoveByLevel> moveSet) : base()
+        public Species(int number, string name, Typing typing, Stats baseStats, double? maleFactor, List<EvolutionCriteria> evolutionCriterias, List<MoveByLevel> moveSet) : base()
         {
             if (string.IsNullOrEmpty(name))
             {
                 throw new ArgumentException($"'{nameof(name)}' cannot be null or empty.", nameof(name));
             }
 
-            if (maleFactor < MIN_MALE_FACTOR || maleFactor > MAX_MALE_FACTOR)
+            if (maleFactor != null && (maleFactor < MIN_MALE_FACTOR || maleFactor > MAX_MALE_FACTOR))
             {
                 throw new ArgumentException(string.Format(Errors.Between, nameof(maleFactor), MIN_MALE_FACTOR, MAX_MALE_FACTOR));
             }
@@ -27,7 +27,7 @@ namespace PokemonSystem.Incubator.Domain.SpeciesAggregate
             Typing = typing;
             BaseStats = baseStats ?? throw new System.ArgumentNullException(nameof(baseStats));
             MaleFactor = maleFactor;
-            EvolutionCriteria = evolutionCriteria;
+            _evolutionCriterias = evolutionCriterias ?? throw new System.ArgumentNullException(nameof(evolutionCriterias));
             _moveSet = moveSet ?? throw new System.ArgumentNullException(nameof(moveSet));
         }
 
@@ -36,7 +36,8 @@ namespace PokemonSystem.Incubator.Domain.SpeciesAggregate
         public Typing Typing { get; private set; }
         public Stats BaseStats { get; private set; }
         public double? MaleFactor { get; private set; }
-        public EvolutionCriteria EvolutionCriteria { get; private set; }
+        protected List<EvolutionCriteria> _evolutionCriterias { get; set; }
+        public IReadOnlyCollection<EvolutionCriteria> EvolutionCriterias { get => _evolutionCriterias.AsReadOnly(); }
         protected List<MoveByLevel> _moveSet { get; set; }
         public IReadOnlyCollection<MoveByLevel> MoveSet { get => _moveSet.AsReadOnly(); }
     }

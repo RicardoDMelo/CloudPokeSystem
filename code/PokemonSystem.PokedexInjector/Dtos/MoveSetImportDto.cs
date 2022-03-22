@@ -6,11 +6,11 @@
         {
             Id = 0;
             SpeciesName = String.Empty;
-            Moves = new List<string>();
+            MovesWithLevel = new List<string>();
         }
 
         public int Id { get; set; }
         public string SpeciesName { get; set; }
-        public ICollection<string> Moves { get; set; }
+        public ICollection<string> MovesWithLevel { get; set; }
     }
 }

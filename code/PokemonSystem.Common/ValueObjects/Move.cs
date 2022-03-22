@@ -42,5 +42,10 @@ namespace PokemonSystem.Common.ValueObjects
             yield return Accuracy;
             yield return PP;
         }
+
+        public override string ToString()
+        {
+            return $"[{Type}] {Name}";
+        }
     }
 }

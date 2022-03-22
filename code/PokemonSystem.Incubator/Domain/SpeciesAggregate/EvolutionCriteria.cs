@@ -2,25 +2,37 @@
 using PokemonSystem.Common.Enums;
 using PokemonSystem.Common.SeedWork;
 using PokemonSystem.Common.ValueObjects;
-using System;
 
 namespace PokemonSystem.Incubator.Domain.SpeciesAggregate
 {
     public class EvolutionCriteria : Entity
     {
-        public EvolutionCriteria(EvolutionType evolutionType, Level minimumLevel, Species evolutionSpecies) : base()
+        protected EvolutionCriteria(EvolutionType evolutionType, Level minimumLevel, string item, Species species)
         {
             EvolutionType = evolutionType;
-            if (evolutionType == EvolutionType.Level && minimumLevel == null)
-            {
-                throw new ArgumentNullException(nameof(minimumLevel));
-            }
             MinimumLevel = minimumLevel;
-            EvolutionSpecies = evolutionSpecies ?? throw new ArgumentNullException(nameof(evolutionSpecies));
+            Item = item;
+            Species = species;
+        }
+
+        public static EvolutionCriteria CreateLevelEvolution(Level minimumLevel, Species species)
+        {
+            return new EvolutionCriteria(EvolutionType.Level, minimumLevel, null, species);
+        }
+
+        public static EvolutionCriteria CreateItemEvolution(string item, Species species)
+        {
+            return new EvolutionCriteria(EvolutionType.Item, null, item, species);
+        }
+
+        public static EvolutionCriteria CreateTradingEvolution(Species species)
+        {
+            return new EvolutionCriteria(EvolutionType.Trading, null, null, species);
         }
 
         public EvolutionType EvolutionType { get; private set; }
         public Level MinimumLevel { get; private set; }
-        public Species EvolutionSpecies { get; private set; }
+        public string Item { get; private set; }
+        public Species Species { get; private set; }
     }
 }

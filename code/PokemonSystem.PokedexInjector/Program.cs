@@ -1,67 +1,26 @@
-﻿using CsvHelper;
-using CsvHelper.Configuration;
-using PokemonSystem.PokedexInjector;
-using System.Globalization;
+﻿using PokemonSystem.PokedexInjector;
 
 
-Console.WriteLine("Starting import to DynamoDB...");
+Console.WriteLine("Getting data from CSV...");
+const string csvPath = @".\DataFiles";
+var importedData = CsvImporter.GetData(csvPath);
+Console.WriteLine("Data retrieved from CSV.");
+Console.WriteLine($"{importedData.Species.Count()} species retrieved.");
+Console.WriteLine("-----------------------------------------------");
 
+Console.WriteLine("Converting data to domain...");
+var species = SpeciesAdapter.ConvertToDomain(importedData);
+Console.WriteLine($"Data converted.");
+Console.WriteLine($"{species.Count()} species converted.");
+Console.WriteLine("-----------------------------------------------");
 
-var csvPath = @".\DataFiles";
-var pokemonCsv = Path.Combine(csvPath, "pokemon.csv");
-var movesetCsv = Path.Combine(csvPath, "moveset.csv");
+Console.WriteLine("Connecting to DynamoDB...");
+var client = DynamoConnector.CreateClient(ConnectionType.Local);
+Console.WriteLine("Connected to DynamoDB.");
+Console.WriteLine("-----------------------------------------------");
 
-var config = new CsvConfiguration(CultureInfo.InvariantCulture);
+Console.WriteLine("Creating Tables...");
+await DatabaseStructure.CreateTablesAsync(client);
+Console.WriteLine("Tables up and running.");
+Console.WriteLine("-----------------------------------------------");
 
-ICollection<SpeciesImportDto> importedSpecies;
-ICollection<MoveSetImportDto> importedMovesets = new List<MoveSetImportDto>();
-
-using (var reader = new StreamReader(pokemonCsv))
-using (var csv = new CsvReader(reader, config))
-{
-    importedSpecies = csv
-        .GetRecords<SpeciesImportDto>()
-        .OrderBy(x => x.Line)
-        .DistinctBy(x => x.Id)
-        .ToList();
-
-}
-
-const string moveHeaderPrefix = "move";
-
-using (var reader = new StreamReader(movesetCsv))
-using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
-{
-    csv.Read();
-    csv.ReadHeader();
-    var moveHeaders = csv.HeaderRecord.Where(x => x.StartsWith(moveHeaderPrefix));
-
-    while (csv.Read())
-    {
-        var record = new MoveSetImportDto
-        {
-            Id = csv.GetField<int>("ndex"),
-            SpeciesName = csv.GetField("species")
-        };
-
-        foreach (var moveHeader in moveHeaders)
-        {
-            string? move = csv.GetField(moveHeader);
-            if (!string.IsNullOrEmpty(move))
-            {
-                record.Moves.Add(move);
-            }
-        }
-
-        importedMovesets.Add(record);
-    }
-}
-
-foreach (var species in importedSpecies)
-{
-    var moveset = importedMovesets.First(x=>x.Id == species.Id);
-    Console.WriteLine($"{species.Id} - {species.Name} | Moves: {moveset.Moves.Count}");
-}
-
-
-//var client = DynamoConnector.CreateClient(true);
