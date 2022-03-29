@@ -1,4 +1,5 @@
 ﻿using Amazon.DynamoDBv2;
+using Amazon.DynamoDBv2.DataModel;
 using System.Net;
 using System.Net.NetworkInformation;
 
@@ -36,7 +37,7 @@ namespace PokemonSystem.PokedexInjector
             return isAvailable;
         }
 
-        internal static AmazonDynamoDBClient CreateClient(ConnectionType connectionType)
+        internal static IAmazonDynamoDB CreateClient(ConnectionType connectionType)
         {
             if (connectionType == ConnectionType.Local)
             {

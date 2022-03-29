@@ -6,11 +6,12 @@ using System.Collections.Generic;
 
 namespace PokemonSystem.Incubator.Domain.SpeciesAggregate
 {
-    public class Species : Entity, IAggregateRoot
+    public class Species : Entity<int>, IAggregateRoot
     {
         private const double MIN_MALE_FACTOR = 0;
         private const double MAX_MALE_FACTOR = 1;
-        public Species(int number, string name, Typing typing, Stats baseStats, double? maleFactor, List<EvolutionCriteria> evolutionCriterias, List<MoveByLevel> moveSet) : base()
+
+        public Species(int id, string name, Typing typing, Stats baseStats, double? maleFactor, List<EvolutionCriteria> evolutionCriterias, List<MoveByLevel> moveSet) : base()
         {
             if (string.IsNullOrEmpty(name))
             {
@@ -22,7 +23,7 @@ namespace PokemonSystem.Incubator.Domain.SpeciesAggregate
                 throw new ArgumentException(string.Format(Errors.Between, nameof(maleFactor), MIN_MALE_FACTOR, MAX_MALE_FACTOR));
             }
 
-            Number = number;
+            Id = id;
             Name = name;
             Typing = typing;
             BaseStats = baseStats ?? throw new System.ArgumentNullException(nameof(baseStats));
@@ -31,7 +32,6 @@ namespace PokemonSystem.Incubator.Domain.SpeciesAggregate
             _moveSet = moveSet ?? throw new System.ArgumentNullException(nameof(moveSet));
         }
 
-        public int Number { get; private set; }
         public string Name { get; private set; }
         public Typing Typing { get; private set; }
         public Stats BaseStats { get; private set; }

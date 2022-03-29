@@ -1,5 +1,4 @@
 ﻿using CsvHelper;
-using CsvHelper.Configuration;
 using PokemonSystem.PokedexInjector.Dtos;
 using System.Globalization;
 

@@ -1,13 +1,34 @@
-﻿using PokemonSystem.Common.Enums;
+﻿using AutoMapper;
+using PokemonSystem.Common.Enums;
 using PokemonSystem.Common.ValueObjects;
 using PokemonSystem.Incubator.Domain.SpeciesAggregate;
 using PokemonSystem.PokedexInjector.Dtos;
+using PokemonSystem.PokedexInjector.Dtos.Database;
 
 namespace PokemonSystem.PokedexInjector
 {
     internal class SpeciesAdapter
     {
-        public static IEnumerable<Species> ConvertToDomain(ImportDto importDto)
+        static IMapper? _mapper;
+        public SpeciesAdapter()
+        {
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<Species, SpeciesDynamoDb>()
+                    .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id.GetHashCode()));
+                cfg.CreateMap<Typing, TypingDynamoDb>();
+                cfg.CreateMap<Stats, StatsDynamoDb>();
+                cfg.CreateMap<Move, MoveDynamoDb>();
+                cfg.CreateMap<MoveByLevel, MoveByLevelDynamoDb>();
+                cfg.CreateMap<EvolutionCriteria, EvolutionCriteriaDynamoDb>();
+                cfg.CreateMap<Level, uint>().ConvertUsing(f => f.Value);
+                cfg.CreateMap<Level, uint?>().ConvertUsing(f => f == null ? null : f.Value);
+            });
+            config.AssertConfigurationIsValid();
+            _mapper = config.CreateMapper();
+        }
+
+        public IEnumerable<Species> ConvertToDomain(ImportDto importDto)
         {
             foreach (var spDto in importDto.Species)
             {
@@ -15,7 +36,15 @@ namespace PokemonSystem.PokedexInjector
             }
         }
 
-        private static Species ConvertToDomain(SpeciesImportDto speciesDto, ImportDto importDto)
+        public IEnumerable<SpeciesDynamoDb> ConvertToDto(IEnumerable<Species> speciesList)
+        {
+            foreach (var species in speciesList)
+            {
+                yield return _mapper!.Map<SpeciesDynamoDb>(species);
+            }
+        }
+
+        private Species ConvertToDomain(SpeciesImportDto speciesDto, ImportDto importDto)
         {
             Typing typing = new(speciesDto.Type1, speciesDto.Type2);
             Stats stats = new(speciesDto.HP, speciesDto.Attack, speciesDto.Defense, speciesDto.SpecialAttack, speciesDto.SpecialDefense, speciesDto.Speed);
@@ -42,7 +71,7 @@ namespace PokemonSystem.PokedexInjector
             return new(speciesDto.Id, speciesDto.Name, typing, stats, speciesDto.MaleFactor, evolutionCriterias, moveSet.ToList());
         }
 
-        public static IEnumerable<MoveByLevel> ConvertToDomain(MoveSetImportDto moveSetDto, IEnumerable<MoveImportDto> allMoves)
+        private IEnumerable<MoveByLevel> ConvertToDomain(MoveSetImportDto moveSetDto, IEnumerable<MoveImportDto> allMoves)
         {
             foreach (var moveWithLevel in moveSetDto.MovesWithLevel)
             {
@@ -62,12 +91,12 @@ namespace PokemonSystem.PokedexInjector
             }
         }
 
-        private static Move ConvertToDomain(MoveImportDto moveDto)
+        private Move ConvertToDomain(MoveImportDto moveDto)
         {
             return new Move(moveDto.Name, moveDto.Type, moveDto.Category, moveDto.Power, moveDto.Accuracy, moveDto.PP);
         }
 
-        private static EvolutionCriteria ConvertToDomain(EvolutionImportDto evolutionDto, Species species)
+        private EvolutionCriteria ConvertToDomain(EvolutionImportDto evolutionDto, Species species)
         {
             switch (evolutionDto.Type)
             {

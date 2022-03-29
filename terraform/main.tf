@@ -30,3 +30,7 @@ module "aws_codepipeline" {
   git_repository_name = var.git_repository_name
   git_repository_branch = var.git_repository_branch
 }
+
+module "aws_dynamodb" {
+  source = "./modules/aws-dynamodb"
+}
