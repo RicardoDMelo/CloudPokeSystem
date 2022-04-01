@@ -2,30 +2,51 @@
 using PokemonSystem.Common.Enums;
 using PokemonSystem.Common.ValueObjects;
 using PokemonSystem.Incubator.Domain.SpeciesAggregate;
+using PokemonSystem.Incubator.Infra.Database;
 using PokemonSystem.PokedexInjector.Dtos;
-using PokemonSystem.PokedexInjector.Dtos.Database;
 
 namespace PokemonSystem.PokedexInjector
 {
     internal class SpeciesAdapter
     {
-        static IMapper? _mapper;
+        private readonly IMapper _mapper;
+
         public SpeciesAdapter()
         {
             var config = new MapperConfiguration(cfg =>
             {
-                cfg.CreateMap<Species, SpeciesDynamoDb>()
-                    .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id.GetHashCode()));
+                cfg.CreateMap<Species, SpeciesDynamoDb>();
                 cfg.CreateMap<Typing, TypingDynamoDb>();
                 cfg.CreateMap<Stats, StatsDynamoDb>();
                 cfg.CreateMap<Move, MoveDynamoDb>();
                 cfg.CreateMap<MoveByLevel, MoveByLevelDynamoDb>();
                 cfg.CreateMap<EvolutionCriteria, EvolutionCriteriaDynamoDb>();
+                cfg.CreateMap<Guid, string>().ConvertUsing(f => f.ToString());
                 cfg.CreateMap<Level, uint>().ConvertUsing(f => f.Value);
-                cfg.CreateMap<Level, uint?>().ConvertUsing(f => f == null ? null : f.Value);
+                cfg.CreateMap<Level?, uint?>().ConvertUsing((x, y) =>
+                {
+                    if (x is null)
+                    {
+                        y = null;
+                    }
+                    else
+                    {
+                        y = x.Value;
+                    }
+                    return y;
+                });
             });
+
             config.AssertConfigurationIsValid();
             _mapper = config.CreateMapper();
+        }
+
+        public IEnumerable<SpeciesDynamoDb> ConvertToDto(IEnumerable<Species> speciesList)
+        {
+            foreach (var species in speciesList)
+            {
+                yield return _mapper.Map<SpeciesDynamoDb>(species);
+            }
         }
 
         public IEnumerable<Species> ConvertToDomain(ImportDto importDto)
@@ -33,14 +54,6 @@ namespace PokemonSystem.PokedexInjector
             foreach (var spDto in importDto.Species)
             {
                 yield return ConvertToDomain(spDto, importDto);
-            }
-        }
-
-        public IEnumerable<SpeciesDynamoDb> ConvertToDto(IEnumerable<Species> speciesList)
-        {
-            foreach (var species in speciesList)
-            {
-                yield return _mapper!.Map<SpeciesDynamoDb>(species);
             }
         }
 
@@ -101,9 +114,9 @@ namespace PokemonSystem.PokedexInjector
             switch (evolutionDto.Type)
             {
                 case EvolutionType.Level:
-                    return EvolutionCriteria.CreateLevelEvolution(evolutionDto.Level, species);
+                    return EvolutionCriteria.CreateLevelEvolution(evolutionDto.Level!, species);
                 case EvolutionType.Item:
-                    return EvolutionCriteria.CreateItemEvolution(evolutionDto.Item, species);
+                    return EvolutionCriteria.CreateItemEvolution(evolutionDto.Item!, species);
                 case EvolutionType.Trading:
                     return EvolutionCriteria.CreateTradingEvolution(species);
             }

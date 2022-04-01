@@ -1,6 +1,5 @@
-﻿using PokemonSystem.Common.SeedWork;
+﻿using MediatR;
 using PokemonSystem.Evolution.Domain.PokemonAggregate;
-using System;
 
 namespace PokemonSystem.Evolution.Domain.Events
 {

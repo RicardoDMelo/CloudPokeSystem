@@ -1,6 +1,6 @@
-﻿using PokemonSystem.Common.SeedWork;
-using PokemonSystem.Common.Enums;
+﻿using PokemonSystem.Common.Enums;
 using System.Collections.Generic;
+using PokemonSystem.Common.SeedWork.Domain;
 
 namespace PokemonSystem.Common.ValueObjects
 {

@@ -25,7 +25,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Build", "_Build", "{4AF3EB
 		..\buildspec.yml = ..\buildspec.yml
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PokemonSystem.PokedexInjector", "PokemonSystem.PokedexInjector\PokemonSystem.PokedexInjector.csproj", "{75C954BD-F19E-47C7-9D9E-A9944F609830}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PokemonSystem.PokedexInjector", "PokemonSystem.PokedexInjector\PokemonSystem.PokedexInjector.csproj", "{75C954BD-F19E-47C7-9D9E-A9944F609830}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_DynamoDB", "_DynamoDB", "{4DB5023F-5970-49C5-AC57-D82415FF0DB0}"
 	ProjectSection(SolutionItems) = preProject

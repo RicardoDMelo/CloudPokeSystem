@@ -7,20 +7,6 @@ namespace PokemonSystem.Tests.Common
 {
     public class MoveTests
     {
-
-        [Test]
-        public void Constructor_Null_Exception()
-        {
-            PokemonType type = PokemonType.Normal;
-            MoveCategory category = MoveCategory.Physical;
-            uint? power = 50;
-            double accuracy = 0.5;
-            uint pp = 30;
-
-            Assert.Throws<ArgumentNullException>(() => new Move(null, type, category, power, accuracy, pp));
-        }
-
-
         [Test]
         public void Create_Move()
         {

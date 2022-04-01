@@ -1,8 +1,8 @@
-﻿namespace PokemonSystem.PokedexInjector.Dtos.Database
+﻿namespace PokemonSystem.Incubator.Infra.Database
 {
-    internal class MoveDynamoDb
+    public class MoveDynamoDb
     {
-        public string Name { get; set; } = String.Empty;
+        public string Name { get; set; } = string.Empty;
         public short Type { get; set; }
         public short Category { get; set; }
         public uint? Power { get; set; }

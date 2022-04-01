@@ -1,28 +1,26 @@
-﻿using PokemonSystem.Common.Enums;
-using PokemonSystem.Common.ValueObjects;
+﻿using PokemonSystem.Common.ValueObjects;
+using PokemonSystem.Incubator.Domain.PokemonAggregate;
 using PokemonSystem.Incubator.Domain.SpeciesAggregate;
-using System;
+using PokemonSystem.PokedexInjector;
 
-namespace PokemonSystem.Incubator.Domain.PokemonAggregate
+namespace PokemonSystem.Incubator.Domain
 {
     public class IncubatorService : IIncubatorService
     {
         private readonly ISpeciesRepository _speciesRepository;
-        private readonly Random _random;
+        private readonly ISpeciesAdapter _speciesAdapter;
 
-        public IncubatorService(ISpeciesRepository speciesRepository)
+        public IncubatorService(ISpeciesRepository speciesRepository, ISpeciesAdapter speciesAdapter)
         {
-            _random = new Random();
             _speciesRepository = speciesRepository ?? throw new ArgumentNullException(nameof(speciesRepository));
+            _speciesAdapter = speciesAdapter ?? throw new ArgumentNullException(nameof(speciesAdapter));
         }
 
-        public Pokemon GenerateRandomPokemon(string nickname = null, Level levelToGrow = null)
+        public async Task<Pokemon> GenerateRandomPokemonAsync(string? nickname, Level? levelToGrow)
         {
-            var species = _speciesRepository.GetRandomSpecies();
-            var gender = _random.NextDouble() <= species.MaleFactor ? Gender.Male : Gender.Female;
-
-            return new Pokemon(nickname, species, gender, levelToGrow);
-
+            var speciesDto = await _speciesRepository.GetRandomSpeciesAsync();
+            var species = _speciesAdapter.ConvertToDto(speciesDto);
+            return new Pokemon(nickname ?? string.Empty, species, levelToGrow ?? new Level(1));
         }
     }
 }

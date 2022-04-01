@@ -4,6 +4,7 @@ using PokemonSystem.Common.ValueObjects;
 using PokemonSystem.Incubator.Domain.SpeciesAggregate;
 using PokemonSystem.Tests.Incubator.Builders;
 using System;
+using System.Collections.Generic;
 
 namespace PokemonSystem.Tests.Incubator
 {
@@ -24,12 +25,14 @@ namespace PokemonSystem.Tests.Incubator
             var name = "Tauros";
             var type = new Typing(PokemonType.Normal);
             var baseStats = new Stats(1, 2, 3, 4, 5, 6);
-            EvolutionCriteria evolutionCriteria = null;
+            List<EvolutionCriteria> evolutionCriteria = new List<EvolutionCriteria>();
             var maleFactor = 0.6;
             var moveset = _moveSetBuilder.Build();
 
-            Assert.Throws<ArgumentException>(() => new Species(number, null, type, baseStats, maleFactor, evolutionCriteria, moveset));
+            Assert.Throws<ArgumentNullException>(() => new Species(number, null, type, baseStats, maleFactor, evolutionCriteria, moveset));
+            Assert.Throws<ArgumentNullException>(() => new Species(number, name, null, baseStats, maleFactor, evolutionCriteria, moveset));
             Assert.Throws<ArgumentNullException>(() => new Species(number, name, type, null, maleFactor, evolutionCriteria, moveset));
+            Assert.Throws<ArgumentNullException>(() => new Species(number, name, type, baseStats, maleFactor, null, moveset));
             Assert.Throws<ArgumentNullException>(() => new Species(number, name, type, baseStats, maleFactor, evolutionCriteria, null));
         }
 
@@ -40,7 +43,6 @@ namespace PokemonSystem.Tests.Incubator
             var name = "Tauros";
             var type = new Typing(PokemonType.Normal);
             var baseStats = new Stats(1, 2, 3, 4, 5, 6);
-            EvolutionCriteria evolutionCriteria = null;
             var maleFactor = 0.6;
             var moveset = _moveSetBuilder.Build();
 
@@ -50,11 +52,11 @@ namespace PokemonSystem.Tests.Incubator
                 type,
                 baseStats,
                 maleFactor,
-                evolutionCriteria,
+                new List<EvolutionCriteria>(),
                 moveset
             );
 
-            Assert.AreEqual(number, species.Number);
+            Assert.AreEqual(number, species.Id);
             Assert.AreEqual(name, species.Name);
             Assert.AreEqual(type, species.Typing);
             Assert.AreEqual(moveset.Count, species.MoveSet.Count);

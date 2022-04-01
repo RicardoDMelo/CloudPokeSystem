@@ -1,21 +1,7 @@
 ﻿using PokemonSystem.PokedexInjector;
 
-var connectionType = ConnectionType.Local;
-if (args.Length > 0)
-{
-    Console.WriteLine($"Argument: {args[0]}");
-    if (args[0].Equals("remote"))
-    {
-        connectionType = ConnectionType.Remote;
-    }
-}
-else
-{
-    Console.WriteLine("No argument.");
-}
-
 Console.WriteLine("Connecting to DynamoDB...");
-var client = DynamoConnector.CreateClient(connectionType);
+var databaseSeed = new DatabaseSeed();
 Console.WriteLine("Connected to DynamoDB.");
 Console.WriteLine("-----------------------------------------------");
 
@@ -31,23 +17,20 @@ Console.WriteLine("-----------------------------------------------");
 Console.WriteLine("Converting data to domain...");
 var speciesAdapter = new SpeciesAdapter();
 var species = speciesAdapter.ConvertToDomain(importedData);
+var dynamoDbData = speciesAdapter.ConvertToDto(species);
 Console.WriteLine($"Data converted.");
-Console.WriteLine($"{species.Count()} species converted.");
+Console.WriteLine($"{dynamoDbData.Count()} species converted.");
 Console.WriteLine("-----------------------------------------------");
 
-if (connectionType == ConnectionType.Local)
-{
-    Console.WriteLine("Creating Tables...");
-    await DatabaseSeed.CreateTablesAsync(client);
-    Console.WriteLine("Tables up and running.");
-    Console.WriteLine("-----------------------------------------------");
-}
+Console.WriteLine("Creating Tables...");
+await databaseSeed.CreateTablesAsync();
+Console.WriteLine("Tables up and running.");
+Console.WriteLine("-----------------------------------------------");
 
 Console.WriteLine("Adding data to database...");
-var dynamoDbData = speciesAdapter.ConvertToDto(species);
-await DatabaseSeed.LoadDataAsync(dynamoDbData, client);
+await databaseSeed.LoadDataAsync(dynamoDbData);
 Console.WriteLine("DATABASE COMPLETE!");
 Console.WriteLine("-----------------------------------------------");
 
-var databaseCount = await DatabaseSeed.GetDatabaseCount(client);
+var databaseCount = await databaseSeed.GetDatabaseCountAsync();
 Console.WriteLine($"{databaseCount} itens added.");

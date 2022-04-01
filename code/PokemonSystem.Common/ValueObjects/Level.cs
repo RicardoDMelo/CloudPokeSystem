@@ -1,5 +1,5 @@
 ﻿using PokemonSystem.Common.Properties;
-using PokemonSystem.Common.SeedWork;
+using PokemonSystem.Common.SeedWork.Domain;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -10,6 +10,7 @@ namespace PokemonSystem.Common.ValueObjects
     {
         const uint MIN_LEVEL = 1;
         const uint MAX_LEVEL = 100;
+
         public Level(uint value)
         {
             if (value > MAX_LEVEL || value < MIN_LEVEL)

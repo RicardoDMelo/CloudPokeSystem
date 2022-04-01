@@ -1,5 +1,5 @@
 ﻿using PokemonSystem.Common.Enums;
-using PokemonSystem.Common.SeedWork;
+using PokemonSystem.Common.SeedWork.Domain;
 using PokemonSystem.Common.ValueObjects;
 using PokemonSystem.Evolution.Domain.Events;
 using System;

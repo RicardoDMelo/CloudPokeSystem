@@ -1,4 +1,4 @@
-﻿namespace PokemonSystem.Common.SeedWork
+﻿namespace PokemonSystem.Common.SeedWork.Domain
 {
     public interface IAggregateRoot
     {

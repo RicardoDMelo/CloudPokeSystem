@@ -1,9 +1,10 @@
 ﻿using PokemonSystem.Common.ValueObjects;
+using PokemonSystem.Incubator.Domain.PokemonAggregate;
 
-namespace PokemonSystem.Incubator.Domain.PokemonAggregate
+namespace PokemonSystem.Incubator.Domain
 {
     public interface IIncubatorService
     {
-        Pokemon GenerateRandomPokemon(string nickname = null, Level levelToGrow = null);
+        Task<Pokemon> GenerateRandomPokemonAsync(string? nickname, Level? levelToGrow);
     }
 }

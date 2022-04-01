@@ -1,27 +1,51 @@
-﻿using PokemonSystem.Common.Enums;
-using PokemonSystem.Common.ValueObjects;
+﻿using Amazon.DynamoDBv2.DataModel;
+using Amazon.DynamoDBv2.DocumentModel;
 using PokemonSystem.Incubator.Domain.SpeciesAggregate;
-using System.Collections.Generic;
+using PokemonSystem.Incubator.Infra.Database;
 
 namespace PokemonSystem.Incubator.Infra
 {
-    internal class SpeciesRepository : ISpeciesRepository
+    public class SpeciesRepository : IAppSpeciesRepository
     {
-        public Species GetRandomSpecies()
-        {
-            var moveset = new List<MoveByLevel>() {
-                new MoveByLevel(new Level(1), new Move("Tackle", PokemonType.Normal, MoveCategory.Physical, 60, 1, 30)),
-                new MoveByLevel(new Level(2), new Move("TailWhip", PokemonType.Normal, MoveCategory.Status, null, 1, 30)),
-            };
+        private readonly IDynamoDBContext _dynamoDbContext;
+        private readonly Random _random;
 
-            return new Species(
-                100,
-                "Tauros",
-                new Typing(PokemonType.Normal),
-                new Stats(1, 1, 1, 1, 1, 1),
-                0.5,
-                null,
-                moveset);
+        public SpeciesRepository(IDynamoDBContext dynamoDbContext)
+        {
+            _dynamoDbContext = dynamoDbContext;
+            _random = new Random();
+        }
+
+        public async Task<SpeciesDynamoDb> GetRandomSpeciesAsync()
+        {
+            var databaseCount = await GetCountAsync();
+            var randomPokemon = _random.Next(1, databaseCount + 1);
+            return await _dynamoDbContext.LoadAsync<SpeciesDynamoDb>(randomPokemon);
+        }
+
+        public async Task<int> GetCountAsync()
+        {
+            string? paginationToken = null;
+            Search response;
+            int count = 0;
+
+            do
+            {
+                var queryOperation = new ScanOperationConfig()
+                {
+                    Select = SelectValues.Count,
+                    PaginationToken = paginationToken
+                };
+
+                response = _dynamoDbContext.GetTargetTable<SpeciesDynamoDb>().Scan(queryOperation);
+
+                await response.GetNextSetAsync();
+                count += response.Count;
+                paginationToken = response.PaginationToken;
+
+            } while (!response.IsDone);
+
+            return count;
         }
     }
 }

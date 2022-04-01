@@ -1,7 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using MediatR;
 
-namespace PokemonSystem.Common.SeedWork
+namespace PokemonSystem.Common.SeedWork.Domain
 {
     public abstract class Entity : Entity<Guid>
     {
@@ -11,11 +10,11 @@ namespace PokemonSystem.Common.SeedWork
         }
     }
 
-    public abstract class Entity<T>
+    public abstract class Entity<T> : IEntity
     {
         int? _requestedHashCode;
         protected T _Id;
-        private List<INotification> _domainEvents;
+        private List<INotification> _domainEvents = new List<INotification>();
 
         public virtual T Id
         {
@@ -33,13 +32,11 @@ namespace PokemonSystem.Common.SeedWork
 
         public void AddDomainEvent(INotification eventItem)
         {
-            _domainEvents ??= new List<INotification>();
             _domainEvents.Add(eventItem);
         }
 
         public void RemoveDomainEvent(INotification eventItem)
         {
-            if (_domainEvents is null) return;
             _domainEvents.Remove(eventItem);
         }
 
@@ -47,26 +44,26 @@ namespace PokemonSystem.Common.SeedWork
         {
             if (obj == null || !(obj is Entity<T>))
                 return false;
-            if (Object.ReferenceEquals(this, obj))
+            if (ReferenceEquals(this, obj))
                 return true;
-            if (this.GetType() != obj.GetType())
+            if (GetType() != obj.GetType())
                 return false;
 
             Entity<T> item = (Entity<T>)obj;
-            return item.Id.Equals(this.Id);
+            return item.Id.Equals(Id);
         }
 
         public override int GetHashCode()
         {
             if (!_requestedHashCode.HasValue)
-                _requestedHashCode = this.Id.GetHashCode() ^ 31;
+                _requestedHashCode = Id.GetHashCode() ^ 31;
             return _requestedHashCode.Value;
         }
 
         public static bool operator ==(Entity<T> left, Entity<T> right)
         {
-            if (Object.Equals(left, null))
-                return (Object.Equals(right, null));
+            if (Equals(left, null))
+                return Equals(right, null);
             else
                 return left.Equals(right);
         }

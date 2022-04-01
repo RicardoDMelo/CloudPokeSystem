@@ -1,9 +1,7 @@
 
 resource "aws_dynamodb_table" "pokedex-table" {
     name           = "PokemonSpecies"
-    billing_mode   = "PROVISIONED"
-    read_capacity  = 5
-    write_capacity = 10
+    billing_mode   = "PAY_PER_REQUEST"
     hash_key       = "Id"
     stream_enabled = false
 

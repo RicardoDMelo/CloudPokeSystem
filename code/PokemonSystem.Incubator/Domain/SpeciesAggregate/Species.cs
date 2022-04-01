@@ -1,8 +1,6 @@
 ﻿using PokemonSystem.Common.Properties;
-using PokemonSystem.Common.SeedWork;
+using PokemonSystem.Common.SeedWork.Domain;
 using PokemonSystem.Common.ValueObjects;
-using System;
-using System.Collections.Generic;
 
 namespace PokemonSystem.Incubator.Domain.SpeciesAggregate
 {
@@ -15,7 +13,7 @@ namespace PokemonSystem.Incubator.Domain.SpeciesAggregate
         {
             if (string.IsNullOrEmpty(name))
             {
-                throw new ArgumentException($"'{nameof(name)}' cannot be null or empty.", nameof(name));
+                throw new ArgumentNullException($"'{nameof(name)}' cannot be null or empty.", nameof(name));
             }
 
             if (maleFactor != null && (maleFactor < MIN_MALE_FACTOR || maleFactor > MAX_MALE_FACTOR))
@@ -25,11 +23,11 @@ namespace PokemonSystem.Incubator.Domain.SpeciesAggregate
 
             Id = id;
             Name = name;
-            Typing = typing;
-            BaseStats = baseStats ?? throw new System.ArgumentNullException(nameof(baseStats));
+            Typing = typing ?? throw new ArgumentNullException(nameof(typing));
+            BaseStats = baseStats ?? throw new ArgumentNullException(nameof(baseStats));
             MaleFactor = maleFactor;
-            _evolutionCriterias = evolutionCriterias ?? throw new System.ArgumentNullException(nameof(evolutionCriterias));
-            _moveSet = moveSet ?? throw new System.ArgumentNullException(nameof(moveSet));
+            _evolutionCriterias = evolutionCriterias ?? throw new ArgumentNullException(nameof(evolutionCriterias));
+            _moveSet = moveSet ?? throw new ArgumentNullException(nameof(moveSet));
         }
 
         public string Name { get; private set; }

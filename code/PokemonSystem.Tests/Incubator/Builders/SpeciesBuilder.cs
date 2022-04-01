@@ -1,6 +1,9 @@
-﻿using PokemonSystem.Common.Enums;
+﻿using AutoMapper;
+using PokemonSystem.Common.Enums;
 using PokemonSystem.Common.ValueObjects;
 using PokemonSystem.Incubator.Domain.SpeciesAggregate;
+using PokemonSystem.Incubator.Infra.Database;
+using PokemonSystem.PokedexInjector;
 using System.Collections.Generic;
 
 namespace PokemonSystem.Tests.Incubator.Builders
@@ -11,7 +14,7 @@ namespace PokemonSystem.Tests.Incubator.Builders
         private string _name = "Tauros";
         private Typing _type = new Typing(PokemonType.Normal);
         private Stats _baseStats = new Stats(1, 2, 3, 4, 5, 6);
-        private EvolutionCriteria _evolutionCriteria = null;
+        private List<EvolutionCriteria> _evolutionCriterias = null;
         private double _maleFactor = 0.6;
 
         private MoveSetBuilder _moveSetBuilder;
@@ -27,7 +30,7 @@ namespace PokemonSystem.Tests.Incubator.Builders
             _name = "Tauros";
             _type = new Typing(PokemonType.Normal);
             _baseStats = new Stats(1, 2, 3, 4, 5, 6);
-            _evolutionCriteria = null;
+            _evolutionCriterias = new List<EvolutionCriteria>();
             _maleFactor = 0.6;
             _moveSetBuilder = new MoveSetBuilder();
         }
@@ -37,6 +40,7 @@ namespace PokemonSystem.Tests.Incubator.Builders
             _number = number;
             return this;
         }
+
         public SpeciesBuilder WithName(string name)
         {
             _name = name;
@@ -48,19 +52,22 @@ namespace PokemonSystem.Tests.Incubator.Builders
             _type = type;
             return this;
         }
+
         public SpeciesBuilder WithBaseStats(Stats baseStats)
         {
             _baseStats = baseStats;
             return this;
         }
+
         public SpeciesBuilder WithMaleFactor(double maleFactor)
         {
             _maleFactor = maleFactor;
             return this;
         }
-        public SpeciesBuilder WithEvolutionCriteria(EvolutionCriteria evolutionCriteria)
+
+        public SpeciesBuilder WithEvolutionCriterias(List<EvolutionCriteria> evolutionCriterias)
         {
-            _evolutionCriteria = evolutionCriteria;
+            _evolutionCriterias = evolutionCriterias;
             return this;
         }
 
@@ -69,11 +76,13 @@ namespace PokemonSystem.Tests.Incubator.Builders
             _moveSetBuilder.AddMove(moveByLevel);
             return this;
         }
+
         public SpeciesBuilder ResetMoves()
         {
             _moveSetBuilder.ResetMoves();
             return this;
         }
+
         public SpeciesBuilder WithMoveSet(List<MoveByLevel> moveSet)
         {
             _moveSetBuilder.ResetMoves();
@@ -89,11 +98,31 @@ namespace PokemonSystem.Tests.Incubator.Builders
                 _type,
                 _baseStats,
                 _maleFactor,
-                _evolutionCriteria,
+                _evolutionCriterias,
                 _moveSetBuilder.Build()
             );
             Reset();
             return species;
+        }
+
+        public SpeciesDynamoDb ConvertToDynamoDb(Species species)
+        {
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<Species, SpeciesDynamoDb>();
+                cfg.CreateMap<Typing, TypingDynamoDb>();
+                cfg.CreateMap<Stats, StatsDynamoDb>();
+                cfg.CreateMap<Move, MoveDynamoDb>();
+                cfg.CreateMap<MoveByLevel, MoveByLevelDynamoDb>();
+                cfg.CreateMap<EvolutionCriteria, EvolutionCriteriaDynamoDb>();
+                cfg.CreateMap<Level, uint>().ConvertUsing(f => f.Value);
+                cfg.CreateMap<Level, uint?>().ConvertUsing(f => f == null ? null : f.Value);
+            });
+
+            config.AssertConfigurationIsValid();
+            var mapper = config.CreateMapper();
+
+            return mapper.Map<SpeciesDynamoDb>(species);
         }
     }
 }

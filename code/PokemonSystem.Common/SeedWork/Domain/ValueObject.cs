@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
-namespace PokemonSystem.Common.SeedWork
+namespace PokemonSystem.Common.SeedWork.Domain
 {
     public abstract class ValueObject
     {
@@ -18,7 +18,7 @@ namespace PokemonSystem.Common.SeedWork
 
         protected static bool NotEqualOperator(ValueObject left, ValueObject right)
         {
-            return !(EqualOperator(left, right));
+            return !EqualOperator(left, right);
         }
 
         protected abstract IEnumerable<object> GetEqualityComponents();
@@ -32,7 +32,7 @@ namespace PokemonSystem.Common.SeedWork
 
             var other = (ValueObject)obj;
 
-            return this.GetEqualityComponents().SequenceEqual(other.GetEqualityComponents());
+            return GetEqualityComponents().SequenceEqual(other.GetEqualityComponents());
         }
 
         public override int GetHashCode()

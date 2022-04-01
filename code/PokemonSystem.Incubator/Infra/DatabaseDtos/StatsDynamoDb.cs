@@ -1,6 +1,6 @@
-﻿namespace PokemonSystem.PokedexInjector.Dtos.Database
+﻿namespace PokemonSystem.Incubator.Infra.Database
 {
-    internal class StatsDynamoDb
+    public class StatsDynamoDb
     {
         public uint HP { get; set; }
         public uint Attack { get; set; }

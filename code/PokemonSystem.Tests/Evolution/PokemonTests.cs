@@ -10,7 +10,7 @@ namespace PokemonSystem.Tests.Evolution
 {
     public class PokemonTests
     {
-        private SpeciesBuilder _speciesBuilder;
+        private SpeciesBuilder? _speciesBuilder;
 
         [SetUp]
         public void Setup()
@@ -19,15 +19,9 @@ namespace PokemonSystem.Tests.Evolution
         }
 
         [Test]
-        public void Constructor_Null_Exception()
-        {
-            Assert.Throws<ArgumentNullException>(() => new Pokemon(null));
-        }
-
-        [Test]
         public void Create_Pokemon()
         {
-            var species = _speciesBuilder.Build();
+            var species = _speciesBuilder!.Build();
 
             var pokemon = new Pokemon(species);
 
@@ -39,7 +33,7 @@ namespace PokemonSystem.Tests.Evolution
         [Test]
         public void Add_Experience_To_Pokemon_To_Level_10()
         {
-            var species = _speciesBuilder.Build();
+            var species = _speciesBuilder!.Build();
             uint experience = 1_000;
 
             var pokemon = new Pokemon(species);
@@ -52,7 +46,7 @@ namespace PokemonSystem.Tests.Evolution
         [Test]
         public void Add_Experience_To_Pokemon_To_Almost_Level_10()
         {
-            var species = _speciesBuilder.Build();
+            var species = _speciesBuilder!.Build();
             uint experience = 999;
 
             var pokemon = new Pokemon(species);
@@ -65,7 +59,7 @@ namespace PokemonSystem.Tests.Evolution
         [Test]
         public void Add_Experience_To_Pokemon_To_Level_100()
         {
-            var species = _speciesBuilder.Build();
+            var species = _speciesBuilder!.Build();
             uint experience = 2_000_000;
 
             var pokemon = new Pokemon(species);
@@ -78,7 +72,7 @@ namespace PokemonSystem.Tests.Evolution
         [Test]
         public void Add_Experience_To_Pokemon_Already_Level_100()
         {
-            var species = _speciesBuilder.Build();
+            var species = _speciesBuilder!.Build();
             uint experience = 1_000_000;
 
             var pokemon = new Pokemon(species);
@@ -92,7 +86,7 @@ namespace PokemonSystem.Tests.Evolution
         [Test]
         public void Pokemon_Should_Have_Stats()
         {
-            var species = _speciesBuilder.Build();
+            var species = _speciesBuilder!.Build();
 
             var pokemon = new Pokemon(species);
 
@@ -107,7 +101,7 @@ namespace PokemonSystem.Tests.Evolution
         [Test]
         public void Pokemon_Stats_Should_Upgrade_On_Level_Up()
         {
-            var species = _speciesBuilder.Build();
+            var species = _speciesBuilder!.Build();
 
             var pokemon = new Pokemon(species);
 
@@ -133,7 +127,7 @@ namespace PokemonSystem.Tests.Evolution
         [Test]
         public void Pokemon_Should_Evolve()
         {
-            var evolutionSpecies = _speciesBuilder
+            var evolutionSpecies = _speciesBuilder!
                 .WithName("Super Tauros")
                 .WithNumber(10)
                 .Build();
@@ -154,7 +148,7 @@ namespace PokemonSystem.Tests.Evolution
         [Test]
         public void Evolved_Pokemon_Should_Have_Different_Stats()
         {
-            var evolutionSpecies = _speciesBuilder
+            var evolutionSpecies = _speciesBuilder!
                 .WithName("Super Tauros")
                 .WithNumber(10)
                 .WithBaseStats(new Stats(10, 50, 60, 70, 80, 90))

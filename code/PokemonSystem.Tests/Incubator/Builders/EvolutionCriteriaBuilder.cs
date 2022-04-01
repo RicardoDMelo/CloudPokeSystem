@@ -43,7 +43,7 @@ namespace PokemonSystem.Tests.Incubator.Builders
 
         public EvolutionCriteria Build()
         {
-            var evolutionCriteria = new EvolutionCriteria(_evolutionType, _minimumLevel, _evolutionSpecies);
+            var evolutionCriteria = EvolutionCriteria.CreateLevelEvolution(_minimumLevel, _evolutionSpecies);
             Reset();
             return evolutionCriteria;
         }

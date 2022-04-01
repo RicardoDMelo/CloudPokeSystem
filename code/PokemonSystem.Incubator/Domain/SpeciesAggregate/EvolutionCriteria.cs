@@ -1,13 +1,12 @@
-﻿
-using PokemonSystem.Common.Enums;
-using PokemonSystem.Common.SeedWork;
+﻿using PokemonSystem.Common.Enums;
+using PokemonSystem.Common.SeedWork.Domain;
 using PokemonSystem.Common.ValueObjects;
 
 namespace PokemonSystem.Incubator.Domain.SpeciesAggregate
 {
     public class EvolutionCriteria : Entity
     {
-        protected EvolutionCriteria(EvolutionType evolutionType, Level minimumLevel, string item, Species species)
+        protected EvolutionCriteria(EvolutionType evolutionType, Level? minimumLevel, string? item, Species species)
         {
             EvolutionType = evolutionType;
             MinimumLevel = minimumLevel;
@@ -31,8 +30,8 @@ namespace PokemonSystem.Incubator.Domain.SpeciesAggregate
         }
 
         public EvolutionType EvolutionType { get; private set; }
-        public Level MinimumLevel { get; private set; }
-        public string Item { get; private set; }
+        public Level? MinimumLevel { get; private set; }
+        public string? Item { get; private set; }
         public Species Species { get; private set; }
     }
 }

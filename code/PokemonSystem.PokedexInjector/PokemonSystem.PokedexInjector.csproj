@@ -1,35 +1,35 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <OutputType>Exe</OutputType>
-    <TargetFramework>net6.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-  </PropertyGroup>
+	<PropertyGroup>
+		<OutputType>Exe</OutputType>
+		<TargetFramework>net6.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="AutoMapper" Version="11.0.1" />
-    <PackageReference Include="AWSSDK.DynamoDBv2" Version="3.7.3.11" />
-    <PackageReference Include="CsvHelper" Version="27.2.1" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="AutoMapper" Version="11.0.1" />
+		<PackageReference Include="AWSSDK.DynamoDBv2" Version="3.7.3.16" />
+		<PackageReference Include="CsvHelper" Version="27.2.1" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\PokemonSystem.Incubator\PokemonSystem.Incubator.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\PokemonSystem.Incubator\PokemonSystem.Incubator.csproj" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <None Update="DataFiles\evolutions.csv">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="DataFiles\moves.csv">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="DataFiles\moveset.csv">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="DataFiles\pokemon.csv">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
+	<ItemGroup>
+		<None Update="DataFiles\evolutions.csv">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="DataFiles\moves.csv">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="DataFiles\moveset.csv">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="DataFiles\pokemon.csv">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+	</ItemGroup>
 
 </Project>

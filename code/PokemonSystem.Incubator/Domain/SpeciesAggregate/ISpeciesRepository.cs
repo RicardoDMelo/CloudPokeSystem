@@ -1,7 +1,9 @@
-﻿namespace PokemonSystem.Incubator.Domain.SpeciesAggregate
+﻿using PokemonSystem.Incubator.Infra.Database;
+
+namespace PokemonSystem.Incubator.Domain.SpeciesAggregate
 {
     public interface ISpeciesRepository
     {
-        Species GetRandomSpecies();
+        Task<SpeciesDynamoDb> GetRandomSpeciesAsync();
     }
 }

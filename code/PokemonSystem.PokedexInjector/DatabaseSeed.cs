@@ -1,32 +1,41 @@
 ﻿using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.DataModel;
-using Amazon.DynamoDBv2.DocumentModel;
 using Amazon.DynamoDBv2.Model;
-using PokemonSystem.PokedexInjector.Dtos.Database;
+using PokemonSystem.Incubator.Domain.SpeciesAggregate;
+using PokemonSystem.Incubator.Infra;
+using PokemonSystem.Incubator.Infra.Database;
 
 namespace PokemonSystem.PokedexInjector
 {
     internal class DatabaseSeed
     {
-        public const string POKEMON_SPECIES_TABLE = "PokemonSpecies";
-        public const string POKEMON_SPECIES_PRIMARY_KEY_NAME = "Id";
-        public const string POKEMON_SPECIES_SORT_KEY_NAME = "Name";
         private const int WAIT_TIMEOUT = 1000;
 
-        public static async Task CreateTablesAsync(IAmazonDynamoDB client)
+        private readonly IAppSpeciesRepository _speciesRepository;
+        private readonly IDynamoDBContext _dynamoDBContext;
+        private readonly IAmazonDynamoDB _dbClient;
+
+        public DatabaseSeed()
         {
-            var speciesRequest = PrepareTableCreation(POKEMON_SPECIES_TABLE, POKEMON_SPECIES_PRIMARY_KEY_NAME, POKEMON_SPECIES_SORT_KEY_NAME);
+            _dbClient = new AmazonDynamoDBClient();
+            _dynamoDBContext = new DynamoDBContext(_dbClient);
+            _speciesRepository = new SpeciesRepository(_dynamoDBContext);
+        }
+
+        public async Task CreateTablesAsync()
+        {
+            var speciesRequest = PrepareTableCreation(DatabaseConsts.POKEMON_SPECIES_TABLE, DatabaseConsts.POKEMON_SPECIES_PRIMARY_KEY_NAME);
             try
             {
-                await client.DeleteTableAsync(speciesRequest.TableName);
-                await WaitUntilTableDeletedAsync(speciesRequest.TableName, client);
+                await _dbClient.DeleteTableAsync(speciesRequest.TableName);
+                await WaitUntilTableDeletedAsync(speciesRequest.TableName);
             }
             catch (ResourceNotFoundException) { }
 
             try
             {
-                await client.CreateTableAsync(speciesRequest);
-                await WaitUntilTableReadyAsync(speciesRequest.TableName, client); ;
+                await _dbClient.CreateTableAsync(speciesRequest);
+                await WaitUntilTableReadyAsync(speciesRequest.TableName);
                 Console.WriteLine($"{speciesRequest.TableName} table created.");
             }
             catch (ResourceInUseException ex)
@@ -35,38 +44,19 @@ namespace PokemonSystem.PokedexInjector
             }
         }
 
-        public static async Task LoadDataAsync(IEnumerable<SpeciesDynamoDb> speciesList, IAmazonDynamoDB dbClient)
+        public async Task<int> GetDatabaseCountAsync()
         {
-            var context = new DynamoDBContext(dbClient);
-            var batchWrite = context.CreateBatchWrite<SpeciesDynamoDb>();
+            return await _speciesRepository.GetCountAsync();
+        }
+
+        public async Task LoadDataAsync(IEnumerable<SpeciesDynamoDb> speciesList)
+        {
+            var batchWrite = _dynamoDBContext.CreateBatchWrite<SpeciesDynamoDb>();
             batchWrite.AddPutItems(speciesList);
             await batchWrite.ExecuteAsync();
         }
 
-        public static async Task<int> GetDatabaseCount(IAmazonDynamoDB dbClient)
-        {
-            var context = new DynamoDBContext(dbClient);
-            string? paginationToken = null;
-            Search response;
-            int count = 0;
-            do
-            {
-                var queryOperation = new ScanOperationConfig()
-                {
-                    Select = SelectValues.Count,
-                    PaginationToken = paginationToken
-                };
-
-                response = context.GetTargetTable<SpeciesDynamoDb>().Scan(queryOperation);
-
-                await response.GetNextSetAsync();
-                count += response.Count;
-                paginationToken = response.PaginationToken;
-            } while (!response.IsDone);
-            return count;
-        }
-
-        private static CreateTableRequest PrepareTableCreation(string tableName, string keyName, string sortKeyName)
+        private CreateTableRequest PrepareTableCreation(string tableName, string keyName)
         {
             AttributeDefinition primaryKeyAttribute = new(keyName, ScalarAttributeType.N);
 
@@ -75,31 +65,32 @@ namespace PokemonSystem.PokedexInjector
             return new CreateTableRequest(tableName, new List<KeySchemaElement>() { primaryKey })
             {
                 AttributeDefinitions = new List<AttributeDefinition>() { primaryKeyAttribute },
-                BillingMode = BillingMode.PROVISIONED,
-                ProvisionedThroughput = new ProvisionedThroughput(5, 1)
+                BillingMode = BillingMode.PAY_PER_REQUEST
             };
         }
 
-        private static async Task WaitUntilTableDeletedAsync(string tableName, IAmazonDynamoDB client)
+        private async Task WaitUntilTableDeletedAsync(string tableName)
         {
-            string status = string.Empty;
             bool firstTry = true;
+            string status;
             do
             {
                 if (!firstTry)
                 {
                     Thread.Sleep(WAIT_TIMEOUT);
                 }
+
                 firstTry = false;
-                var res = await client.DescribeTableAsync(new DescribeTableRequest
+                var res = await _dbClient.DescribeTableAsync(new DescribeTableRequest
                 {
                     TableName = tableName
                 });
+
                 status = res.Table.TableStatus;
             } while (status != String.Empty);
         }
 
-        private static async Task WaitUntilTableReadyAsync(string tableName, IAmazonDynamoDB client)
+        private async Task WaitUntilTableReadyAsync(string tableName)
         {
             string status = string.Empty;
             bool firstTry = true;
@@ -109,16 +100,18 @@ namespace PokemonSystem.PokedexInjector
                 {
                     Thread.Sleep(WAIT_TIMEOUT);
                 }
+
                 firstTry = false;
                 try
                 {
-                    var res = await client.DescribeTableAsync(new DescribeTableRequest
+                    var res = await _dbClient.DescribeTableAsync(new DescribeTableRequest
                     {
                         TableName = tableName
                     });
                     status = res.Table.TableStatus;
                 }
                 catch (ResourceNotFoundException) { }
+
             } while (status != "ACTIVE");
         }
     }

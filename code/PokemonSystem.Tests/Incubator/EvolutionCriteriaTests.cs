@@ -10,39 +10,47 @@ namespace PokemonSystem.Tests.Incubator
     public class EvolutionCriteriaTests
     {
         [Test]
-        public void Constructor_Null_Exception()
-        {
-            EvolutionType evolutionType = EvolutionType.Level;
-            Species evolutionSpecies = new SpeciesBuilder().Build();
-
-            Assert.Throws<ArgumentNullException>(() => new EvolutionCriteria(evolutionType, null, evolutionSpecies));
-            Assert.Throws<ArgumentNullException>(() => new EvolutionCriteria(evolutionType, Levels.One, null));
-        }
-
-        [Test]
         public void Create_EvolutionCriteria_By_Level()
         {
             EvolutionType evolutionType = EvolutionType.Level;
+            var level = Levels.One;
             Species evolutionSpecies = new SpeciesBuilder().Build();
 
-            var evolutionCriteria = new EvolutionCriteria(evolutionType, Levels.One, evolutionSpecies);
+            var evolutionCriteria = EvolutionCriteria.CreateLevelEvolution(level, evolutionSpecies);
 
             Assert.AreEqual(evolutionType, evolutionCriteria.EvolutionType);
-            Assert.AreEqual(Levels.One, evolutionCriteria.MinimumLevel);
-            Assert.AreEqual(evolutionSpecies, evolutionCriteria.EvolutionSpecies);
+            Assert.AreEqual(level, evolutionCriteria.MinimumLevel);
+            Assert.IsNull(evolutionCriteria.Item);
+            Assert.AreEqual(evolutionSpecies, evolutionCriteria.Species);
         }
 
         [Test]
         public void Create_EvolutionCriteria_By_Item()
         {
             EvolutionType evolutionType = EvolutionType.Item;
+            string itemName = "Moon Stone";
             Species evolutionSpecies = new SpeciesBuilder().Build();
 
-            var evolutionCriteria = new EvolutionCriteria(evolutionType, null, evolutionSpecies);
+            var evolutionCriteria = EvolutionCriteria.CreateItemEvolution(itemName, evolutionSpecies);
 
             Assert.AreEqual(evolutionType, evolutionCriteria.EvolutionType);
             Assert.IsNull(evolutionCriteria.MinimumLevel);
-            Assert.AreEqual(evolutionSpecies, evolutionCriteria.EvolutionSpecies);
+            Assert.AreEqual(itemName, evolutionCriteria.Item);
+            Assert.AreEqual(evolutionSpecies, evolutionCriteria.Species);
+        }
+
+        [Test]
+        public void Create_EvolutionCriteria_By_Trading()
+        {
+            EvolutionType evolutionType = EvolutionType.Trading;
+            Species evolutionSpecies = new SpeciesBuilder().Build();
+
+            var evolutionCriteria = EvolutionCriteria.CreateTradingEvolution(evolutionSpecies);
+
+            Assert.AreEqual(evolutionType, evolutionCriteria.EvolutionType);
+            Assert.IsNull(evolutionCriteria.MinimumLevel);
+            Assert.IsNull(evolutionCriteria.Item);
+            Assert.AreEqual(evolutionSpecies, evolutionCriteria.Species);
         }
     }
 }

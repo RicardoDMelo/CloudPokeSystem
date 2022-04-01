@@ -9,11 +9,14 @@ namespace PokemonSystem.Tests.Evolution.Builders
         private int _number;
         private string _name;
         private Stats _baseStats;
-        private EvolutionCriteria _evolutionCriteria;
+        private EvolutionCriteria? _evolutionCriteria;
 
         public SpeciesBuilder()
         {
-            Reset();
+            _number = 128;
+            _name = "Tauros";
+            _baseStats = new Stats(1, 2, 3, 4, 5, 6);
+            _evolutionCriteria = null;
         }
 
         public void Reset()

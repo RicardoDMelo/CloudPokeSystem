@@ -1,4 +1,4 @@
-﻿using PokemonSystem.Common.SeedWork;
+﻿using PokemonSystem.Common.SeedWork.Domain;
 using System.Collections.Generic;
 
 namespace PokemonSystem.Common.ValueObjects

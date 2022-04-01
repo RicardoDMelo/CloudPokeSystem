@@ -1,6 +1,6 @@
-﻿namespace PokemonSystem.PokedexInjector.Dtos.Database
+﻿namespace PokemonSystem.Incubator.Infra.Database
 {
-    internal class TypingDynamoDb
+    public class TypingDynamoDb
     {
         public short Type1 { get; set; }
         public short? Type2 { get; set; }
