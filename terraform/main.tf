@@ -35,8 +35,8 @@ module "aws_dynamodb" {
   source = "./modules/aws-dynamodb"
 }
 
-module "aws-sns" {
-  source = "./modules/aws-sns"
+module "aws-sns-sqs" {
+  source = "./modules/aws-sns-sqs"
 
   aws_account_id = var.aws_account_id
   aws_region = var.aws_region

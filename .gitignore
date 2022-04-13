@@ -385,3 +385,4 @@ override.tf.json
 terraform.rc
 *.hcl
 *.db
+terraform/terraform apply.bat
