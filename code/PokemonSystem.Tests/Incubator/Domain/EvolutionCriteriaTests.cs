@@ -5,7 +5,7 @@ using PokemonSystem.Tests.Incubator.Builders;
 using PokemonSystem.Tests.ValueObjects;
 using System;
 
-namespace PokemonSystem.Tests.Incubator
+namespace PokemonSystem.Tests.Incubator.Domain
 {
     public class EvolutionCriteriaTests
     {

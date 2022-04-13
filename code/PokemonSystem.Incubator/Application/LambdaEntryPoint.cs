@@ -52,8 +52,7 @@ public class LambdaEntryPoint :
 
             services.AddMediatR(typeof(Startup));
 
-            services.AddTransient<IIncubatorService, IncubatorService>();
-            services.AddTransient<ISpeciesRepository, SpeciesRepository>();
+            services.ConfigureDependencyInjection();
         });
     }
 }

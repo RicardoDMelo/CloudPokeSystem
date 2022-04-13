@@ -8,6 +8,7 @@ namespace PokemonSystem.Tests.ValueObjects
         public static Level One = new Level(1);
         public static Level Two = new Level(2);
         public static Level Ten = new Level(10);
+        public static Level Twenty = new Level(20);
         public static Level Fifty = new Level(50);
         public static Level Max = new Level(100);
     }

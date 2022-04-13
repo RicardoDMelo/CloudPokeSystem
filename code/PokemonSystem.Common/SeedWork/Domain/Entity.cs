@@ -4,14 +4,16 @@ namespace PokemonSystem.Common.SeedWork.Domain
 {
     public abstract class Entity : Entity<Guid>
     {
-        public Entity()
-        {
-            _Id = Guid.NewGuid();
-        }
+        public Entity() : base(Guid.NewGuid()) { }
     }
 
     public abstract class Entity<T> : IEntity
     {
+        public Entity(T id)
+        {
+            _Id = id;
+        }
+
         int? _requestedHashCode;
         protected T _Id;
         private List<INotification> _domainEvents = new List<INotification>();
@@ -40,7 +42,7 @@ namespace PokemonSystem.Common.SeedWork.Domain
             _domainEvents.Remove(eventItem);
         }
 
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
             if (obj == null || !(obj is Entity<T>))
                 return false;
@@ -50,13 +52,13 @@ namespace PokemonSystem.Common.SeedWork.Domain
                 return false;
 
             Entity<T> item = (Entity<T>)obj;
-            return item.Id.Equals(Id);
+            return item.Id!.Equals(Id);
         }
 
         public override int GetHashCode()
         {
             if (!_requestedHashCode.HasValue)
-                _requestedHashCode = Id.GetHashCode() ^ 31;
+                _requestedHashCode = Id!.GetHashCode() ^ 31;
             return _requestedHashCode.Value;
         }
 

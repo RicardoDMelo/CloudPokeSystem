@@ -24,7 +24,7 @@ namespace PokemonSystem.Common.ValueObjects
         protected override IEnumerable<object> GetEqualityComponents()
         {
             yield return Type1;
-            yield return Type2;
+            yield return Type2!;
         }
 
         public override string ToString()

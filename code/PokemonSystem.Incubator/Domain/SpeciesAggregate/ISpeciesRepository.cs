@@ -1,4 +1,4 @@
-﻿using PokemonSystem.Incubator.Infra.Database;
+﻿using PokemonSystem.Incubator.Infra.DatabaseDtos;
 
 namespace PokemonSystem.Incubator.Domain.SpeciesAggregate
 {

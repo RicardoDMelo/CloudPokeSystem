@@ -1,10 +1,10 @@
 ﻿using PokemonSystem.Incubator.Domain.SpeciesAggregate;
-using PokemonSystem.Incubator.Infra.Database;
+using PokemonSystem.Incubator.Infra.DatabaseDtos;
 
-namespace PokemonSystem.PokedexInjector
+namespace PokemonSystem.Incubator.Application.Adapters
 {
     public interface ISpeciesAdapter
     {
-        Species ConvertToDto(SpeciesDynamoDb speciesDynamoDb);
+        Species ConvertToModel(SpeciesDynamoDb speciesDynamoDb);
     }
 }

@@ -121,47 +121,11 @@ namespace PokemonSystem.Tests.Common
         }
 
         [Test]
-        public void Level_Equal_Operator_Both_Null()
-        {
-            Level level1 = null;
-            Level level2 = null;
-
-            Assert.True(level1 == level2);
-        }
-
-        [Test]
-        public void Level_Equal_Operator_One_Is_Null()
-        {
-            var level1 = Levels.One;
-            Level level2 = null;
-
-            Assert.False(level1 == level2);
-        }
-
-        [Test]
         public void Level_Different_Operator()
         {
             uint levelValue = 1;
             var level1 = new Level(levelValue);
             var level2 = new Level(++levelValue);
-
-            Assert.True(level1 != level2);
-        }
-
-        [Test]
-        public void Level_Different_Operator_Both_Null()
-        {
-            Level level1 = null;
-            Level level2 = null;
-
-            Assert.False(level1 != level2);
-        }
-
-        [Test]
-        public void Level_Different_Operator_One_Is_Null()
-        {
-            var level1 = Levels.One;
-            Level level2 = null;
 
             Assert.True(level1 != level2);
         }
@@ -177,15 +141,6 @@ namespace PokemonSystem.Tests.Common
         }
 
         [Test]
-        public void Level_Greater_Operator_Some_Is_Null()
-        {
-            var level1 = Levels.One;
-            Level level2 = null;
-
-            Assert.False(level1 > level2);
-        }
-
-        [Test]
         public void Level_Greater_Or_Equals_Operator()
         {
             uint levelValue = 2;
@@ -193,15 +148,6 @@ namespace PokemonSystem.Tests.Common
             var level2 = new Level(--levelValue);
 
             Assert.True(level1 >= level2);
-        }
-
-        [Test]
-        public void Level_Greater_Or_Equals_Operator_Some_Is_Null()
-        {
-            var level1 = Levels.One;
-            Level level2 = null;
-
-            Assert.False(level1 >= level2);
         }
 
         [Test]
@@ -215,15 +161,6 @@ namespace PokemonSystem.Tests.Common
         }
 
         [Test]
-        public void Level_Less_Operator_Some_Is_Null()
-        {
-            var level1 = Levels.One;
-            Level level2 = null;
-
-            Assert.False(level1 < level2);
-        }
-
-        [Test]
         public void Level_Less_Or_Equal_Operator()
         {
             uint levelValue = 1;
@@ -231,15 +168,6 @@ namespace PokemonSystem.Tests.Common
             var level2 = new Level(++levelValue);
 
             Assert.True(level1 <= level2);
-        }
-
-        [Test]
-        public void Level_Less_Or_Equal_Operator_Some_Is_Null()
-        {
-            var level1 = Levels.One;
-            Level level2 = null;
-
-            Assert.False(level1 <= level2);
         }
 
         [Test]

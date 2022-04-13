@@ -126,4 +126,7 @@
   <data name="NotTheSameType" xml:space="preserve">
     <value>{0} is not the same type as this instance</value>
   </data>
+  <data name="WrongEnum" xml:space="preserve">
+    <value>Non existent enum: {0}</value>
+  </data>
 </root>

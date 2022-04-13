@@ -1,6 +1,6 @@
-﻿using PokemonSystem.Incubator.Infra.Database;
+﻿using PokemonSystem.Incubator.Domain.SpeciesAggregate;
 
-namespace PokemonSystem.Incubator.Domain.SpeciesAggregate
+namespace PokemonSystem.Incubator.Infra.DataContracts
 {
     public interface IAppSpeciesRepository : ISpeciesRepository
     {

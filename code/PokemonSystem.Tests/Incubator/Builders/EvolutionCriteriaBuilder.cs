@@ -7,26 +7,18 @@ namespace PokemonSystem.Tests.Incubator.Builders
 {
     public class EvolutionCriteriaBuilder
     {
-        private EvolutionType _evolutionType;
-        private Level _minimumLevel;
+        private Level _minimumLevel = Levels.Ten;
         private Species _evolutionSpecies;
 
         public EvolutionCriteriaBuilder()
         {
-            Reset();
+            _evolutionSpecies = new SpeciesBuilder().Build();
         }
 
         public void Reset()
         {
-            _evolutionType = EvolutionType.Level;
             _minimumLevel = Levels.Ten;
             _evolutionSpecies = new SpeciesBuilder().Build();
-        }
-
-        public EvolutionCriteriaBuilder WithEvolutionType(EvolutionType evolutionType)
-        {
-            _evolutionType = evolutionType;
-            return this;
         }
 
         public EvolutionCriteriaBuilder WithMinimumLevel(Level level)

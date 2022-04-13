@@ -6,17 +6,14 @@ namespace PokemonSystem.Tests.Evolution.Builders
 {
     public class SpeciesBuilder
     {
-        private int _number;
-        private string _name;
-        private Stats _baseStats;
-        private EvolutionCriteria? _evolutionCriteria;
+        private uint _number = 128;
+        private string _name = "Tauros";
+        private Stats _baseStats = new Stats(1, 2, 3, 4, 5, 6);
+        private List<EvolutionCriteria> _evolutionCriterias = new List<EvolutionCriteria>();
 
         public SpeciesBuilder()
         {
-            _number = 128;
-            _name = "Tauros";
-            _baseStats = new Stats(1, 2, 3, 4, 5, 6);
-            _evolutionCriteria = null;
+            Reset();
         }
 
         public void Reset()
@@ -24,10 +21,10 @@ namespace PokemonSystem.Tests.Evolution.Builders
             _number = 128;
             _name = "Tauros";
             _baseStats = new Stats(1, 2, 3, 4, 5, 6);
-            _evolutionCriteria = null;
+            _evolutionCriterias = new List<EvolutionCriteria>();
         }
 
-        public SpeciesBuilder WithNumber(int number)
+        public SpeciesBuilder WithNumber(uint number)
         {
             _number = number;
             return this;
@@ -45,9 +42,9 @@ namespace PokemonSystem.Tests.Evolution.Builders
             return this;
         }
 
-        public SpeciesBuilder WithEvolutionCriteria(EvolutionType evolutionType, Level minimumLevel, Species evolutionSpecies)
+        public SpeciesBuilder WithEvolutionCriterias(List<EvolutionCriteria> evolutionCriterias)
         {
-            _evolutionCriteria = new EvolutionCriteria(evolutionType, minimumLevel, evolutionSpecies);
+            _evolutionCriterias = evolutionCriterias;
             return this;
         }
 
@@ -57,7 +54,7 @@ namespace PokemonSystem.Tests.Evolution.Builders
                 _number,
                 _name,
                 _baseStats,
-                _evolutionCriteria
+                _evolutionCriterias
             );
             Reset();
             return species;

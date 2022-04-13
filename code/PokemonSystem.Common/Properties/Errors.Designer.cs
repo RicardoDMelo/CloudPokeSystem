@@ -86,5 +86,14 @@ namespace PokemonSystem.Common.Properties {
                 return ResourceManager.GetString("NotTheSameType", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Non existent enum: {0}.
+        /// </summary>
+        public static string WrongEnum {
+            get {
+                return ResourceManager.GetString("WrongEnum", resourceCulture);
+            }
+        }
     }
 }

@@ -1,7 +1,5 @@
 ﻿using PokemonSystem.Common.Properties;
 using PokemonSystem.Common.SeedWork.Domain;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 
 namespace PokemonSystem.Common.ValueObjects
@@ -41,46 +39,29 @@ namespace PokemonSystem.Common.ValueObjects
 
         public static bool operator ==(Level x, Level y)
         {
-            if (x is null && y is null)
-                return true;
-
-            if (x is null || y is null)
-                return false;
-
             return x.CompareTo(y) == 0;
         }
 
         public static bool operator !=(Level x, Level y)
         {
-            if (x is null && y is null)
-                return false;
-
-            if (x is null || y is null)
-                return true;
 
             return x.CompareTo(y) != 0;
         }
 
         public static bool operator <(Level x, Level y)
         {
-            if (x is null || y is null)
-                return false;
 
             return x.CompareTo(y) == -1;
         }
 
         public static bool operator >(Level x, Level y)
         {
-            if (x is null || y is null)
-                return false;
 
             return x.CompareTo(y) == 1;
         }
 
         public static bool operator <=(Level x, Level y)
         {
-            if (x is null || y is null)
-                return false;
 
             var result = x.CompareTo(y);
             return result <= 0;
@@ -88,8 +69,6 @@ namespace PokemonSystem.Common.ValueObjects
 
         public static bool operator >=(Level x, Level y)
         {
-            if (x is null || y is null)
-                return false;
 
             var result = x.CompareTo(y);
             return result >= 0;
@@ -100,7 +79,7 @@ namespace PokemonSystem.Common.ValueObjects
             yield return Value;
         }
 
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
             return base.Equals(obj);
         }

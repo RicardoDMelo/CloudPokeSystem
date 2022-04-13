@@ -38,7 +38,7 @@ namespace PokemonSystem.Common.ValueObjects
             yield return Name;
             yield return Type;
             yield return Category;
-            yield return Power;
+            yield return Power!;
             yield return Accuracy;
             yield return PP;
         }

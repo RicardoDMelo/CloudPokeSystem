@@ -1,9 +1,8 @@
 ﻿using MediatR;
-using PokemonSystem.Evolution.Domain.PokemonAggregate;
 
-namespace PokemonSystem.Evolution.Domain.Events
+namespace PokemonSystem.Evolution.Domain.PokemonAggregate
 {
-    internal class PokemonLevelRaisedDomainEvent : INotification
+    public class PokemonLevelRaisedDomainEvent : INotification
     {
         public PokemonLevelRaisedDomainEvent(Pokemon pokemon)
         {

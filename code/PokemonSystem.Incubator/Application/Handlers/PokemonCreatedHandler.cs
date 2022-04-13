@@ -14,9 +14,9 @@ namespace PokemonSystem.Incubator.Application.Handlers
 
         public PokemonCreatedHandler(IAmazonSimpleNotificationService simpleNotificationService, IConfiguration configuration, ILogger<PokemonCreatedHandler> logger)
         {
-            _simpleNotificationService = simpleNotificationService ?? throw new ArgumentNullException(nameof(simpleNotificationService));
-            _configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
-            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+            _simpleNotificationService = simpleNotificationService;
+            _configuration = configuration;
+            _logger = logger;
         }
 
         public async Task Handle(PokemonCreatedDomainEvent notification, CancellationToken cancellationToken)
@@ -27,8 +27,10 @@ namespace PokemonSystem.Incubator.Application.Handlers
 
             try
             {
-                var publishRequest = new PublishRequest(topicARN, message);
-                publishRequest.MessageGroupId = notification.Pokemon.Id.ToString();
+                var publishRequest = new PublishRequest(topicARN, message)
+                {
+                    MessageGroupId = notification.Pokemon.Id.ToString()
+                };
                 var result = await _simpleNotificationService.PublishAsync(publishRequest);
                 _logger.LogInformation($"Pokemon Created: {notification.Pokemon.Nickname} | {notification.Pokemon.Id}");
             }

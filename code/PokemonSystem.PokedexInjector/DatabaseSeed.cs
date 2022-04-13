@@ -1,9 +1,9 @@
 ﻿using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.DataModel;
 using Amazon.DynamoDBv2.Model;
-using PokemonSystem.Incubator.Domain.SpeciesAggregate;
 using PokemonSystem.Incubator.Infra;
-using PokemonSystem.Incubator.Infra.Database;
+using PokemonSystem.Incubator.Infra.DatabaseDtos;
+using PokemonSystem.Incubator.Infra.DataContracts;
 
 namespace PokemonSystem.PokedexInjector
 {

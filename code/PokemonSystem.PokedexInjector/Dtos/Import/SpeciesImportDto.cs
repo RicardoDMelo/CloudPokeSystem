@@ -20,10 +20,10 @@ namespace PokemonSystem.PokedexInjector
         }
 
         [Name("id")]
-        public int Line { get; set; }
+        public uint Line { get; set; }
 
         [Name("ndex")]
-        public int Id { get; set; }
+        public uint Id { get; set; }
 
         [Name("species")]
         public string Name { get; set; }

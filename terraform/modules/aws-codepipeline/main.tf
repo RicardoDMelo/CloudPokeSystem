@@ -12,7 +12,7 @@ resource "aws_codebuild_project" "code_build" {
     badge_enabled          = false
     build_timeout          = 60
     concurrent_build_limit = 1
-    encryption_key         = "arn:aws:kms:sa-east-1:${var.aws_account_id}:alias/aws/s3"
+    encryption_key         = "arn:aws:kms:${var.aws_region}:${var.aws_account_id}:alias/aws/s3"
     name                   = "PokeCodeBuild"
     project_visibility     = "PRIVATE"
     queued_timeout         = 480

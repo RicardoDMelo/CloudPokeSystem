@@ -1,4 +1,4 @@
-﻿namespace PokemonSystem.Incubator.Infra.Database
+﻿namespace PokemonSystem.Incubator.Infra.DatabaseDtos
 {
     public class MoveDynamoDb
     {

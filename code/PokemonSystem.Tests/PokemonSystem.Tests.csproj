@@ -17,6 +17,13 @@
 		</Include>
 		<Exclude>
 			[*]*.Tests.*
+			[*]*.Infra.*
+			[*]*.Commands.*
+			[*]*.Controllers.*
+			[*]*.IntegrationEvent.*
+			[*]*.*EntryPoint
+			[*]*.UnitOfWork
+			[*]*.Startup*
 		</Exclude>
 		<ExcludeByFile>
 			**/SeedWork/*

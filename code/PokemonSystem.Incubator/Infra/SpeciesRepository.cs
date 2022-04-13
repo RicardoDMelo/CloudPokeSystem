@@ -1,7 +1,7 @@
 ﻿using Amazon.DynamoDBv2.DataModel;
 using Amazon.DynamoDBv2.DocumentModel;
-using PokemonSystem.Incubator.Domain.SpeciesAggregate;
-using PokemonSystem.Incubator.Infra.Database;
+using PokemonSystem.Incubator.Infra.DatabaseDtos;
+using PokemonSystem.Incubator.Infra.DataContracts;
 
 namespace PokemonSystem.Incubator.Infra
 {

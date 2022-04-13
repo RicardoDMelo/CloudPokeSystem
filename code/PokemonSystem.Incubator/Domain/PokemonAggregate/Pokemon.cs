@@ -10,7 +10,7 @@ namespace PokemonSystem.Incubator.Domain.PokemonAggregate
         public Pokemon(string nickname, Species pokemonSpecies, Level levelToGrow) : base()
         {
             Nickname = nickname;
-            PokemonSpecies = pokemonSpecies ?? throw new ArgumentNullException(nameof(pokemonSpecies));
+            PokemonSpecies = pokemonSpecies;
 
             if (pokemonSpecies.MaleFactor is null)
             {

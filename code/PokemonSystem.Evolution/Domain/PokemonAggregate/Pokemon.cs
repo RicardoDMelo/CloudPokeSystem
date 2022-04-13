@@ -1,19 +1,29 @@
 ﻿using PokemonSystem.Common.Enums;
 using PokemonSystem.Common.SeedWork.Domain;
 using PokemonSystem.Common.ValueObjects;
-using PokemonSystem.Evolution.Domain.Events;
-using System;
 
 namespace PokemonSystem.Evolution.Domain.PokemonAggregate
 {
     public class Pokemon : Entity, IAggregateRoot
     {
         public const uint MAX_EXPERIENCE = 1_000_000;
+        public const uint MIN_LEVEL = 1;
+        public const uint MAX_LEVEL = 100;
 
-        public Pokemon(Species pokemonSpecies)
+        /*
+         * About EVOLUTION_FACTOR
+         * This factor goes from 0 to 1.
+         * Lesser values turn evolutions more easily to occur.
+         * Greater values turn them more rarer
+        */
+        private const double EVOLUTION_FACTOR = 0.9;
+
+        public Pokemon(Species pokemonSpecies, Level levelToGrow)
         {
             PokemonSpecies = pokemonSpecies ?? throw new ArgumentNullException(nameof(pokemonSpecies));
-            Level = GetLevelFromExperience();
+            Level = new Level(1);
+            Experience = GetExperienceFromLevel(levelToGrow);
+            CheckForNewLevel();
         }
 
         public Species PokemonSpecies { get; private set; }
@@ -26,7 +36,7 @@ namespace PokemonSystem.Evolution.Domain.PokemonAggregate
             if (Experience < MAX_EXPERIENCE)
             {
                 var summedExperience = Experience + gainedExperience;
-                if (summedExperience > MAX_EXPERIENCE)
+                if (summedExperience >= MAX_EXPERIENCE)
                 {
                     Experience = MAX_EXPERIENCE;
                 }
@@ -35,32 +45,62 @@ namespace PokemonSystem.Evolution.Domain.PokemonAggregate
                     Experience = summedExperience;
                 }
 
-                CheckForEvolution();
+                CheckForNewLevel();
+
                 return true;
             }
             return false;
         }
 
         #region Private Methods
-        private void CheckForEvolution()
+
+        private void CheckForNewLevel()
         {
             var oldLevel = Level;
-            Level = GetLevelFromExperience();
-            if (oldLevel < Level)
+            var newLevel = GetLevelFromCurrentExperience();
+
+            if (oldLevel < newLevel)
             {
                 AddDomainEvent(new PokemonLevelRaisedDomainEvent(this));
-                if (PokemonSpecies.EvolutionCriteria != null && PokemonSpecies.EvolutionCriteria.CanEvolveByLevel(Level))
+                for (uint levelIterator = oldLevel.Value; levelIterator <= newLevel.Value; levelIterator++)
                 {
-                    PokemonSpecies = PokemonSpecies.EvolutionCriteria.EvolutionSpecies;
+                    Level = new Level(levelIterator);
+                    CheckForEvolution();
+                }
+            }
+        }
+
+        private void CheckForEvolution()
+        {
+            var evolutions = PokemonSpecies.EvolutionCriterias
+                .Where(x => x.EvolutionType == EvolutionType.Trading ||
+                            x.EvolutionType == EvolutionType.Item ||
+                           (x.EvolutionType == EvolutionType.Level && x.MinimumLevel! <= Level))
+                .ToList();
+
+            if (evolutions.Any())
+            {
+                var deltaMaxCurrent = (MAX_LEVEL - (Level.Value / 15));
+                double currentRandomChance = Random.Shared.Next(0, (int)deltaMaxCurrent) / 100d;
+
+                if (currentRandomChance > EVOLUTION_FACTOR)
+                {
+                    int index = Random.Shared.Next(evolutions.Count());
+                    PokemonSpecies = evolutions[index].Species;
                     AddDomainEvent(new PokemonEvolvedDomainEvent(this));
                 }
             }
         }
 
-        private Level GetLevelFromExperience()
+        private Level GetLevelFromCurrentExperience()
         {
             var currentExperience = Experience == 0 ? 1 : Experience;
             return new Level((uint)Math.Round(Math.Pow(currentExperience, 1.0 / 3), 10));
+        }
+
+        private uint GetExperienceFromLevel(Level level)
+        {
+            return (uint)Math.Pow(level.Value, 3);
         }
 
         private Stats GetCalculcatedStats()

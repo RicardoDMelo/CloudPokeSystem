@@ -3,17 +3,10 @@ using PokemonSystem.Incubator.Domain.SpeciesAggregate;
 using PokemonSystem.Tests.ValueObjects;
 using System;
 
-namespace PokemonSystem.Tests.Incubator
+namespace PokemonSystem.Tests.Incubator.Domain
 {
     public class MoveByLevelTests
     {
-        [Test]
-        public void Constructor_Null_Exception()
-        {
-            Assert.Throws<ArgumentNullException>(() => new MoveByLevel(null, Moves.Tackle));
-            Assert.Throws<ArgumentNullException>(() => new MoveByLevel(Levels.One, null));
-        }
-
         [Test]
         public void Create_Species()
         {

@@ -1,7 +1,5 @@
 ﻿using PokemonSystem.Common.SeedWork.Domain;
 using PokemonSystem.Common.ValueObjects;
-using System;
-using System.Collections.Generic;
 
 namespace PokemonSystem.Learning.Domain.PokemonAggregate
 {

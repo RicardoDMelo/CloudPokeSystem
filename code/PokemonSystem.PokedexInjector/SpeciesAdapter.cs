@@ -2,7 +2,7 @@
 using PokemonSystem.Common.Enums;
 using PokemonSystem.Common.ValueObjects;
 using PokemonSystem.Incubator.Domain.SpeciesAggregate;
-using PokemonSystem.Incubator.Infra.Database;
+using PokemonSystem.Incubator.Infra.DatabaseDtos;
 using PokemonSystem.PokedexInjector.Dtos;
 
 namespace PokemonSystem.PokedexInjector

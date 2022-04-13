@@ -5,16 +5,14 @@ using System.Linq;
 
 namespace PokemonSystem.Learning.Domain.PokemonAggregate
 {
-    public class Species : Entity
+    public class Species : Entity<uint>
     {
-        public Species(int number, string name, IEnumerable<MoveByLevel> moveSet)
+        public Species(uint id, string name, IEnumerable<MoveByLevel> moveSet) : base(id)
         {
-            Number = number;
             Name = name ?? throw new ArgumentNullException(nameof(name));
             _moveSet = moveSet.ToList() ?? throw new ArgumentNullException(nameof(moveSet));
         }
 
-        public int Number { get; private set; }
         public string Name { get; private set; }
         protected List<MoveByLevel> _moveSet { get; set; }
         public IReadOnlyCollection<MoveByLevel> MoveSet { get => _moveSet.AsReadOnly(); }

@@ -1,12 +1,12 @@
 ﻿using Amazon.DynamoDBv2.DataModel;
 
-namespace PokemonSystem.Incubator.Infra.Database
+namespace PokemonSystem.Incubator.Infra.DatabaseDtos
 {
     [DynamoDBTable(DatabaseConsts.POKEMON_SPECIES_TABLE)]
     public class SpeciesDynamoDb
     {
         [DynamoDBHashKey]
-        public int Id { get; set; }
+        public uint Id { get; set; }
 
         [DynamoDBLocalSecondaryIndexRangeKey]
         public string Name { get; set; } = string.Empty;

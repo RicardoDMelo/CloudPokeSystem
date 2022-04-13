@@ -8,8 +8,8 @@ namespace PokemonSystem.Incubator.Domain.SpeciesAggregate
     {
         public MoveByLevel(Level level, Move move) : base()
         {
-            Level = level ?? throw new ArgumentNullException(nameof(level));
-            Move = move ?? throw new ArgumentNullException(nameof(move));
+            Level = level;
+            Move = move;
         }
 
         public Level Level { get; private set; }

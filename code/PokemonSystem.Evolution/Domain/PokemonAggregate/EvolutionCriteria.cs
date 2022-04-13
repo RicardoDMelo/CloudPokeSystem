@@ -8,24 +8,32 @@ namespace PokemonSystem.Evolution.Domain.PokemonAggregate
 {
     public class EvolutionCriteria : Entity
     {
-        public EvolutionCriteria(EvolutionType evolutionType, Level? minimumLevel, Species evolutionSpecies)
+        protected EvolutionCriteria(EvolutionType evolutionType, Level? minimumLevel, string? item, Species species)
         {
             EvolutionType = evolutionType;
-            if (evolutionType == EvolutionType.Level && minimumLevel is null)
-            {
-                throw new ArgumentNullException(nameof(minimumLevel));
-            }
             MinimumLevel = minimumLevel;
-            EvolutionSpecies = evolutionSpecies ?? throw new ArgumentNullException(nameof(evolutionSpecies));
+            Item = item;
+            Species = species;
+        }
+
+        public static EvolutionCriteria CreateLevelEvolution(Level minimumLevel, Species species)
+        {
+            return new EvolutionCriteria(EvolutionType.Level, minimumLevel, null, species);
+        }
+
+        public static EvolutionCriteria CreateItemEvolution(string item, Species species)
+        {
+            return new EvolutionCriteria(EvolutionType.Item, null, item, species);
+        }
+
+        public static EvolutionCriteria CreateTradingEvolution(Species species)
+        {
+            return new EvolutionCriteria(EvolutionType.Trading, null, null, species);
         }
 
         public EvolutionType EvolutionType { get; private set; }
         public Level? MinimumLevel { get; private set; }
-        public Species EvolutionSpecies { get; private set; }
-
-        public bool CanEvolveByLevel(Level pokemonLevel)
-        {
-            return EvolutionType.Level == EvolutionType && MinimumLevel! <= pokemonLevel;
-        }
+        public string? Item { get; private set; }
+        public Species Species { get; private set; }
     }
 }
