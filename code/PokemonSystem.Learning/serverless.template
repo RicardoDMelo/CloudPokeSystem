@@ -5,7 +5,7 @@
   "Parameters": {},
   "Conditions": {},
   "Resources": {
-    "CreateRandomPokemon": {
+    "TeachPokemonMoves": {
       "Type": "AWS::Serverless::Function",
       "Properties": {
         "Handler": "PokemonSystem.Learning::PokemonSystem.Learning.Application.LambdaEntryPoint::FunctionHandlerAsync",
