@@ -21,9 +21,11 @@ phases:
       - dotnet new -i Amazon.Lambda.Templates::*
       - dotnet tool install -g Amazon.Lambda.Tools
       - dotnet tool update -g Amazon.Lambda.Tools
-      - cd code/PokemonSystem.Incubator/
-      - dotnet lambda deploy-serverless
+      - cd code/PokemonSystem.Tests/ 
+      - dotnet test
+      - cd ../code/PokemonSystem.Incubator/ 
+      - dotnet lambda deploy-serverless --disable-interactive true --stack-name Pokemon.Incubator --s3-bucket poke-build-bucket --template serverless.template
       - cd ../PokemonSystem.Evolution/
-      - dotnet lambda deploy-serverless
+      - dotnet lambda deploy-serverless --disable-interactive true --stack-name Pokemon.Evolution --s3-bucket poke-build-bucket --template serverless.template
       - cd ../PokemonSystem.Learning/
-      - dotnet lambda deploy-serverless
+      - dotnet lambda deploy-serverless --disable-interactive true --stack-name Pokemon.Learning --s3-bucket poke-build-bucket --template serverless.template
