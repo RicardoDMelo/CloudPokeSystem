@@ -19,7 +19,7 @@ namespace PokemonSystem.Incubator.Infra
         public async Task<SpeciesDynamoDb> GetRandomSpeciesAsync()
         {
             var databaseCount = await GetCountAsync();
-            var randomPokemon = _random.Next(1, databaseCount + 1);
+            var randomPokemon = (uint)_random.Next(1, databaseCount + 1);
             return await _dynamoDbContext.LoadAsync<SpeciesDynamoDb>(randomPokemon);
         }
 
