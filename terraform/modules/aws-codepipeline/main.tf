@@ -1,6 +1,7 @@
 resource "aws_s3_bucket" "build_bucket" {
     bucket        = "poke-build-bucket"
     request_payer = "BucketOwner"
+    force_destroy = true
 
     versioning {
         enabled    = false

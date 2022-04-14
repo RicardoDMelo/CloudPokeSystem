@@ -222,7 +222,6 @@ resource "aws_iam_role" "code_pipeline_role" {
 }
 
 resource "aws_iam_role" "lambda_execution_role" {
-    arn                   = "arn:aws:iam::855175680035:role/LambdaExecutionRole"
     assume_role_policy    = jsonencode(
         {
             Statement = [
@@ -237,9 +236,7 @@ resource "aws_iam_role" "lambda_execution_role" {
             Version   = "2012-10-17"
         }
     )
-    create_date           = "2022-02-24T03:24:49Z"
     force_detach_policies = false
-    id                    = "LambdaExecutionRole"
     managed_policy_arns   = [
         "arn:aws:iam::855175680035:policy/service-role/AWSLambdaSNSTopicDestinationExecutionRole-46da055a-b0d2-409b-9172-c7a754cb0f49",
         "arn:aws:iam::855175680035:policy/service-role/AWSLambdaSNSTopicDestinationExecutionRole-af068a06-b488-4ad7-a7d0-2835208207d6",
@@ -250,9 +247,6 @@ resource "aws_iam_role" "lambda_execution_role" {
     max_session_duration  = 3600
     name                  = "LambdaExecutionRole"
     path                  = "/"
-    tags                  = {}
-    tags_all              = {}
-    unique_id             = "AROA4OHDRKARRZDKSUFFC"
 
     inline_policy {}
 }
