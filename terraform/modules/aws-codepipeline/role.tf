@@ -222,18 +222,37 @@ resource "aws_iam_role" "code_pipeline_role" {
 }
 
 resource "aws_iam_role" "lambda_execution_role" {
-  name = "LambdaExecutionRole"
-
-  assume_role_policy = jsonencode({
-    "Version" : "2012-10-17",
-    "Statement" : [
-      {
-        "Effect" : "Allow",
-        "Principal" : {
-          "Service" : "lambda.amazonaws.com"
-        },
-        "Action" : "sts:AssumeRole"
-      }
+    arn                   = "arn:aws:iam::855175680035:role/LambdaExecutionRole"
+    assume_role_policy    = jsonencode(
+        {
+            Statement = [
+                {
+                    Action    = "sts:AssumeRole"
+                    Effect    = "Allow"
+                    Principal = {
+                        Service = "lambda.amazonaws.com"
+                    }
+                },
+            ]
+            Version   = "2012-10-17"
+        }
+    )
+    create_date           = "2022-02-24T03:24:49Z"
+    force_detach_policies = false
+    id                    = "LambdaExecutionRole"
+    managed_policy_arns   = [
+        "arn:aws:iam::855175680035:policy/service-role/AWSLambdaSNSTopicDestinationExecutionRole-46da055a-b0d2-409b-9172-c7a754cb0f49",
+        "arn:aws:iam::855175680035:policy/service-role/AWSLambdaSNSTopicDestinationExecutionRole-af068a06-b488-4ad7-a7d0-2835208207d6",
+        "arn:aws:iam::aws:policy/AmazonDynamoDBFullAccess",
+        "arn:aws:iam::aws:policy/AmazonSQSFullAccess",
+        "arn:aws:iam::aws:policy/service-role/AWSLambdaSQSQueueExecutionRole",
     ]
-  })
+    max_session_duration  = 3600
+    name                  = "LambdaExecutionRole"
+    path                  = "/"
+    tags                  = {}
+    tags_all              = {}
+    unique_id             = "AROA4OHDRKARRZDKSUFFC"
+
+    inline_policy {}
 }

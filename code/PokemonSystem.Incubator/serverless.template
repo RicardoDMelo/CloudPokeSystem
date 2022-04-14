@@ -13,7 +13,7 @@
         "CodeUri": "",
         "MemorySize": 256,
         "Timeout": 30,
-        "Role": null,
+        "Role": "LambdaExecutionRole",
         "Policies": [
           "AWSLambda_FullAccess"
         ],
