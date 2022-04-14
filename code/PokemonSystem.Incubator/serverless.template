@@ -13,10 +13,7 @@
         "CodeUri": "",
         "MemorySize": 256,
         "Timeout": 30,
-        "Role": "arn:aws:iam::${AWS::AccountId}:role/LambdaExecutionRole",
-        "Policies": [
-          "AWSLambda_FullAccess"
-        ],
+        "Role": { "Fn::Sub" : "arn:aws:iam::${AWS::AccountId}:role/LambdaExecutionRole" },
         "Events": {
           "ProxyResource": {
             "Type": "Api",
