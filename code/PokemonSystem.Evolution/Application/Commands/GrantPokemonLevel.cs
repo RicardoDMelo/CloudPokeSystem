@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using PokemonSystem.Evolution.Domain.PokemonAggregate;
+using System.Text.Json;
 
 namespace PokemonSystem.Evolution.Application.Commands
 {
@@ -10,6 +11,11 @@ namespace PokemonSystem.Evolution.Application.Commands
             Id = id;
             LevelToGrow = levelToGrow;
             SpeciesId = speciesId;
+        }
+
+        public static GrantPokemonLevel FromString(string json)
+        {
+            return JsonSerializer.Deserialize<GrantPokemonLevel>(json)!;
         }
 
         public Guid Id { get; set; }

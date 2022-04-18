@@ -1,3 +1,4 @@
+using Amazon.Lambda.SQSEvents;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using PokemonSystem.Evolution.Application.Commands;
@@ -25,6 +26,25 @@ namespace PokemonSystem.Evolution.Application.Controllers
         {
             var pokemon = await _mediator.Send(grantPokemonLevel);
             return pokemon;
+        }
+
+        /// <summary>
+        /// A simple function that grants level to multiple pokemon from a sqs event
+        /// </summary>
+        /// <param name="grantPokemonsLevel"></param>
+        /// <returns>A pokemon</returns>
+        [HttpPost("sqs", Name = "GrantPokemonsLevel")]
+        public async Task<List<Pokemon>> GrantPokemonsLevelAsync([FromBody] SQSEvent sqsEvent)
+        {
+            var list = new List<Pokemon>();
+
+            foreach (var record in sqsEvent.Records)
+            {
+                var grantPokemonLevel = GrantPokemonLevel.FromString(record.Body);
+                list.Add(await _mediator.Send(grantPokemonLevel));
+            }
+
+            return list;
         }
     }
 }
