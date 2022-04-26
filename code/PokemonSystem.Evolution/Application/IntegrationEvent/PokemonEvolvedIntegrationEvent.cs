@@ -7,7 +7,9 @@ namespace PokemonSystem.Evolution.Application.IntegrationEvent
     {
         public PokemonEvolvedIntegrationEvent(Pokemon pokemon)
         {
-            Pokemon = new PokemonDto(pokemon);
+            Id = pokemon.Id;
+            Level = pokemon.Level.Value;
+            SpeciesId = pokemon.PokemonSpecies.Id;
         }
 
         public override string ToString()
@@ -15,6 +17,8 @@ namespace PokemonSystem.Evolution.Application.IntegrationEvent
             return JsonSerializer.Serialize(this);
         }
 
-        public PokemonDto Pokemon { get; set; }
+        public Guid Id { get; private set; }
+        public uint Level { get; private set; }
+        public uint SpeciesId { get; private set; }
     }
 }

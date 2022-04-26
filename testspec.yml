@@ -1,0 +1,16 @@
+version: 0.2
+env:
+  variables:
+    DOTNET_ROOT: /root/.dotnet
+phases:
+  install:
+    commands:
+      - /usr/local/bin/dotnet-install.sh --channel LTS
+  pre_build:
+    commands:
+      - export PATH="$PATH:/root/.dotnet/tools"
+  build:
+    commands:
+      - echo Testing started on `date`
+      - cd code/PokemonSystem.Tests/ 
+      - dotnet test

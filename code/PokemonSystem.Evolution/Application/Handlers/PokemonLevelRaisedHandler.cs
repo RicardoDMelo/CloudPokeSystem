@@ -1,6 +1,8 @@
 ﻿using Amazon.SimpleNotificationService;
 using Amazon.SimpleNotificationService.Model;
 using MediatR;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using PokemonSystem.Evolution.Application.IntegrationEvent;
 using PokemonSystem.Evolution.Domain.PokemonAggregate;
 

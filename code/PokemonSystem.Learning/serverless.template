@@ -5,33 +5,53 @@
   "Parameters": {},
   "Conditions": {},
   "Resources": {
-    "TeachPokemonMoves": {
+    "TeachPokemonMovesRest": {
       "Type": "AWS::Serverless::Function",
       "Properties": {
-        "Handler": "PokemonSystem.Learning::PokemonSystem.Learning.Application.LambdaEntryPoint::FunctionHandlerAsync",
+        "Handler": "PokemonSystem.Learning::PokemonSystem.Learning.Application.Functions.LearningFunction::TeachPokemonMovesRestAsync",
         "Runtime": "dotnet6",
         "CodeUri": "",
         "MemorySize": 256,
         "Timeout": 30,
         "Role": { "Fn::Sub" : "arn:aws:iam::${AWS::AccountId}:role/LambdaExecutionRole" },
         "Events": {
-          "ProxyResource": {
-            "Type": "Api",
-            "Properties": {
-              "Path": "/{proxy+}",
-              "Method": "ANY"
-            }
-          },
-          "RootResource": {
+          "ApiEvent": {
             "Type": "Api",
             "Properties": {
               "Path": "/",
-              "Method": "ANY"
+              "Method": "POST"
             }
           }
         }
       }
-    }
+    },
+    "TeachPokemonMovesSQS": {
+      "Type": "AWS::Serverless::Function",
+      "Properties": {
+        "Handler": "PokemonSystem.Learning::PokemonSystem.Learning.Application.Functions.LearningFunction::TeachPokemonMovesSQSAsync",
+        "Runtime": "dotnet6",
+        "CodeUri": "",
+        "MemorySize": 256,
+        "Timeout": 30,
+        "Role": { "Fn::Sub" : "arn:aws:iam::${AWS::AccountId}:role/LambdaExecutionRole" },
+        "Events": {
+          "PokemonLevelRaisedSQSEvent": {
+            "Type": "SQS",
+            "Properties": {
+              "Queue": { "Fn::Sub" :"arn:aws:sqs:${AWS::Region}:${AWS::AccountId}:PokemonLevelRaised.fifo" },
+              "BatchSize": 10
+            }
+          },
+          "PokemonEvolvedSQSEvent": {
+            "Type": "SQS",
+            "Properties": {
+              "Queue": { "Fn::Sub" :"arn:aws:sqs:${AWS::Region}:${AWS::AccountId}:PokemonEvolved.fifo" },
+              "BatchSize": 10
+            }
+          }
+        }
+      }
+    }    
   },
   "Outputs": {
     "ApiURL": {

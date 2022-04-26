@@ -5,28 +5,41 @@
   "Parameters": {},
   "Conditions": {},
   "Resources": {
-    "GrantPokemonLevel": {
+    "GrantPokemonLevelRest": {
       "Type": "AWS::Serverless::Function",
       "Properties": {
-        "Handler": "PokemonSystem.Evolution::PokemonSystem.Evolution.Application.LambdaEntryPoint::FunctionHandlerAsync",
+        "Handler": "PokemonSystem.Evolution::PokemonSystem.Evolution.Application.Functions.EvolutionFunction::GrantPokemonLevelRestAsync",
         "Runtime": "dotnet6",
         "CodeUri": "",
         "MemorySize": 256,
         "Timeout": 30,
         "Role": { "Fn::Sub" : "arn:aws:iam::${AWS::AccountId}:role/LambdaExecutionRole" },
         "Events": {
-          "ProxyResource": {
-            "Type": "Api",
-            "Properties": {
-              "Path": "/{proxy+}",
-              "Method": "ANY"
-            }
-          },
-          "RootResource": {
+          "ApiEvent": {
             "Type": "Api",
             "Properties": {
               "Path": "/",
-              "Method": "ANY"
+              "Method": "POST"
+            }
+          }
+        }
+      }
+    },
+    "GrantPokemonLevelSQS": {
+      "Type": "AWS::Serverless::Function",
+      "Properties": {
+        "Handler": "PokemonSystem.Evolution::PokemonSystem.Evolution.Application.Functions.EvolutionFunction::GrantPokemonLevelSQSAsync",
+        "Runtime": "dotnet6",
+        "CodeUri": "",
+        "MemorySize": 256,
+        "Timeout": 30,
+        "Role": { "Fn::Sub" : "arn:aws:iam::${AWS::AccountId}:role/LambdaExecutionRole" },
+        "Events": {
+          "SQSEvent": {
+            "Type": "SQS",
+            "Properties": {
+              "Queue": { "Fn::Sub" :"arn:aws:sqs:${AWS::Region}:${AWS::AccountId}:PokemonCreatedQueue.fifo" },
+              "BatchSize": 10
             }
           }
         }
