@@ -38,14 +38,14 @@
           "PokemonLevelRaisedSQSEvent": {
             "Type": "SQS",
             "Properties": {
-              "Queue": { "Fn::Sub" :"arn:aws:sqs:${AWS::Region}:${AWS::AccountId}:PokemonLevelRaised.fifo" },
+              "Queue": { "Fn::Sub" :"arn:aws:sqs:${AWS::Region}:${AWS::AccountId}:PokemonLevelRaisedQueue.fifo" },
               "BatchSize": 10
             }
           },
           "PokemonEvolvedSQSEvent": {
             "Type": "SQS",
             "Properties": {
-              "Queue": { "Fn::Sub" :"arn:aws:sqs:${AWS::Region}:${AWS::AccountId}:PokemonEvolved.fifo" },
+              "Queue": { "Fn::Sub" :"arn:aws:sqs:${AWS::Region}:${AWS::AccountId}:PokemonEvolvedQueue.fifo" },
               "BatchSize": 10
             }
           }
