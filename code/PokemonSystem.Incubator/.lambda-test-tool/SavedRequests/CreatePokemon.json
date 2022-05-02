@@ -1,8 +1,0 @@
-{
-  "body": "{\"test\":\"body\"}",
-  "headers": {
-    "Content-Type": "application/json; charset=utf-8"
-  },
-  "httpMethod": "POST",
-  "path": "api/Incubator"
-}

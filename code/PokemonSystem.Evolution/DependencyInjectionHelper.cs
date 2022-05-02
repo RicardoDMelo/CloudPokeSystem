@@ -30,6 +30,7 @@ namespace PokemonSystem.Evolution
                .Build();
 
             services.AddMediatR(typeof(GrantPokemonLevel));
+            services.AddLogging();
             services.AddSingleton(config);
 
             services.ConfigureAWS(config);

@@ -27,6 +27,7 @@ namespace PokemonSystem.Incubator
                .Build();
 
             services.AddMediatR(typeof(TeachPokemonMoves));
+            services.AddLogging();
             services.AddSingleton(config);
 
             services.ConfigureAWS(config);

@@ -32,6 +32,7 @@ namespace PokemonSystem.Incubator
                .Build();
 
             services.AddMediatR(typeof(CreateRandomPokemon));
+            services.AddLogging();
             services.AddSingleton(config);
 
             services.ConfigureAWS(config);
