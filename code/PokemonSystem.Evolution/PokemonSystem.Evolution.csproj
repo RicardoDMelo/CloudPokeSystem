@@ -9,14 +9,14 @@
 		<PublishReadyToRun>true</PublishReadyToRun>
 	</PropertyGroup>
 	<ItemGroup>
-		<PackageReference Include="Amazon.Lambda.Core" Version="2.1.0" />
+		<PackageReference Include="Amazon.Lambda.AspNetCoreServer" Version="7.0.1" />
 		<PackageReference Include="Amazon.Lambda.Serialization.SystemTextJson" Version="2.3.0" />
 		<PackageReference Include="Amazon.Lambda.SQSEvents" Version="2.1.0" />
 		<PackageReference Include="AutoMapper" Version="11.0.1" />
 		<PackageReference Include="AWSSDK.DynamoDBv2" Version="3.7.3.16" />
 		<PackageReference Include="AWSSDK.Extensions.NETCore.Setup" Version="3.7.2" />
 		<PackageReference Include="AWSSDK.SimpleNotificationService" Version="3.7.3.42" />
-		<PackageReference Include="MediatR" Version="10.0.1" />
+		<PackageReference Include="MediatR" Version="10.0.1" />		
 		<PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="10.0.1" />
 		<PackageReference Include="Microsoft.Extensions.Configuration" Version="6.0.1" />
 		<PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="6.0.0" />
