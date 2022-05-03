@@ -15,9 +15,7 @@ phases:
       - aws configure set region $AWS_REGION
       - aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
       - aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
-      - dotnet new -i Amazon.Lambda.Templates::*
       - dotnet tool install -g Amazon.Lambda.Tools
-      - dotnet tool update -g Amazon.Lambda.Tools
   build:
     commands:
       - echo Learning Build started on `date`
