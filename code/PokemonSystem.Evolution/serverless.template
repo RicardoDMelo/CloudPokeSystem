@@ -15,14 +15,21 @@
         "Timeout": 30,
         "Role": { "Fn::Sub" : "arn:aws:iam::${AWS::AccountId}:role/LambdaExecutionRole" },
         "Events": {
-          "ApiEvent": {
+          "ProxyResource": {
+            "Type": "Api",
+            "Properties": {
+              "Path": "/{proxy+}",
+              "Method": "ANY"
+            }
+          },
+          "RootResource": {
             "Type": "Api",
             "Properties": {
               "Path": "/",
-              "Method": "POST"
+              "Method": "ANY"
             }
           }
-        }
+        }        
       }
     },
     "GrantPokemonLevelSQS": {
