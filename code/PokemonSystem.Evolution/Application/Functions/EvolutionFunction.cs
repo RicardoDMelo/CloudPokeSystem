@@ -1,10 +1,13 @@
+using Amazon.Lambda.APIGatewayEvents;
 using Amazon.Lambda.Core;
 using Amazon.Lambda.SQSEvents;
 using MediatR;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using PokemonSystem.Evolution.Application.Commands;
 using PokemonSystem.Evolution.Domain.PokemonAggregate;
-
+using System.Net;
+using System.Text.Json;
 
 [assembly: LambdaSerializer(typeof(Amazon.Lambda.Serialization.SystemTextJson.DefaultLambdaJsonSerializer))]
 namespace PokemonSystem.Evolution.Application.Functions;
@@ -23,10 +26,19 @@ public class EvolutionFunction
     /// </summary>
     /// <param name="grantPokemonLevel"></param>
     /// <returns>A pokemon</returns>
-    public async Task<Pokemon> GrantPokemonLevelRestAsync(GrantPokemonLevel grantPokemonLevel)
+    [HttpPost(Name = "GrantPokemonLevel")]
+    public async Task<APIGatewayProxyResponse> GrantPokemonLevelRestAsync(GrantPokemonLevel grantPokemonLevel)
     {
         var pokemon = await _mediator.Send(grantPokemonLevel);
-        return pokemon;
+
+        var response = new APIGatewayProxyResponse
+        {
+            StatusCode = (int)HttpStatusCode.OK,
+            Body = JsonSerializer.Serialize(pokemon),
+            Headers = new Dictionary<string, string> { { "Content-Type", "application/json" } }
+        };
+
+        return response;
     }
 
     /// <summary>

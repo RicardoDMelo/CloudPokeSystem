@@ -1,3 +1,4 @@
+using Amazon.Lambda.APIGatewayEvents;
 using Amazon.Lambda.Core;
 using Amazon.Lambda.SQSEvents;
 using MediatR;
@@ -5,6 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using PokemonSystem.Evolution.Application.Commands;
 using PokemonSystem.Learning.Domain.PokemonAggregate;
+using System.Net;
+using System.Text.Json;
 
 [assembly: LambdaSerializer(typeof(Amazon.Lambda.Serialization.SystemTextJson.DefaultLambdaJsonSerializer))]
 namespace PokemonSystem.Incubator.Application.Functions
@@ -26,9 +29,20 @@ namespace PokemonSystem.Incubator.Application.Functions
         /// </summary>
         /// <param name="teachPokemonLevel"></param>
         /// <returns>A pokemon</returns>
-        public async Task<Pokemon> TeachPokemonMovesRestAsync(TeachPokemonMoves teachPokemonMoves)
+        [HttpPost(Name = "TeachPokemonMoves")]
+        public async Task<APIGatewayProxyResponse> TeachPokemonMovesRestAsync(TeachPokemonMoves teachPokemonMoves)
         {
-            return await _mediator.Send(teachPokemonMoves);
+
+            var pokemon = await _mediator.Send(teachPokemonMoves);
+
+            var response = new APIGatewayProxyResponse
+            {
+                StatusCode = (int)HttpStatusCode.OK,
+                Body = JsonSerializer.Serialize(pokemon),
+                Headers = new Dictionary<string, string> { { "Content-Type", "application/json" } }
+            };
+
+            return response;
         }
 
         /// <summary>
