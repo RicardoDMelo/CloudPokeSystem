@@ -25,19 +25,32 @@ namespace PokemonSystem.Incubator.Application.Functions
         /// <summary>
         /// A simple function that generates a pokemon
         /// </summary>
-        /// <param name="createRandomPokemon"></param>
+        /// <param name="request"></param>
         /// <returns>A pokemon</returns>
-        [HttpPost(Name = "CreateRandomPokemon")]
-        public async Task<APIGatewayProxyResponse> CreateRandomPokemonRestAsync(CreateRandomPokemon createRandomPokemon)
+        public async Task<APIGatewayProxyResponse> CreateRandomPokemonRestAsync(APIGatewayProxyRequest request)
         {
-            var pokemon = await _mediator.Send(createRandomPokemon);
+            APIGatewayProxyResponse response;
+            var createRandomPokemon = JsonSerializer.Deserialize<CreateRandomPokemon>(request.Body);
 
-            var response = new APIGatewayProxyResponse
+            if (createRandomPokemon == null)
             {
-                StatusCode = (int)HttpStatusCode.OK,
-                Body = JsonSerializer.Serialize(pokemon),
-                Headers = new Dictionary<string, string> { { "Content-Type", "application/json" } }
-            };
+                response = new APIGatewayProxyResponse
+                {
+                    StatusCode = (int)HttpStatusCode.BadRequest,
+                    Body = "Invalid Json"
+                };
+            }
+            else
+            {
+                var pokemon = await _mediator.Send(createRandomPokemon);
+
+                response = new APIGatewayProxyResponse
+                {
+                    StatusCode = (int)HttpStatusCode.OK,
+                    Body = JsonSerializer.Serialize(pokemon),
+                    Headers = new Dictionary<string, string> { { "Content-Type", "application/json" } }
+                };
+            }
 
             return response;
         }

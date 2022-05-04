@@ -27,20 +27,32 @@ namespace PokemonSystem.Incubator.Application.Functions
         /// <summary>
         /// A simple function that teachs moves to a pokemon
         /// </summary>
-        /// <param name="teachPokemonLevel"></param>
+        /// <param name="request"></param>
         /// <returns>A pokemon</returns>
-        [HttpPost(Name = "TeachPokemonMoves")]
-        public async Task<APIGatewayProxyResponse> TeachPokemonMovesRestAsync(TeachPokemonMoves teachPokemonMoves)
+        public async Task<APIGatewayProxyResponse> TeachPokemonMovesRestAsync(APIGatewayProxyRequest request)
         {
+            APIGatewayProxyResponse response;
+            var teachPokemonMoves = JsonSerializer.Deserialize<TeachPokemonMoves>(request.Body);
 
-            var pokemon = await _mediator.Send(teachPokemonMoves);
-
-            var response = new APIGatewayProxyResponse
+            if (teachPokemonMoves == null)
             {
-                StatusCode = (int)HttpStatusCode.OK,
-                Body = JsonSerializer.Serialize(pokemon),
-                Headers = new Dictionary<string, string> { { "Content-Type", "application/json" } }
-            };
+                response = new APIGatewayProxyResponse
+                {
+                    StatusCode = (int)HttpStatusCode.BadRequest,
+                    Body = "Invalid Json"
+                };
+            }
+            else
+            {
+                var pokemon = await _mediator.Send(teachPokemonMoves);
+
+                response = new APIGatewayProxyResponse
+                {
+                    StatusCode = (int)HttpStatusCode.OK,
+                    Body = JsonSerializer.Serialize(pokemon),
+                    Headers = new Dictionary<string, string> { { "Content-Type", "application/json" } }
+                };
+            }
 
             return response;
         }

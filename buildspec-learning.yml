@@ -2,6 +2,9 @@ version: 0.2
 env:
   variables:
     DOTNET_ROOT: /root/.dotnet
+cache:
+  paths:
+    - '/root/.nuget/**/*'
 phases:
   install:
     commands:

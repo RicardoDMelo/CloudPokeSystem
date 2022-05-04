@@ -24,19 +24,32 @@ public class EvolutionFunction
     /// <summary>
     /// A simple function that grants level to a pokemon
     /// </summary>
-    /// <param name="grantPokemonLevel"></param>
+    /// <param name="request"></param>
     /// <returns>A pokemon</returns>
-    [HttpPost(Name = "GrantPokemonLevel")]
-    public async Task<APIGatewayProxyResponse> GrantPokemonLevelRestAsync(GrantPokemonLevel grantPokemonLevel)
+    public async Task<APIGatewayProxyResponse> TeachPokemonMovesRestAsync(APIGatewayProxyRequest request)
     {
-        var pokemon = await _mediator.Send(grantPokemonLevel);
+        APIGatewayProxyResponse response;
+        var grantPokemonLevel = JsonSerializer.Deserialize<GrantPokemonLevel>(request.Body);
 
-        var response = new APIGatewayProxyResponse
+        if (grantPokemonLevel == null)
         {
-            StatusCode = (int)HttpStatusCode.OK,
-            Body = JsonSerializer.Serialize(pokemon),
-            Headers = new Dictionary<string, string> { { "Content-Type", "application/json" } }
-        };
+            response = new APIGatewayProxyResponse
+            {
+                StatusCode = (int)HttpStatusCode.BadRequest,
+                Body = "Invalid Json"
+            };
+        }
+        else
+        {
+            var pokemon = await _mediator.Send(grantPokemonLevel);
+
+            response = new APIGatewayProxyResponse
+            {
+                StatusCode = (int)HttpStatusCode.OK,
+                Body = JsonSerializer.Serialize(pokemon),
+                Headers = new Dictionary<string, string> { { "Content-Type", "application/json" } }
+            };
+        }
 
         return response;
     }
