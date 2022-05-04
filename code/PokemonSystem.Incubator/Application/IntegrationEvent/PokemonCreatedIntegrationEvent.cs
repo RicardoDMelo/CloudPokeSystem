@@ -8,27 +8,16 @@ namespace PokemonSystem.Incubator.Application.IntegrationEvent
     {
         public PokemonCreatedIntegrationEvent(Pokemon pokemon)
         {
-            Pokemon = new PokemonDto(pokemon);
-        }
-
-        public override string ToString()
-        {
-            return JsonSerializer.Serialize(this);
-        }
-
-        public PokemonDto Pokemon { get; set; }
-    }
-
-    #region Integration Dtos
-    public class PokemonDto
-    {
-        public PokemonDto(Pokemon pokemon)
-        {
             Id = pokemon.Id;
             Nickname = pokemon.Nickname;
             LevelToGrow = pokemon.LevelToGrow.Value;
             Gender = pokemon.Gender;
             SpeciesId = pokemon.PokemonSpecies.Id;
+        }
+
+        public override string ToString()
+        {
+            return JsonSerializer.Serialize(this);
         }
 
         public Guid Id { get; private set; }
@@ -37,5 +26,4 @@ namespace PokemonSystem.Incubator.Application.IntegrationEvent
         public uint SpeciesId { get; private set; }
         public Gender Gender { get; private set; }
     }
-    #endregion
 }

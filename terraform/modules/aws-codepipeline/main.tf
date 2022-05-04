@@ -11,7 +11,7 @@ resource "aws_s3_bucket" "build_bucket" {
 
 resource "aws_codebuild_project" "code_test" {
     badge_enabled          = false
-    build_timeout          = 60
+    build_timeout          = 5
     concurrent_build_limit = 1
     encryption_key         = "arn:aws:kms:${var.aws_region}:${var.aws_account_id}:alias/aws/s3"
     name                   = "PokeCodeTest"
@@ -28,8 +28,8 @@ resource "aws_codebuild_project" "code_test" {
     }
 
     cache {
-        modes = []
-        type  = "NO_CACHE"
+        modes = ["LOCAL_CUSTOM_CACHE"]
+        type  = "LOCAL"
     }
 
     environment {
@@ -83,7 +83,7 @@ resource "aws_codebuild_project" "code_test" {
 
 resource "aws_codebuild_project" "incubator_code_build" {
     badge_enabled          = false
-    build_timeout          = 60
+    build_timeout          = 5
     concurrent_build_limit = 1
     encryption_key         = "arn:aws:kms:${var.aws_region}:${var.aws_account_id}:alias/aws/s3"
     name                   = "PokeCodeBuild-Incubator"
@@ -100,8 +100,8 @@ resource "aws_codebuild_project" "incubator_code_build" {
     }
 
     cache {
-        modes = []
-        type  = "NO_CACHE"
+        modes = ["LOCAL_CUSTOM_CACHE"]
+        type  = "LOCAL"
     }
 
     environment {
@@ -155,7 +155,7 @@ resource "aws_codebuild_project" "incubator_code_build" {
 
 resource "aws_codebuild_project" "evolution_code_build" {
     badge_enabled          = false
-    build_timeout          = 60
+    build_timeout          = 5
     concurrent_build_limit = 1
     encryption_key         = "arn:aws:kms:${var.aws_region}:${var.aws_account_id}:alias/aws/s3"
     name                   = "PokeCodeBuild-Evolution"
@@ -172,8 +172,8 @@ resource "aws_codebuild_project" "evolution_code_build" {
     }
 
     cache {
-        modes = []
-        type  = "NO_CACHE"
+        modes = ["LOCAL_CUSTOM_CACHE"]
+        type  = "LOCAL"
     }
 
     environment {
@@ -227,7 +227,7 @@ resource "aws_codebuild_project" "evolution_code_build" {
 
 resource "aws_codebuild_project" "learning_code_build" {
     badge_enabled          = false
-    build_timeout          = 60
+    build_timeout          = 5
     concurrent_build_limit = 1
     encryption_key         = "arn:aws:kms:${var.aws_region}:${var.aws_account_id}:alias/aws/s3"
     name                   = "PokeCodeBuild-Learning"
@@ -244,8 +244,8 @@ resource "aws_codebuild_project" "learning_code_build" {
     }
 
     cache {
-        modes = []
-        type  = "NO_CACHE"
+        modes = ["LOCAL_CUSTOM_CACHE"]
+        type  = "LOCAL"
     }
 
     environment {
