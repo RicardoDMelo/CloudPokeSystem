@@ -15,18 +15,11 @@
         "Timeout": 30,
         "Role": { "Fn::Sub" : "arn:aws:iam::${AWS::AccountId}:role/LambdaExecutionRole" },
         "Events": {
-          "ProxyResource": {
-            "Type": "Api",
-            "Properties": {
-              "Path": "/{proxy+}",
-              "Method": "ANY"
-            }
-          },
           "RootResource": {
-            "Type": "Api",
+            "Type": "HttpApi",
             "Properties": {
               "Path": "/",
-              "Method": "ANY"
+              "Method": "POST"
             }
           }
         }        
@@ -57,7 +50,7 @@
     "ApiURL": {
       "Description": "API endpoint URL",
       "Value": {
-        "Fn::Sub": "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/"
+        "Fn::Sub": "https://${ServerlessHttpApi}.execute-api.${AWS::Region}.amazonaws.com/"
       }
     }
   }
