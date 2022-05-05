@@ -4,6 +4,7 @@ using Amazon.SimpleNotificationService;
 using MediatR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using PokemonSystem.Common.SeedWork;
 using PokemonSystem.Incubator.Application;
 using PokemonSystem.Incubator.Application.Adapters;
@@ -32,7 +33,11 @@ namespace PokemonSystem.Incubator
                .Build();
 
             services.AddMediatR(typeof(CreateRandomPokemon));
-            services.AddLogging();
+            services.AddLogging(opt =>
+            {
+                opt.AddLambdaLogger();
+                opt.SetMinimumLevel(LogLevel.Information);
+            });
             services.AddSingleton(config);
 
             services.ConfigureAWS(config);

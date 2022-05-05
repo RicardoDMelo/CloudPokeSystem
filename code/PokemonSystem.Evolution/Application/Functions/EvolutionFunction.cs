@@ -4,6 +4,7 @@ using Amazon.Lambda.SQSEvents;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using PokemonSystem.Evolution.Application.Commands;
 using PokemonSystem.Evolution.Domain.PokemonAggregate;
 using System.Net;
@@ -14,10 +15,12 @@ namespace PokemonSystem.Evolution.Application.Functions;
 public class EvolutionFunction
 {
     private readonly IMediator _mediator;
+    private readonly ILogger<EvolutionFunction> _logger;
 
     public EvolutionFunction()
     {
         var serviceProvider = DependencyInjectionHelper.BuildServiceProvider();
+        _logger = serviceProvider.GetRequiredService<ILogger<EvolutionFunction>>();
         _mediator = serviceProvider.GetRequiredService<IMediator>();
     }
 
@@ -28,6 +31,8 @@ public class EvolutionFunction
     /// <returns>A pokemon</returns>
     public async Task<APIGatewayProxyResponse> TeachPokemonMovesRestAsync(APIGatewayProxyRequest request)
     {
+        _logger.LogInformation("EVENT: " + JsonSerializer.Serialize(request));
+
         APIGatewayProxyResponse response;
         var grantPokemonLevel = JsonSerializer.Deserialize<GrantPokemonLevel>(request.Body);
 
@@ -62,8 +67,9 @@ public class EvolutionFunction
     /// <returns>A pokemon list</returns>
     public async Task<List<Pokemon>> GrantPokemonLevelSQSAsync(SQSEvent sqsEvent, ILambdaContext context)
     {
-        var list = new List<Pokemon>();
+        _logger.LogInformation("EVENT: " + JsonSerializer.Serialize(sqsEvent));
 
+        var list = new List<Pokemon>();
         foreach (var record in sqsEvent.Records)
         {
             var grantPokemonLevel = GrantPokemonLevel.FromString(record.Body);

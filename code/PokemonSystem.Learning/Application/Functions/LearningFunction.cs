@@ -4,6 +4,7 @@ using Amazon.Lambda.SQSEvents;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using PokemonSystem.Evolution.Application.Commands;
 using PokemonSystem.Learning.Domain.PokemonAggregate;
 using System.Net;
@@ -17,10 +18,12 @@ namespace PokemonSystem.Incubator.Application.Functions
     {
 
         private readonly IMediator _mediator;
+        private readonly ILogger<LearningFunction> _logger;
 
         public LearningFunction()
         {
             var serviceProvider = DependencyInjectionHelper.BuildServiceProvider();
+            _logger = serviceProvider.GetRequiredService<ILogger<LearningFunction>>();
             _mediator = serviceProvider.GetRequiredService<IMediator>();
         }
 
@@ -31,6 +34,8 @@ namespace PokemonSystem.Incubator.Application.Functions
         /// <returns>A pokemon</returns>
         public async Task<APIGatewayProxyResponse> TeachPokemonMovesRestAsync(APIGatewayProxyRequest request)
         {
+            _logger.LogInformation("EVENT: " + JsonSerializer.Serialize(request));
+
             APIGatewayProxyResponse response;
             var teachPokemonMoves = JsonSerializer.Deserialize<TeachPokemonMoves>(request.Body);
 
@@ -65,6 +70,8 @@ namespace PokemonSystem.Incubator.Application.Functions
         /// <returns>A pokemon list</returns>
         public async Task<List<Pokemon>> TeachPokemonMovesSQSAsync(SQSEvent sqsEvent, ILambdaContext context)
         {
+            _logger.LogInformation("EVENT: " + JsonSerializer.Serialize(sqsEvent));
+
             var list = new List<Pokemon>();
 
             foreach (var record in sqsEvent.Records)

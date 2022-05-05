@@ -3,6 +3,7 @@ using Amazon.Lambda.Core;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using PokemonSystem.Incubator.Application.Commands;
 using System.Net;
 using System.Text.Json;
@@ -15,10 +16,12 @@ namespace PokemonSystem.Incubator.Application.Functions
     {
 
         private readonly IMediator _mediator;
+        private readonly ILogger<IncubatorFunction> _logger;
 
         public IncubatorFunction()
         {
             var serviceProvider = DependencyInjectionHelper.BuildServiceProvider();
+            _logger = serviceProvider.GetRequiredService<ILogger<IncubatorFunction>>();
             _mediator = serviceProvider.GetRequiredService<IMediator>();
         }
 
@@ -29,6 +32,8 @@ namespace PokemonSystem.Incubator.Application.Functions
         /// <returns>A pokemon</returns>
         public async Task<APIGatewayProxyResponse> CreateRandomPokemonRestAsync(APIGatewayProxyRequest request)
         {
+            _logger.LogInformation("EVENT: " + JsonSerializer.Serialize(request));
+
             APIGatewayProxyResponse response;
             var createRandomPokemon = JsonSerializer.Deserialize<CreateRandomPokemon>(request.Body);
 
