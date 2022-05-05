@@ -1,5 +1,6 @@
 using Amazon.Lambda.APIGatewayEvents;
 using Amazon.Lambda.Core;
+using Amazon.Lambda.SNSEvents;
 using Amazon.Lambda.SQSEvents;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -9,6 +10,7 @@ using PokemonSystem.Evolution.Application.Commands;
 using PokemonSystem.Learning.Domain.PokemonAggregate;
 using System.Net;
 using System.Text.Json;
+using static Amazon.Lambda.SNSEvents.SNSEvent;
 
 [assembly: LambdaSerializer(typeof(Amazon.Lambda.Serialization.SystemTextJson.DefaultLambdaJsonSerializer))]
 namespace PokemonSystem.Incubator.Application.Functions
@@ -76,8 +78,9 @@ namespace PokemonSystem.Incubator.Application.Functions
 
             foreach (var record in sqsEvent.Records)
             {
-                var teachPokemonMoves = TeachPokemonMoves.FromString(record.Body);
-                list.Add(await _mediator.Send(teachPokemonMoves));
+                var snsMessage = JsonSerializer.Deserialize<SNSMessage>(record.Body);
+                var teachPokemonMove = JsonSerializer.Deserialize<TeachPokemonMoves>(snsMessage!.Message);
+                list.Add(await _mediator.Send(teachPokemonMove!));
             }
 
             return list;

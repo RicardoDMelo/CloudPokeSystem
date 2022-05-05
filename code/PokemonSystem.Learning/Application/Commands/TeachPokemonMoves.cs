@@ -1,6 +1,5 @@
 ﻿using MediatR;
 using PokemonSystem.Learning.Domain.PokemonAggregate;
-using System.Text.Json;
 
 namespace PokemonSystem.Evolution.Application.Commands
 {
@@ -11,11 +10,6 @@ namespace PokemonSystem.Evolution.Application.Commands
             Id = id;
             Level = level;
             SpeciesId = speciesId;
-        }
-
-        public static TeachPokemonMoves FromString(string json)
-        {
-            return JsonSerializer.Deserialize<TeachPokemonMoves>(json)!;
         }
 
         public Guid Id { get; set; }

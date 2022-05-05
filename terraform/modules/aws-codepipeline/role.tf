@@ -221,6 +221,59 @@ resource "aws_iam_role" "code_pipeline_role" {
     }
 }
 
+resource "aws_iam_policy" "sns-topic-policy" {
+    name      = "SNSTopicPolicy"
+    path      = "/"
+    policy    = jsonencode(
+        {
+            Statement = [
+                {
+                    Action   = [
+                        "sns:ListTopics",
+                        "sns:Unsubscribe",
+                        "sns:CreatePlatformEndpoint",
+                        "sns:OptInPhoneNumber",
+                        "sns:CheckIfPhoneNumberIsOptedOut",
+                        "sns:ListEndpointsByPlatformApplication",
+                        "sns:SetEndpointAttributes",
+                        "sns:DeletePlatformApplication",
+                        "sns:SetPlatformApplicationAttributes",
+                        "sns:VerifySMSSandboxPhoneNumber",
+                        "sns:DeleteSMSSandboxPhoneNumber",
+                        "sns:ListSMSSandboxPhoneNumbers",
+                        "sns:CreatePlatformApplication",
+                        "sns:SetSMSAttributes",
+                        "sns:GetPlatformApplicationAttributes",
+                        "sns:GetSubscriptionAttributes",
+                        "sns:ListSubscriptions",
+                        "sns:ListOriginationNumbers",
+                        "sns:DeleteEndpoint",
+                        "sns:ListPhoneNumbersOptedOut",
+                        "sns:GetEndpointAttributes",
+                        "sns:SetSubscriptionAttributes",
+                        "sns:GetSMSSandboxAccountStatus",
+                        "sns:CreateSMSSandboxPhoneNumber",
+                        "sns:ListPlatformApplications",
+                        "sns:GetSMSAttributes",
+                    ]
+                    Effect   = "Allow"
+                    Resource = "*"
+                    Sid      = "VisualEditor0"
+                },
+                {
+                    Action   = "sns:*"
+                    Effect   = "Allow"
+                    Resource = "arn:aws:sns:*:855175680035:*"
+                    Sid      = "VisualEditor1"
+                },
+            ]
+            Version   = "2012-10-17"
+        }
+    )
+    tags      = {}
+    tags_all  = {}
+}
+
 resource "aws_iam_role" "lambda_execution_role" {
     assume_role_policy    = jsonencode(
         {
@@ -238,8 +291,7 @@ resource "aws_iam_role" "lambda_execution_role" {
     )
     force_detach_policies = false
     managed_policy_arns   = [
-        "arn:aws:iam::855175680035:policy/service-role/AWSLambdaSNSTopicDestinationExecutionRole-46da055a-b0d2-409b-9172-c7a754cb0f49",
-        "arn:aws:iam::855175680035:policy/service-role/AWSLambdaSNSTopicDestinationExecutionRole-af068a06-b488-4ad7-a7d0-2835208207d6",
+        aws_iam_policy.sns-topic-policy.arn,
         "arn:aws:iam::aws:policy/AmazonDynamoDBFullAccess",
         "arn:aws:iam::aws:policy/AmazonSQSFullAccess",
         "arn:aws:iam::aws:policy/service-role/AWSLambdaSQSQueueExecutionRole",

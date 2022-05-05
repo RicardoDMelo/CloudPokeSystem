@@ -9,6 +9,7 @@ using PokemonSystem.Evolution.Application.Commands;
 using PokemonSystem.Evolution.Domain.PokemonAggregate;
 using System.Net;
 using System.Text.Json;
+using static Amazon.Lambda.SNSEvents.SNSEvent;
 
 [assembly: LambdaSerializer(typeof(Amazon.Lambda.Serialization.SystemTextJson.DefaultLambdaJsonSerializer))]
 namespace PokemonSystem.Evolution.Application.Functions;
@@ -72,8 +73,9 @@ public class EvolutionFunction
         var list = new List<Pokemon>();
         foreach (var record in sqsEvent.Records)
         {
-            var grantPokemonLevel = GrantPokemonLevel.FromString(record.Body);
-            list.Add(await _mediator.Send(grantPokemonLevel));
+            var snsMessage = JsonSerializer.Deserialize<SNSMessage>(record.Body);
+            var grantPokemonLevel = JsonSerializer.Deserialize<GrantPokemonLevel>(snsMessage!.Message);
+            list.Add(await _mediator.Send(grantPokemonLevel!));
         }
 
         return list;
