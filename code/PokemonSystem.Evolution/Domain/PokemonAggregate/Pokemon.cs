@@ -61,10 +61,10 @@ namespace PokemonSystem.Evolution.Domain.PokemonAggregate
 
             if (oldLevel < newLevel)
             {
-                AddDomainEvent(new PokemonLevelRaisedDomainEvent(this));
-                for (uint levelIterator = oldLevel.Value; levelIterator <= newLevel.Value; levelIterator++)
+                for (uint levelIterator = oldLevel.Value + 1; levelIterator <= newLevel.Value; levelIterator++)
                 {
                     Level = new Level(levelIterator);
+                    AddDomainEvent(new PokemonLevelRaisedDomainEvent(this, Id, Level.Value, PokemonSpecies.Id));
                     CheckForEvolution();
                 }
             }
@@ -87,7 +87,7 @@ namespace PokemonSystem.Evolution.Domain.PokemonAggregate
                 {
                     int index = Random.Shared.Next(evolutions.Count());
                     PokemonSpecies = evolutions[index].Species;
-                    AddDomainEvent(new PokemonEvolvedDomainEvent(this));
+                    AddDomainEvent(new PokemonEvolvedDomainEvent(this, Id, Level.Value, PokemonSpecies.Id));
                 }
             }
         }
@@ -123,6 +123,7 @@ namespace PokemonSystem.Evolution.Domain.PokemonAggregate
         {
             return (stat * 2 * Level.Value / 100) + 5;
         }
+
         #endregion
     }
 }

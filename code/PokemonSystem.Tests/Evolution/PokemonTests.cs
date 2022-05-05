@@ -166,6 +166,51 @@ namespace PokemonSystem.Tests.Evolution
         }
 
         [Test]
+        public void Pokemon_Evolution_Should_Generate_Event()
+        {
+            uint evolutionSpeciesId = 10;
+            var evolutionSpecies = _speciesBuilder!
+                .WithName("Super Tauros")
+                .WithNumber(evolutionSpeciesId)
+                .Build();
+
+            var evolutionCriteria = _evolutionCriteriaBuilder!
+                .WithMinimumLevel(Levels.Two)
+                .WithSpecies(evolutionSpecies)
+                .Build();
+
+            var species = _speciesBuilder
+                .WithEvolutionCriterias(new List<EvolutionCriteria>() { evolutionCriteria })
+                .Build();
+
+            var pokemons = new List<Pokemon>();
+            for (int i = 0; i < 5000; i++)
+            {
+                var pokemon = new Pokemon(species, Levels.Max);
+                if (pokemon.PokemonSpecies.Id == evolutionSpeciesId)
+                {
+                    var evolutionEventCount = pokemon.DomainEvents.Where(x => x is PokemonEvolvedDomainEvent).Count();
+                    Assert.AreEqual(1, evolutionEventCount);
+
+                    var levelUpEventCount = pokemon.DomainEvents.Where(x => x is PokemonLevelRaisedDomainEvent).Count();
+                    Assert.AreEqual(Levels.Max.Value - 1, levelUpEventCount);
+                    break;
+                }
+            }
+        }
+
+        [Test]
+        public void Pokemon_Level_Up_Should_Generate_Event()
+        {
+            var species = _speciesBuilder!.Build();
+
+            var pokemon = new Pokemon(species, Levels.Ten);
+
+            var eventCount = pokemon.DomainEvents.Where(x => x is PokemonLevelRaisedDomainEvent).Count();
+            Assert.AreEqual(Levels.Ten.Value - 1, eventCount);
+        }
+
+        [Test]
         public void Pokemons_Should_Sometimes_Evolve()
         {
             var evolutionSpecies = _speciesBuilder!
