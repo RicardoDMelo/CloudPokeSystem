@@ -40,10 +40,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<Folder Include="Learning\" />
-	</ItemGroup>
-
-	<ItemGroup>
 		<ProjectReference Include="..\PokemonSystem.Common\PokemonSystem.Common.csproj" />
 		<ProjectReference Include="..\PokemonSystem.Evolution\PokemonSystem.Evolution.csproj" />
 		<ProjectReference Include="..\PokemonSystem.Incubator\PokemonSystem.Incubator.csproj" />

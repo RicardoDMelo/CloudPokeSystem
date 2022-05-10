@@ -1,8 +1,7 @@
-﻿using PokemonSystem.Incubator.Domain.SpeciesAggregate;
+﻿using PokemonSystem.Learning.Domain.PokemonAggregate;
 using PokemonSystem.Tests.ValueObjects;
-using System.Collections.Generic;
 
-namespace PokemonSystem.Tests.Incubator.Builders
+namespace PokemonSystem.Tests.Learning.Builders
 {
     public class MoveSetBuilder
     {
@@ -18,6 +17,15 @@ namespace PokemonSystem.Tests.Incubator.Builders
             _moveSet.Clear();
             _moveSet.Add(new MoveByLevel(Levels.One, Moves.Tackle));
             _moveSet.Add(new MoveByLevel(Levels.Two, Moves.TailWhip));
+            _moveSet.Add(new MoveByLevel(Levels.Three, Moves.Move1));
+            _moveSet.Add(new MoveByLevel(Levels.Four, Moves.Move2));
+            _moveSet.Add(new MoveByLevel(Levels.Five, Moves.Move3));
+            _moveSet.Add(new MoveByLevel(Levels.Ten, Moves.Move4));
+            _moveSet.Add(new MoveByLevel(Levels.Ten, Moves.Move5));
+            _moveSet.Add(new MoveByLevel(Levels.Twenty, Moves.Move6));
+            _moveSet.Add(new MoveByLevel(Levels.Fifty, Moves.Move7));
+            _moveSet.Add(new MoveByLevel(Levels.Max, Moves.Move8));
+            _moveSet.Add(new MoveByLevel(null, Moves.Move9));
         }
 
         public MoveSetBuilder AddMove(MoveByLevel moveByLevel)

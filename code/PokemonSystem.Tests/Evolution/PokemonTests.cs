@@ -237,8 +237,8 @@ namespace PokemonSystem.Tests.Evolution
             var basePokemons = pokemons.Where(x => x.PokemonSpecies.Equals(species)).Count();
             var evolvedPokemons = pokemons.Where(x => x.PokemonSpecies.Equals(evolutionSpecies)).Count();
 
-            Console.WriteLine($"Not Evolved Count:{basePokemons}");
-            Console.WriteLine($"Evolved Count:{evolvedPokemons}");
+            Console.WriteLine($"Not Evolved Count: {basePokemons}");
+            Console.WriteLine($"Evolved Count: {evolvedPokemons}");
 
             Assert.AreNotEqual(0, basePokemons);
             Assert.AreNotEqual(0, evolvedPokemons);
@@ -283,9 +283,9 @@ namespace PokemonSystem.Tests.Evolution
             var firstEvolutionPokemons = pokemons.Where(x => x.PokemonSpecies.Equals(superTauros)).Count();
             var secondEvolutionPokemons = pokemons.Where(x => x.PokemonSpecies.Equals(megaTauros)).Count();
 
-            Console.WriteLine($"Not Evolved Count:{basePokemons}");
-            Console.WriteLine($"First Evolution Count:{firstEvolutionPokemons}");
-            Console.WriteLine($"Second Evolution Count:{secondEvolutionPokemons}");
+            Console.WriteLine($"Not Evolved Count: {basePokemons}");
+            Console.WriteLine($"First Evolution Count: {firstEvolutionPokemons}");
+            Console.WriteLine($"Second Evolution Count: {secondEvolutionPokemons}");
 
             Assert.AreNotEqual(0, basePokemons);
             Assert.AreNotEqual(0, firstEvolutionPokemons);
@@ -331,9 +331,9 @@ namespace PokemonSystem.Tests.Evolution
             var firstEvolutionPokemons = pokemons.Where(x => x.PokemonSpecies.Equals(superTauros)).Count();
             var secondEvolutionPokemons = pokemons.Where(x => x.PokemonSpecies.Equals(megaTauros)).Count();
 
-            Console.WriteLine($"Not Evolved Count:{basePokemons}");
-            Console.WriteLine($"First Evolution Count:{firstEvolutionPokemons}");
-            Console.WriteLine($"Second Evolution Count:{secondEvolutionPokemons}");
+            Console.WriteLine($"Not Evolved Count: {basePokemons}");
+            Console.WriteLine($"First Evolution Count: {firstEvolutionPokemons}");
+            Console.WriteLine($"Second Evolution Count: {secondEvolutionPokemons}");
 
             Assert.AreNotEqual(0, basePokemons);
             Assert.AreNotEqual(0, firstEvolutionPokemons);

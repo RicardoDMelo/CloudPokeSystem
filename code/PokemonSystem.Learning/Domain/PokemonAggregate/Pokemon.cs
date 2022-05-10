@@ -5,16 +5,71 @@ namespace PokemonSystem.Learning.Domain.PokemonAggregate
 {
     public class Pokemon : Entity, IAggregateRoot
     {
-        public Pokemon(Species pokemonSpecies, Level level, List<Move> learntMoves)
+        public Pokemon(Species pokemonSpecies, Level level)
         {
             PokemonSpecies = pokemonSpecies ?? throw new ArgumentNullException(nameof(pokemonSpecies));
-            Level = level;
-            _learntMoves = learntMoves ?? throw new ArgumentNullException(nameof(learntMoves));
+            LearntMoves = new LearntMoves();
+            Level = new Level(1);
+            GrowToLevel(level);
         }
 
         public Species PokemonSpecies { get; private set; }
         public Level Level { get; private set; }
-        protected List<Move> _learntMoves { get; set; }
-        public IReadOnlyCollection<Move> LearntMoves { get => _learntMoves.AsReadOnly(); }
+        public LearntMoves LearntMoves { get; private set; }
+
+        private const double TM_CHANCE = 0.1;
+        private const double DEFAULT_CHANCE = 0.5;
+
+        public void GrowToLevel(Level level)
+        {
+            var oldLevel = Level;
+            Level = level;
+            for (uint i = oldLevel.Value; i <= Level.Value; i++)
+            {
+                var availableMoves = PokemonSpecies.MoveSet.Where(x => x.Level is null || x.Level.Value == i);
+                foreach (var moveByLevel in availableMoves)
+                {
+                    TryToLearnMove(moveByLevel);
+                }
+            }
+        }
+
+        private void TryToLearnMove(MoveByLevel moveByLevel)
+        {
+            double chanceFactor;
+
+            if (moveByLevel.Level is null)
+            {
+                chanceFactor = TM_CHANCE;
+            }
+            else
+            {
+                chanceFactor = DEFAULT_CHANCE;
+            }
+
+            if (moveByLevel.Level is null || LearntMoves.Values.Count == LearntMoves.MAX_MOVES)
+            {
+                var currentRandom = Random.Shared.NextDouble();
+                if (currentRandom < chanceFactor)
+                {
+                    if (LearntMoves.Values.Count == LearntMoves.MAX_MOVES)
+                    {
+                        ForgetRandomMove();
+                    }
+                    LearntMoves.AddMove(moveByLevel.Move);
+                }
+            }
+            else
+            {
+                LearntMoves.AddMove(moveByLevel.Move);
+            }
+        }
+
+        private void ForgetRandomMove()
+        {
+            var forgottenMoveIndex = Random.Shared.Next(0, LearntMoves.MAX_MOVES);
+            var forgottenMove = LearntMoves.Values.ElementAt(forgottenMoveIndex);
+            LearntMoves.ForgetMove(forgottenMove);
+        }
     }
 }

@@ -6,13 +6,13 @@ namespace PokemonSystem.Incubator.Domain.SpeciesAggregate
 {
     public class MoveByLevel : Entity
     {
-        public MoveByLevel(Level level, Move move) : base()
+        public MoveByLevel(Level? level, Move move) : base()
         {
             Level = level;
             Move = move;
         }
 
-        public Level Level { get; private set; }
+        public Level? Level { get; private set; }
         public Move Move { get; private set; }
     }
 }

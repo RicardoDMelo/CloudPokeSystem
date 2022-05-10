@@ -89,7 +89,7 @@ namespace PokemonSystem.PokedexInjector
             foreach (var moveWithLevel in moveSetDto.MovesWithLevel)
             {
                 string[] splitted = moveWithLevel.Split(" - ");
-                uint level = 1;
+                uint? level = null;
                 if (splitted[0].Contains("L"))
                 {
                     level = Convert.ToUInt32(splitted[0].Replace("L", string.Empty));
@@ -99,7 +99,7 @@ namespace PokemonSystem.PokedexInjector
                 var moveDto = allMoves.FirstOrDefault(x => x.Name == moveName);
                 if (moveDto != null)
                 {
-                    yield return new MoveByLevel(new Level(level), ConvertToDomain(moveDto));
+                    yield return new MoveByLevel(level != null ? new Level(level.Value) : null, ConvertToDomain(moveDto));
                 }
             }
         }

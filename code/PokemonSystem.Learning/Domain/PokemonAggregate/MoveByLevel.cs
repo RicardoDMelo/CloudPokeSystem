@@ -1,18 +1,17 @@
 ﻿using PokemonSystem.Common.SeedWork.Domain;
 using PokemonSystem.Common.ValueObjects;
-using System;
 
 namespace PokemonSystem.Learning.Domain.PokemonAggregate
 {
     public class MoveByLevel : Entity
     {
-        public MoveByLevel(Level level, Move move)
+        public MoveByLevel(Level? level, Move move)
         {
-            Level = level ?? throw new ArgumentNullException(nameof(level));
+            Level = level;
             Move = move ?? throw new ArgumentNullException(nameof(move));
         }
 
-        public Level Level { get; private set; }
+        public Level? Level { get; private set; }
         public Move Move { get; private set; }
     }
 }
