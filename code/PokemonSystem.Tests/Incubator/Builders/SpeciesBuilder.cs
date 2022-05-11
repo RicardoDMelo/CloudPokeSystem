@@ -3,6 +3,9 @@ using PokemonSystem.Common.Enums;
 using PokemonSystem.Common.ValueObjects;
 using PokemonSystem.Incubator.Domain.SpeciesAggregate;
 using PokemonSystem.Incubator.Infra.DatabaseDtos;
+using MoveByLevelDynamoDb = PokemonSystem.Incubator.Infra.DatabaseDtos.MoveByLevelDynamoDb;
+using MoveDynamoDb = PokemonSystem.Incubator.Infra.DatabaseDtos.MoveDynamoDb;
+using SpeciesDynamoDb = PokemonSystem.Incubator.Infra.DatabaseDtos.SpeciesDynamoDb;
 
 namespace PokemonSystem.Tests.Incubator.Builders
 {
@@ -112,8 +115,17 @@ namespace PokemonSystem.Tests.Incubator.Builders
                 cfg.CreateMap<Move, MoveDynamoDb>();
                 cfg.CreateMap<MoveByLevel, MoveByLevelDynamoDb>();
                 cfg.CreateMap<EvolutionCriteria, EvolutionCriteriaDynamoDb>();
-                cfg.CreateMap<Level, uint>().ConvertUsing(f => f.Value);
-                cfg.CreateMap<Level, uint?>().ConvertUsing(f => f.Value);
+                cfg.CreateMap<Level?, uint?>().ConvertUsing((src, dest) =>
+                {
+                    if (src is null)
+                    {
+                        return null;
+                    }
+                    else
+                    {
+                        return src.Value;
+                    }
+                });
             });
 
             config.AssertConfigurationIsValid();

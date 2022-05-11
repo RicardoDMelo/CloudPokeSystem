@@ -19,7 +19,7 @@ namespace PokemonSystem.PokedexInjector
         {
             _dbClient = new AmazonDynamoDBClient();
             _dynamoDBContext = new DynamoDBContext(_dbClient);
-            _speciesRepository = new SpeciesRepository(_dynamoDBContext);
+            _speciesRepository = new SpeciesRepository(_dynamoDBContext, new PokemonSystem.Incubator.Infra.Adapters.SpeciesAdapter());
         }
 
         public async Task CreateTablesAsync()

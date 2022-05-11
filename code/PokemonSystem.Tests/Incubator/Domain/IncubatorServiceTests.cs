@@ -2,10 +2,11 @@ using NSubstitute;
 using NUnit.Framework;
 using PokemonSystem.Common.Enums;
 using PokemonSystem.Common.ValueObjects;
-using PokemonSystem.Incubator.Application.Adapters;
 using PokemonSystem.Incubator.Domain;
 using PokemonSystem.Incubator.Domain.SpeciesAggregate;
+using PokemonSystem.Incubator.Infra.Adapters;
 using PokemonSystem.Incubator.Infra.DatabaseDtos;
+using PokemonSystem.Learning.Infra.DatabaseDtos;
 using PokemonSystem.Tests.Incubator.Builders;
 
 namespace PokemonSystem.Tests.Incubator.Domain
@@ -13,7 +14,6 @@ namespace PokemonSystem.Tests.Incubator.Domain
     public class IncubatorServiceTests
     {
         private ISpeciesRepository? _speciesRepository;
-        private ISpeciesAdapter? _speciesAdapter;
 
         private SpeciesBuilder? _speciesBuilder;
         private IncubatorService? _incubatorService;
@@ -22,9 +22,8 @@ namespace PokemonSystem.Tests.Incubator.Domain
         public void Setup()
         {
             _speciesRepository = Substitute.For<ISpeciesRepository>();
-            _speciesAdapter = Substitute.For<ISpeciesAdapter>();
             _speciesBuilder = new SpeciesBuilder();
-            _incubatorService = new IncubatorService(_speciesRepository, _speciesAdapter);
+            _incubatorService = new IncubatorService(_speciesRepository);
         }
 
         [Test]
@@ -33,8 +32,7 @@ namespace PokemonSystem.Tests.Incubator.Domain
             var species = _speciesBuilder!.Build();
             var speciesDynamoDb = _speciesBuilder.ConvertToDynamoDb(species);
 
-            _speciesRepository!.GetRandomSpeciesAsync().Returns(speciesDynamoDb);
-            _speciesAdapter!.ConvertToModel(Arg.Any<SpeciesDynamoDb>()).Returns(species);
+            _speciesRepository!.GetRandomSpeciesAsync().Returns(species);
             var pokemon = await _incubatorService!.GenerateRandomPokemonAsync(null, null);
 
             Assert.IsEmpty(pokemon.Nickname);
@@ -48,8 +46,7 @@ namespace PokemonSystem.Tests.Incubator.Domain
             var species = _speciesBuilder!.Build();
             var speciesDynamoDb = _speciesBuilder.ConvertToDynamoDb(species);
 
-            _speciesRepository!.GetRandomSpeciesAsync().Returns(speciesDynamoDb);
-            _speciesAdapter!.ConvertToModel(Arg.Any<SpeciesDynamoDb>()).Returns(species);
+            _speciesRepository!.GetRandomSpeciesAsync().Returns(species);
             var pokemon = await _incubatorService!.GenerateRandomPokemonAsync(nickname, null);
 
             Assert.AreEqual(nickname, pokemon.Nickname);
@@ -63,8 +60,7 @@ namespace PokemonSystem.Tests.Incubator.Domain
             var species = _speciesBuilder!.Build();
             var speciesDynamoDb = _speciesBuilder.ConvertToDynamoDb(species);
 
-            _speciesRepository!.GetRandomSpeciesAsync().Returns(speciesDynamoDb);
-            _speciesAdapter!.ConvertToModel(Arg.Any<SpeciesDynamoDb>()).Returns(species);
+            _speciesRepository!.GetRandomSpeciesAsync().Returns(species);
             var pokemon = await _incubatorService!.GenerateRandomPokemonAsync(null, level);
 
             Assert.AreEqual(level, pokemon.LevelToGrow);
@@ -77,8 +73,7 @@ namespace PokemonSystem.Tests.Incubator.Domain
             var species = _speciesBuilder!.WithMaleFactor(1).Build();
             var speciesDynamoDb = _speciesBuilder.ConvertToDynamoDb(species);
 
-            _speciesRepository!.GetRandomSpeciesAsync().Returns(speciesDynamoDb);
-            _speciesAdapter!.ConvertToModel(Arg.Any<SpeciesDynamoDb>()).Returns(species);
+            _speciesRepository!.GetRandomSpeciesAsync().Returns(species);
             var pokemon = await _incubatorService!.GenerateRandomPokemonAsync(null, null);
 
             Assert.AreEqual(species, pokemon.PokemonSpecies);
@@ -91,8 +86,7 @@ namespace PokemonSystem.Tests.Incubator.Domain
             var species = _speciesBuilder!.WithMaleFactor(0).Build();
             var speciesDynamoDb = _speciesBuilder.ConvertToDynamoDb(species);
 
-            _speciesRepository!.GetRandomSpeciesAsync().Returns(speciesDynamoDb);
-            _speciesAdapter!.ConvertToModel(Arg.Any<SpeciesDynamoDb>()).Returns(species);
+            _speciesRepository!.GetRandomSpeciesAsync().Returns(species);
             var pokemon = await _incubatorService!.GenerateRandomPokemonAsync(null, null);
 
             Assert.AreEqual(species, pokemon.PokemonSpecies);

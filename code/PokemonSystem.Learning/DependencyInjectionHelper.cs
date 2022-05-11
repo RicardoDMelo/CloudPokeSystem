@@ -6,10 +6,14 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using PokemonSystem.Common.SeedWork;
-using PokemonSystem.Evolution.Application.Commands;
 using PokemonSystem.Learning.Application;
+using PokemonSystem.Learning.Application.Commands;
+using PokemonSystem.Learning.Domain;
+using PokemonSystem.Learning.Domain.PokemonAggregate;
+using PokemonSystem.Learning.Domain.SpeciesAggregate;
+using PokemonSystem.Learning.Infra;
 
-namespace PokemonSystem.Incubator
+namespace PokemonSystem.Learning
 {
     public static class DependencyInjectionHelper
     {
@@ -55,6 +59,9 @@ namespace PokemonSystem.Incubator
         {
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IApplicationContext, ApplicationContext>();
+            services.AddScoped<ILearningService, LearningService>();
+            services.AddScoped<ISpeciesRepository, SpeciesRepository>();
+            services.AddScoped<IPokemonRepository, PokemonRepository>();
 
             return services;
         }

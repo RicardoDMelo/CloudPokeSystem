@@ -1,5 +1,6 @@
 ﻿using PokemonSystem.Common.SeedWork.Domain;
 using PokemonSystem.Common.ValueObjects;
+using PokemonSystem.Learning.Domain.SpeciesAggregate;
 
 namespace PokemonSystem.Learning.Domain.PokemonAggregate
 {
@@ -13,15 +14,20 @@ namespace PokemonSystem.Learning.Domain.PokemonAggregate
             GrowToLevel(level);
         }
 
-        public Species PokemonSpecies { get; private set; }
-        public Level Level { get; private set; }
-        public LearntMoves LearntMoves { get; private set; }
+        public Species PokemonSpecies { get; protected set; }
+        public Level Level { get; protected set; }
+        public LearntMoves LearntMoves { get; protected set; }
 
         private const double TM_CHANCE = 0.1;
         private const double DEFAULT_CHANCE = 0.5;
 
         public void GrowToLevel(Level level)
         {
+            if (level < Level)
+            {
+                throw new ArgumentOutOfRangeException(nameof(level));
+            }
+
             var oldLevel = Level;
             Level = level;
             for (uint i = oldLevel.Value; i <= Level.Value; i++)

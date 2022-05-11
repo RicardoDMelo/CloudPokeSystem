@@ -1,6 +1,7 @@
-﻿using PokemonSystem.Common.Enums;
+﻿using AutoMapper;
 using PokemonSystem.Common.ValueObjects;
-using PokemonSystem.Learning.Domain.PokemonAggregate;
+using PokemonSystem.Learning.Domain.SpeciesAggregate;
+using PokemonSystem.Learning.Infra.DatabaseDtos;
 
 namespace PokemonSystem.Tests.Learning.Builders
 {
@@ -63,6 +64,32 @@ namespace PokemonSystem.Tests.Learning.Builders
             );
             Reset();
             return species;
+        }
+
+        public SpeciesDynamoDb ConvertToDynamoDb(Species species)
+        {
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<Species, SpeciesDynamoDb>();
+                cfg.CreateMap<Move, MoveDynamoDb>();
+                cfg.CreateMap<MoveByLevel, MoveByLevelDynamoDb>();
+                cfg.CreateMap<Level?, uint?>().ConvertUsing((src, dest) =>
+                {
+                    if (src is null)
+                    {
+                        return null;
+                    }
+                    else
+                    {
+                        return src.Value;
+                    }
+                });
+            });
+
+            config.AssertConfigurationIsValid();
+            var mapper = config.CreateMapper();
+
+            return mapper.Map<SpeciesDynamoDb>(species);
         }
     }
 }

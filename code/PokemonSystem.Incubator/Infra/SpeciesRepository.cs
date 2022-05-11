@@ -1,5 +1,7 @@
 ﻿using Amazon.DynamoDBv2.DataModel;
 using Amazon.DynamoDBv2.DocumentModel;
+using PokemonSystem.Incubator.Domain.SpeciesAggregate;
+using PokemonSystem.Incubator.Infra.Adapters;
 using PokemonSystem.Incubator.Infra.DatabaseDtos;
 using PokemonSystem.Incubator.Infra.DataContracts;
 
@@ -8,19 +10,20 @@ namespace PokemonSystem.Incubator.Infra
     public class SpeciesRepository : IAppSpeciesRepository
     {
         private readonly IDynamoDBContext _dynamoDbContext;
-        private readonly Random _random;
+        private readonly ISpeciesAdapter _speciesAdapter;
 
-        public SpeciesRepository(IDynamoDBContext dynamoDbContext)
+        public SpeciesRepository(IDynamoDBContext dynamoDbContext, ISpeciesAdapter speciesAdapter)
         {
             _dynamoDbContext = dynamoDbContext;
-            _random = new Random();
+            _speciesAdapter = speciesAdapter;
         }
 
-        public async Task<SpeciesDynamoDb> GetRandomSpeciesAsync()
+        public async Task<Species> GetRandomSpeciesAsync()
         {
             var databaseCount = await GetCountAsync();
-            var randomPokemon = (uint)_random.Next(1, databaseCount + 1);
-            return await _dynamoDbContext.LoadAsync<SpeciesDynamoDb>(randomPokemon);
+            var randomPokemon = (uint)Random.Shared.Next(1, databaseCount + 1);
+            var speciesDto = await _dynamoDbContext.LoadAsync<SpeciesDynamoDb>(randomPokemon);
+            return _speciesAdapter.ConvertToModel(speciesDto);
         }
 
         public async Task<int> GetCountAsync()

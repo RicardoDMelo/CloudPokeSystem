@@ -1,19 +1,18 @@
 using Amazon.Lambda.APIGatewayEvents;
 using Amazon.Lambda.Core;
-using Amazon.Lambda.SNSEvents;
 using Amazon.Lambda.SQSEvents;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using PokemonSystem.Evolution.Application.Commands;
+using PokemonSystem.Learning.Application.Commands;
 using PokemonSystem.Learning.Domain.PokemonAggregate;
 using System.Net;
 using System.Text.Json;
 using static Amazon.Lambda.SNSEvents.SNSEvent;
 
 [assembly: LambdaSerializer(typeof(Amazon.Lambda.Serialization.SystemTextJson.DefaultLambdaJsonSerializer))]
-namespace PokemonSystem.Incubator.Application.Functions
+namespace PokemonSystem.Learning.Application.Functions
 {
     [Route("api/[controller]")]
     public class LearningFunction : ControllerBase

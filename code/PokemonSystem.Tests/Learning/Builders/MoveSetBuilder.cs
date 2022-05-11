@@ -1,4 +1,4 @@
-﻿using PokemonSystem.Learning.Domain.PokemonAggregate;
+﻿using PokemonSystem.Learning.Domain.SpeciesAggregate;
 using PokemonSystem.Tests.ValueObjects;
 
 namespace PokemonSystem.Tests.Learning.Builders

@@ -7,11 +7,11 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using PokemonSystem.Common.SeedWork;
 using PokemonSystem.Incubator.Application;
-using PokemonSystem.Incubator.Application.Adapters;
 using PokemonSystem.Incubator.Application.Commands;
 using PokemonSystem.Incubator.Domain;
 using PokemonSystem.Incubator.Domain.SpeciesAggregate;
 using PokemonSystem.Incubator.Infra;
+using PokemonSystem.Incubator.Infra.Adapters;
 using PokemonSystem.Incubator.Infra.DataContracts;
 
 namespace PokemonSystem.Incubator

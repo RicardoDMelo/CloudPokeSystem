@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using PokemonSystem.Learning.Domain.PokemonAggregate;
 
-namespace PokemonSystem.Evolution.Application.Commands
+namespace PokemonSystem.Learning.Application.Commands
 {
     public class TeachPokemonMoves : IRequest<Pokemon>
     {

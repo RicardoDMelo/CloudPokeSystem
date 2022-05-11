@@ -1,5 +1,5 @@
 ﻿using NUnit.Framework;
-using PokemonSystem.Incubator.Application.Adapters;
+using PokemonSystem.Incubator.Infra.Adapters;
 using PokemonSystem.Tests.Incubator.Builders;
 
 namespace PokemonSystem.Tests.Incubator.Adapters
