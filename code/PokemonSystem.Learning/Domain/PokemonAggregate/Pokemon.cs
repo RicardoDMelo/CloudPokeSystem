@@ -1,16 +1,21 @@
 ﻿using PokemonSystem.Common.SeedWork.Domain;
 using PokemonSystem.Common.ValueObjects;
+using PokemonSystem.Incubator.Domain.PokemonAggregate;
 using PokemonSystem.Learning.Domain.SpeciesAggregate;
 
 namespace PokemonSystem.Learning.Domain.PokemonAggregate
 {
     public class Pokemon : Entity, IAggregateRoot
     {
-        public Pokemon(Species pokemonSpecies, Level level)
+        protected Pokemon() { }
+
+        public Pokemon(Guid id, Species pokemonSpecies, Level level)
         {
+            Id = id;
             PokemonSpecies = pokemonSpecies ?? throw new ArgumentNullException(nameof(pokemonSpecies));
             LearntMoves = new LearntMoves();
             Level = new Level(1);
+            LearnLevelOneMoves();
             GrowToLevel(level);
         }
 
@@ -21,6 +26,7 @@ namespace PokemonSystem.Learning.Domain.PokemonAggregate
         private const double TM_CHANCE = 0.1;
         private const double DEFAULT_CHANCE = 0.5;
 
+
         public void GrowToLevel(Level level)
         {
             if (level < Level)
@@ -30,13 +36,31 @@ namespace PokemonSystem.Learning.Domain.PokemonAggregate
 
             var oldLevel = Level;
             Level = level;
-            for (uint i = oldLevel.Value; i <= Level.Value; i++)
+            for (uint i = oldLevel.Value + 1; i <= Level.Value; i++)
             {
                 var availableMoves = PokemonSpecies.MoveSet.Where(x => x.Level is null || x.Level.Value == i);
                 foreach (var moveByLevel in availableMoves)
                 {
                     TryToLearnMove(moveByLevel);
                 }
+            }
+        }
+
+        private void LearnLevelOneMoves()
+        {
+            var moves = PokemonSpecies.MoveSet.Where(x => x.Level is not null && x.Level.Value == 1).ToList();
+            if (moves.Any())
+            {
+                var moveIndex = Random.Shared.Next(0, moves.Count - 1);
+                var moveByLevel = PokemonSpecies.MoveSet.ElementAt(moveIndex);
+                LearntMoves.AddMove(moveByLevel.Move);
+                AddDomainEvent(new PokemonLearnedMovesDomainEvent(this));
+            }
+
+            var availableMoves = PokemonSpecies.MoveSet.Where(x => x.Level is null);
+            foreach (var tmMoveByLevel in availableMoves)
+            {
+                TryToLearnMove(tmMoveByLevel);
             }
         }
 
@@ -63,11 +87,13 @@ namespace PokemonSystem.Learning.Domain.PokemonAggregate
                         ForgetRandomMove();
                     }
                     LearntMoves.AddMove(moveByLevel.Move);
+                    AddDomainEvent(new PokemonLearnedMovesDomainEvent(this));
                 }
             }
             else
             {
                 LearntMoves.AddMove(moveByLevel.Move);
+                AddDomainEvent(new PokemonLearnedMovesDomainEvent(this));
             }
         }
 

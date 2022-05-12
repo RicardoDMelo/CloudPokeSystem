@@ -23,9 +23,10 @@ namespace PokemonSystem.Tests.Learning.Domain
         public void Create_Pokemon()
         {
             var species = _speciesBuilder!.Build();
+            var pokemonId = Guid.NewGuid();
             var level = new Level(10);
 
-            var pokemon = new Pokemon(species, level);
+            var pokemon = new Pokemon(pokemonId, species, level);
 
             Assert.AreEqual(species, pokemon.PokemonSpecies);
             Assert.AreEqual(level, pokemon.Level);
@@ -38,9 +39,10 @@ namespace PokemonSystem.Tests.Learning.Domain
             _moveSetBuilder!.AddMove(new MoveByLevel(Levels.One, Moves.Move1));
             _speciesBuilder!.WithMoveSet(_moveSetBuilder.Build());
             var species = _speciesBuilder!.Build();
+            var pokemonId = Guid.NewGuid();
             var level = new Level(1);
 
-            var pokemon = new Pokemon(species, level);
+            var pokemon = new Pokemon(pokemonId, species, level);
 
             Assert.AreEqual(pokemon.LearntMoves.Count, 1);
         }
@@ -55,9 +57,10 @@ namespace PokemonSystem.Tests.Learning.Domain
             _moveSetBuilder!.AddMove(new MoveByLevel(Levels.Four, Moves.Move4));
             _speciesBuilder!.WithMoveSet(_moveSetBuilder.Build());
             var species = _speciesBuilder!.Build();
+            var pokemonId = Guid.NewGuid();
             var level = new Level(4);
 
-            var pokemon = new Pokemon(species, level);
+            var pokemon = new Pokemon(pokemonId, species, level);
 
             Assert.AreEqual(pokemon.LearntMoves.Count, 4);
         }
@@ -66,8 +69,9 @@ namespace PokemonSystem.Tests.Learning.Domain
         public void Created_Pokemon_Should_Throw_Exception_Trying_To_Grow_To_Lower_Level()
         {
             var species = _speciesBuilder!.Build();
+            var pokemonId = Guid.NewGuid();
 
-            var pokemon = new Pokemon(species, Levels.Ten);
+            var pokemon = new Pokemon(pokemonId, species, Levels.Ten);
 
             Assert.Throws<ArgumentOutOfRangeException>(() => pokemon.GrowToLevel(Levels.One));
         }
@@ -83,12 +87,13 @@ namespace PokemonSystem.Tests.Learning.Domain
             _moveSetBuilder!.AddMove(new MoveByLevel(Levels.Five, Moves.Move5));
             _speciesBuilder!.WithMoveSet(_moveSetBuilder.Build());
             var species = _speciesBuilder!.Build();
+            var pokemonId = Guid.NewGuid();
             var level = new Level(5);
 
             var pokemons = new List<Pokemon>();
-            for (int i = 0; i < 100; i++)
+            for (int i = 0; i < 1000; i++)
             {
-                var pokemon = new Pokemon(species, level);
+                var pokemon = new Pokemon(pokemonId, species, level);
                 pokemons.Add(pokemon);
             }
 
@@ -110,12 +115,13 @@ namespace PokemonSystem.Tests.Learning.Domain
             _moveSetBuilder!.AddMove(new MoveByLevel(null, Moves.Move1));
             _speciesBuilder!.WithMoveSet(_moveSetBuilder.Build());
             var species = _speciesBuilder!.Build();
+            var pokemonId = Guid.NewGuid();
             var level = new Level(1);
 
             var pokemons = new List<Pokemon>();
-            for (int i = 0; i < 100; i++)
+            for (int i = 0; i < 1000; i++)
             {
-                var pokemon = new Pokemon(species, level);
+                var pokemon = new Pokemon(pokemonId, species, level);
                 pokemons.Add(pokemon);
             }
 

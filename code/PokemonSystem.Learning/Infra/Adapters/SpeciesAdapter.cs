@@ -11,13 +11,23 @@ namespace PokemonSystem.Learning.Infra.Adapters
         public SpeciesProfile()
         {
             CreateMap<SpeciesDynamoDb, Species>()
-                .ForMember(dest => dest.DomainEvents, opt => opt.Ignore());
+                .ForMember(dest => dest.DomainEvents, opt => opt.Ignore())
+                .ReverseMap();
             CreateMap<MoveByLevelDynamoDb, MoveByLevel>()
-                .ForMember(dest => dest.DomainEvents, opt => opt.Ignore());
-            CreateMap<MoveDynamoDb, Move>();
+                .ForMember(dest => dest.DomainEvents, opt => opt.Ignore())
+                .ReverseMap();
+            CreateMap<MoveDynamoDb, Move>()
+                .ReverseMap();
             CreateMap<uint?, Level?>()
-                .ConstructUsing(source => source == null ? null : new Level(source.Value))
-                .ForMember(dest => dest!.Value, opt => opt.Ignore());
+                .ConstructUsing((source, context) => source is null ? null : new Level(source.Value))
+                .ForMember(dest => dest!.Value, opt => opt.Ignore())
+                .ReverseMap()
+                .ConstructUsing((source, context) => source is null ? null : source.Value);
+            CreateMap<uint, Level>()
+                .ConstructUsing((source, context) => new Level(source))
+                .ForMember(dest => dest!.Value, opt => opt.Ignore())
+                .ReverseMap()
+                .ConstructUsing((source, context) => source.Value);
         }
     }
 

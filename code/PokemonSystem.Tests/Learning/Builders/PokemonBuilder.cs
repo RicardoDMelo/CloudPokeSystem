@@ -9,10 +9,10 @@ namespace PokemonSystem.Tests.Learning.Builders
 {
     public class PokemonBuilder
     {
+        private Guid _pokemonId = Guid.Empty;
         private Species? _species = null;
         private Level? _level = null;
 
-        private MoveSetBuilder _moveSetBuilder = new MoveSetBuilder();
         private SpeciesBuilder _speciesBuilder = new SpeciesBuilder();
 
         public PokemonBuilder()
@@ -22,8 +22,15 @@ namespace PokemonSystem.Tests.Learning.Builders
 
         public void Reset()
         {
+            _pokemonId = Guid.NewGuid();
             _species = _speciesBuilder.Build();
             _level = Levels.One;
+        }
+
+        public PokemonBuilder WithPokemonId(Guid pokemonId)
+        {
+            _pokemonId = pokemonId;
+            return this;
         }
 
         public PokemonBuilder WithSpecies(Species species)
@@ -40,7 +47,7 @@ namespace PokemonSystem.Tests.Learning.Builders
 
         public Pokemon Build()
         {
-            var pokemon = new Pokemon(_species!, _level!);
+            var pokemon = new Pokemon(_pokemonId, _species!, _level!);
             Reset();
             return pokemon;
         }

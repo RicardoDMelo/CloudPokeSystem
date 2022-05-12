@@ -11,7 +11,7 @@ using PokemonSystem.Tests.Incubator.Builders;
 
 namespace PokemonSystem.Tests.Incubator.Domain
 {
-    public class IncubatorServiceTests
+    public class LearningServiceTests
     {
         private ISpeciesRepository? _speciesRepository;
 

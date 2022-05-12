@@ -6,12 +6,14 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using PokemonSystem.Common.SeedWork;
+using PokemonSystem.Incubator.Domain.PokemonAggregate;
 using PokemonSystem.Learning.Application;
 using PokemonSystem.Learning.Application.Commands;
 using PokemonSystem.Learning.Domain;
 using PokemonSystem.Learning.Domain.PokemonAggregate;
 using PokemonSystem.Learning.Domain.SpeciesAggregate;
 using PokemonSystem.Learning.Infra;
+using PokemonSystem.Learning.Infra.Adapters;
 
 namespace PokemonSystem.Learning
 {
@@ -32,6 +34,7 @@ namespace PokemonSystem.Learning
                .Build();
 
             services.AddMediatR(typeof(TeachPokemonMoves));
+            services.AddMediatR(typeof(PokemonLearnedMovesDomainEvent));
             services.AddLogging(opt =>
             {
                 opt.AddLambdaLogger();
@@ -60,8 +63,11 @@ namespace PokemonSystem.Learning
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IApplicationContext, ApplicationContext>();
             services.AddScoped<ILearningService, LearningService>();
+
             services.AddScoped<ISpeciesRepository, SpeciesRepository>();
             services.AddScoped<IPokemonRepository, PokemonRepository>();
+            services.AddScoped<IPokemonAdapter, PokemonAdapter>();
+            services.AddScoped<ISpeciesAdapter, SpeciesAdapter>();
 
             return services;
         }

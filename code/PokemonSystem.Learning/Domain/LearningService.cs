@@ -22,7 +22,7 @@ namespace PokemonSystem.Learning.Domain
             if (pokemon is null)
             {
                 var species = await _speciesRepository.GetAsync(speciesId);
-                pokemon = new Pokemon(species, level);
+                pokemon = new Pokemon(pokemonId, species, level);
                 await _pokemonRepository.AddOrUpdateAsync(pokemon);
             }
             else

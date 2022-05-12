@@ -94,6 +94,10 @@ namespace PokemonSystem.PokedexInjector
                 {
                     level = Convert.ToUInt32(splitted[0].Replace("L", string.Empty));
                 }
+                else if (splitted[0].Contains("Start"))
+                {
+                    level = 1;
+                }
 
                 string moveName = splitted[1];
                 var moveDto = allMoves.FirstOrDefault(x => x.Name == moveName);

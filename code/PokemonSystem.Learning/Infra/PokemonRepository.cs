@@ -1,6 +1,5 @@
 ﻿using Amazon.DynamoDBv2.DataModel;
 using PokemonSystem.Learning.Domain.PokemonAggregate;
-using PokemonSystem.Learning.Domain.SpeciesAggregate;
 using PokemonSystem.Learning.Infra.Adapters;
 using PokemonSystem.Learning.Infra.DatabaseDtos;
 

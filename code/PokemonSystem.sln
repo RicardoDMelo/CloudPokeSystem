@@ -30,11 +30,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Build", "_Build", "{4AF3EB
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PokemonSystem.PokedexInjector", "PokemonSystem.PokedexInjector\PokemonSystem.PokedexInjector.csproj", "{75C954BD-F19E-47C7-9D9E-A9944F609830}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_DynamoDB", "_DynamoDB", "{4DB5023F-5970-49C5-AC57-D82415FF0DB0}"
-	ProjectSection(SolutionItems) = preProject
-		..\dynamodb\docker-compose.yml = ..\dynamodb\docker-compose.yml
-	EndProjectSection
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

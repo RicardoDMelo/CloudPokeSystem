@@ -9,8 +9,10 @@ namespace PokemonSystem.Learning.Infra.Adapters
     {
         public PokemonProfile()
         {
+            DisableConstructorMapping();
             CreateMap<PokemonDynamoDb, Pokemon>()
-                .ForMember(dest => dest.DomainEvents, opt => opt.Ignore());
+                .ForMember(dest => dest.DomainEvents, opt => opt.Ignore())
+                .ReverseMap();
             CreateMap<List<MoveDynamoDb>, LearntMoves>()
                 .ConvertUsing((src, dest, context) =>
                 {
@@ -19,6 +21,17 @@ namespace PokemonSystem.Learning.Infra.Adapters
                     {
                         var move = context.Mapper.Map<Move>(moveDynamoDb);
                         dest.AddMove(move);
+                    }
+                    return dest;
+                });
+            CreateMap<LearntMoves, List<MoveDynamoDb>>()
+                .ConvertUsing((src, dest, context) =>
+                {
+                    dest = new List<MoveDynamoDb>();
+                    foreach (var move in src.Values)
+                    {
+                        var moveDynamoDb = context.Mapper.Map<MoveDynamoDb>(move);
+                        dest.Add(moveDynamoDb);
                     }
                     return dest;
                 });

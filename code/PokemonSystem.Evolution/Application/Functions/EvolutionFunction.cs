@@ -29,7 +29,7 @@ public class EvolutionFunction
     /// </summary>
     /// <param name="request"></param>
     /// <returns>A pokemon</returns>
-    public async Task<APIGatewayProxyResponse> TeachPokemonMovesRestAsync(APIGatewayProxyRequest request)
+    public async Task<APIGatewayProxyResponse> GrantPokemonLevelRestAsync(APIGatewayProxyRequest request)
     {
         _logger.LogInformation("EVENT: " + JsonSerializer.Serialize(request));
 
