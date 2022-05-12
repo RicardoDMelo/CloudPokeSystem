@@ -6,7 +6,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using PokemonSystem.Common.SeedWork;
-using PokemonSystem.Incubator.Domain.PokemonAggregate;
 using PokemonSystem.Learning.Application;
 using PokemonSystem.Learning.Application.Commands;
 using PokemonSystem.Learning.Domain;
@@ -29,9 +28,10 @@ namespace PokemonSystem.Learning
         public static IServiceCollection ConfigureServices(this IServiceCollection services)
         {
             IConfiguration config = new ConfigurationBuilder()
-               .AddJsonFile("appsettings.json")
-               .AddEnvironmentVariables()
-               .Build();
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json")
+                .AddEnvironmentVariables()
+                .Build();
 
             services.AddMediatR(typeof(TeachPokemonMoves));
             services.AddMediatR(typeof(PokemonLearnedMovesDomainEvent));

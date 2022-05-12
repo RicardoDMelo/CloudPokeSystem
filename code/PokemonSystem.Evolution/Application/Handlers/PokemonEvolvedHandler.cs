@@ -21,7 +21,7 @@ namespace PokemonSystem.Evolution.Application.Handlers
             _logger = logger;
         }
 
-        public async Task Handle(PokemonEvolvedDomainEvent notification, CancellationToken cancellationToken)
+        public Task Handle(PokemonEvolvedDomainEvent notification, CancellationToken cancellationToken)
         {
             var integrationEvent = new PokemonEvolvedIntegrationEvent(notification.Pokemon);
             var message = integrationEvent.ToString();
@@ -33,8 +33,9 @@ namespace PokemonSystem.Evolution.Application.Handlers
                 {
                     MessageGroupId = notification.Pokemon.Id.ToString()
                 };
-                var result = await _simpleNotificationService.PublishAsync(publishRequest);
+                _ = _simpleNotificationService.PublishAsync(publishRequest, cancellationToken);
                 _logger.LogInformation($"Pokemon Evolved: {notification.Pokemon.Id}");
+                return Task.CompletedTask;
             }
             catch (Exception ex)
             {

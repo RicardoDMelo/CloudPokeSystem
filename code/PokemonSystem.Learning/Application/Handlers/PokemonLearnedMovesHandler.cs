@@ -3,10 +3,10 @@ using Amazon.SimpleNotificationService.Model;
 using MediatR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
-using PokemonSystem.Incubator.Application.IntegrationEvent;
-using PokemonSystem.Incubator.Domain.PokemonAggregate;
+using PokemonSystem.Learning.Application.IntegrationEvent;
+using PokemonSystem.Learning.Domain.PokemonAggregate;
 
-namespace PokemonSystem.Incubator.Application.Handlers
+namespace PokemonSystem.Learning.Application.Handlers
 {
     public class PokemonLearnedMovesHandler : INotificationHandler<PokemonLearnedMovesDomainEvent>
     {
@@ -21,7 +21,7 @@ namespace PokemonSystem.Incubator.Application.Handlers
             _logger = logger;
         }
 
-        public async Task Handle(PokemonLearnedMovesDomainEvent notification, CancellationToken cancellationToken)
+        public Task Handle(PokemonLearnedMovesDomainEvent notification, CancellationToken cancellationToken)
         {
             var integrationEvent = new PokemonLearnedMovesIntegrationEvent(notification.Pokemon);
             var message = integrationEvent.ToString();
@@ -33,8 +33,9 @@ namespace PokemonSystem.Incubator.Application.Handlers
                 {
                     MessageGroupId = notification.Pokemon.Id.ToString()
                 };
-                var result = await _simpleNotificationService.PublishAsync(publishRequest);
+                _ = _simpleNotificationService.PublishAsync(publishRequest, cancellationToken);
                 _logger.LogInformation($"Pokemon Learned Move: {notification.Pokemon.Id}");
+                return Task.CompletedTask;
             }
             catch (Exception ex)
             {

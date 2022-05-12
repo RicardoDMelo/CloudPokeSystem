@@ -28,9 +28,10 @@ namespace PokemonSystem.Incubator
         public static IServiceCollection ConfigureServices(this IServiceCollection services)
         {
             IConfiguration config = new ConfigurationBuilder()
-               .AddJsonFile("appsettings.json")
-               .AddEnvironmentVariables()
-               .Build();
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json")
+                .AddEnvironmentVariables()
+                .Build();
 
             services.AddMediatR(typeof(CreateRandomPokemon));
             services.AddLogging(opt =>

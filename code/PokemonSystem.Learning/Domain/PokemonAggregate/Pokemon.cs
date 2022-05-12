@@ -1,13 +1,12 @@
 ﻿using PokemonSystem.Common.SeedWork.Domain;
 using PokemonSystem.Common.ValueObjects;
-using PokemonSystem.Incubator.Domain.PokemonAggregate;
 using PokemonSystem.Learning.Domain.SpeciesAggregate;
 
 namespace PokemonSystem.Learning.Domain.PokemonAggregate
 {
     public class Pokemon : Entity, IAggregateRoot
     {
-        protected Pokemon() { }
+        private Pokemon(){}
 
         public Pokemon(Guid id, Species pokemonSpecies, Level level)
         {
@@ -23,8 +22,8 @@ namespace PokemonSystem.Learning.Domain.PokemonAggregate
         public Level Level { get; protected set; }
         public LearntMoves LearntMoves { get; protected set; }
 
-        private const double TM_CHANCE = 0.1;
-        private const double DEFAULT_CHANCE = 0.5;
+        private const double TM_CHANCE = 0.02;
+        private const double DEFAULT_CHANCE = 0.6;
 
 
         public void GrowToLevel(Level level)

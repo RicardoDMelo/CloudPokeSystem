@@ -21,7 +21,7 @@ namespace PokemonSystem.Incubator.Application.Handlers
             _logger = logger;
         }
 
-        public async Task Handle(PokemonCreatedDomainEvent notification, CancellationToken cancellationToken)
+        public Task Handle(PokemonCreatedDomainEvent notification, CancellationToken cancellationToken)
         {
             var integrationEvent = new PokemonCreatedIntegrationEvent(notification.Pokemon);
             var message = integrationEvent.ToString();
@@ -33,8 +33,9 @@ namespace PokemonSystem.Incubator.Application.Handlers
                 {
                     MessageGroupId = notification.Pokemon.Id.ToString()
                 };
-                var result = await _simpleNotificationService.PublishAsync(publishRequest);
+                _ = _simpleNotificationService.PublishAsync(publishRequest, cancellationToken);
                 _logger.LogInformation($"Pokemon Created: {notification.Pokemon.Nickname} | {notification.Pokemon.Id}");
+                return Task.CompletedTask;
             }
             catch (Exception ex)
             {

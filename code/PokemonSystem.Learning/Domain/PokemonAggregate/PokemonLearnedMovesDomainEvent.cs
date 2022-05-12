@@ -1,7 +1,6 @@
 ﻿using MediatR;
-using PokemonSystem.Learning.Domain.PokemonAggregate;
 
-namespace PokemonSystem.Incubator.Domain.PokemonAggregate
+namespace PokemonSystem.Learning.Domain.PokemonAggregate
 {
     public class PokemonLearnedMovesDomainEvent : INotification
     {

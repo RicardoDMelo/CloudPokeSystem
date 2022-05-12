@@ -3,7 +3,7 @@ using PokemonSystem.Common.ValueObjects;
 using PokemonSystem.Learning.Domain.PokemonAggregate;
 using System.Text.Json;
 
-namespace PokemonSystem.Incubator.Application.IntegrationEvent
+namespace PokemonSystem.Learning.Application.IntegrationEvent
 {
     public class PokemonLearnedMovesIntegrationEvent
     {
