@@ -33,7 +33,7 @@ namespace PokemonSystem.Evolution.Application.Adapters
 
         public Pokemon ConvertToModel(GrantPokemonLevel grantPokemonLevel, SpeciesDynamoDb speciesDynamoDb)
         {
-            return new Pokemon(_mapper.Map<Species>(speciesDynamoDb), _mapper.Map<Level>(grantPokemonLevel.LevelToGrow));
+            return new Pokemon(grantPokemonLevel.Id, _mapper.Map<Species>(speciesDynamoDb), _mapper.Map<Level>(grantPokemonLevel.LevelToGrow));
         }
 
         private Species ConvertToSpecies(SpeciesDynamoDb source, ResolutionContext context)

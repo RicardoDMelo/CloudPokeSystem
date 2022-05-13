@@ -18,8 +18,9 @@ namespace PokemonSystem.Evolution.Domain.PokemonAggregate
         */
         private const double EVOLUTION_FACTOR = 0.9;
 
-        public Pokemon(Species pokemonSpecies, Level levelToGrow)
+        public Pokemon(Guid id, Species pokemonSpecies, Level levelToGrow)
         {
+            Id = id;
             PokemonSpecies = pokemonSpecies ?? throw new ArgumentNullException(nameof(pokemonSpecies));
             Level = new Level(1);
             Experience = GetExperienceFromLevel(levelToGrow);

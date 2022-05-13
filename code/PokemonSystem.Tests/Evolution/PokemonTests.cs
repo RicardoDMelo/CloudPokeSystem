@@ -25,7 +25,7 @@ namespace PokemonSystem.Tests.Evolution
 
             var species = _speciesBuilder!.Build();
 
-            var pokemon = new Pokemon(species, Levels.One);
+            var pokemon = new Pokemon(Guid.NewGuid(), species, Levels.One);
 
             Assert.AreEqual(species, pokemon.PokemonSpecies);
             Assert.AreEqual(levelOneExperience, pokemon.Experience);
@@ -38,7 +38,7 @@ namespace PokemonSystem.Tests.Evolution
             uint levelTenExperience = 1_000;
             var species = _speciesBuilder!.Build();
 
-            var pokemon = new Pokemon(species, Levels.Ten);
+            var pokemon = new Pokemon(Guid.NewGuid(), species, Levels.Ten);
 
             Assert.AreEqual(species, pokemon.PokemonSpecies);
             Assert.AreEqual(levelTenExperience, pokemon.Experience);
@@ -51,7 +51,7 @@ namespace PokemonSystem.Tests.Evolution
             var species = _speciesBuilder!.Build();
             uint experience = 999;
 
-            var pokemon = new Pokemon(species, Levels.One);
+            var pokemon = new Pokemon(Guid.NewGuid(), species, Levels.One);
             pokemon.TryAddExperience(experience);
 
             Assert.AreEqual(experience + 1, pokemon.Experience);
@@ -64,7 +64,7 @@ namespace PokemonSystem.Tests.Evolution
             var species = _speciesBuilder!.Build();
             uint experience = 998;
 
-            var pokemon = new Pokemon(species, Levels.One);
+            var pokemon = new Pokemon(Guid.NewGuid(), species, Levels.One);
             pokemon.TryAddExperience(experience);
 
             Assert.AreEqual(experience + 1, pokemon.Experience);
@@ -77,7 +77,7 @@ namespace PokemonSystem.Tests.Evolution
             var species = _speciesBuilder!.Build();
             uint experience = 1_999_999;
 
-            var pokemon = new Pokemon(species, Levels.One);
+            var pokemon = new Pokemon(Guid.NewGuid(), species, Levels.One);
             pokemon.TryAddExperience(experience);
 
             Assert.AreEqual(Pokemon.MAX_EXPERIENCE, pokemon.Experience);
@@ -90,7 +90,7 @@ namespace PokemonSystem.Tests.Evolution
             var species = _speciesBuilder!.Build();
             uint experience = 999_999;
 
-            var pokemon = new Pokemon(species, Levels.One);
+            var pokemon = new Pokemon(Guid.NewGuid(), species, Levels.One);
             Assert.True(pokemon.TryAddExperience(experience));
             Assert.False(pokemon.TryAddExperience(experience));
 
@@ -103,7 +103,7 @@ namespace PokemonSystem.Tests.Evolution
         {
             var species = _speciesBuilder!.Build();
 
-            var pokemon = new Pokemon(species, Levels.One);
+            var pokemon = new Pokemon(Guid.NewGuid(), species, Levels.One);
 
             Assert.AreEqual(11, pokemon.Stats.HP);
             Assert.AreEqual(5, pokemon.Stats.Attack);
@@ -118,7 +118,7 @@ namespace PokemonSystem.Tests.Evolution
         {
             var species = _speciesBuilder!.Build();
 
-            var pokemon = new Pokemon(species, Levels.One);
+            var pokemon = new Pokemon(Guid.NewGuid(), species, Levels.One);
 
             Assert.AreEqual(11, pokemon.Stats.HP);
             Assert.AreEqual(5, pokemon.Stats.Attack);
@@ -158,7 +158,7 @@ namespace PokemonSystem.Tests.Evolution
 
             uint experience = 8;
 
-            var pokemon = new Pokemon(species, Levels.One);
+            var pokemon = new Pokemon(Guid.NewGuid(), species, Levels.One);
             pokemon.TryAddExperience(experience);
 
             Assert.AreEqual(Levels.Two, pokemon.Level);
@@ -186,7 +186,7 @@ namespace PokemonSystem.Tests.Evolution
             var pokemons = new List<Pokemon>();
             for (int i = 0; i < 5000; i++)
             {
-                var pokemon = new Pokemon(species, Levels.Max);
+                var pokemon = new Pokemon(Guid.NewGuid(), species, Levels.Max);
                 if (pokemon.PokemonSpecies.Id == evolutionSpeciesId)
                 {
                     var evolutionEventCount = pokemon.DomainEvents.Where(x => x is PokemonEvolvedDomainEvent).Count();
@@ -204,7 +204,7 @@ namespace PokemonSystem.Tests.Evolution
         {
             var species = _speciesBuilder!.Build();
 
-            var pokemon = new Pokemon(species, Levels.Ten);
+            var pokemon = new Pokemon(Guid.NewGuid(), species, Levels.Ten);
 
             var eventCount = pokemon.DomainEvents.Where(x => x is PokemonLevelRaisedDomainEvent).Count();
             Assert.AreEqual(Levels.Ten.Value - 1, eventCount);
@@ -230,7 +230,7 @@ namespace PokemonSystem.Tests.Evolution
             var pokemons = new List<Pokemon>();
             for (int i = 0; i < 5000; i++)
             {
-                var pokemon = new Pokemon(species, Levels.Ten);
+                var pokemon = new Pokemon(Guid.NewGuid(), species, Levels.Ten);
                 pokemons.Add(pokemon);
             }
 
@@ -275,7 +275,7 @@ namespace PokemonSystem.Tests.Evolution
             var pokemons = new List<Pokemon>();
             for (int i = 0; i < 5000; i++)
             {
-                var pokemon = new Pokemon(species, Levels.Max);
+                var pokemon = new Pokemon(Guid.NewGuid(), species, Levels.Max);
                 pokemons.Add(pokemon);
             }
 
@@ -323,7 +323,7 @@ namespace PokemonSystem.Tests.Evolution
             var pokemons = new List<Pokemon>();
             for (int i = 0; i < 1000; i++)
             {
-                var pokemon = new Pokemon(species, Levels.Max);
+                var pokemon = new Pokemon(Guid.NewGuid(), species, Levels.Max);
                 pokemons.Add(pokemon);
             }
 
@@ -359,7 +359,7 @@ namespace PokemonSystem.Tests.Evolution
                 .WithEvolutionCriterias(new List<EvolutionCriteria>() { evolutionCriteria })
                 .Build();
 
-            var pokemon = new Pokemon(species, Levels.One);
+            var pokemon = new Pokemon(Guid.NewGuid(), species, Levels.One);
 
             Assert.AreEqual(11, pokemon.Stats.HP);
             Assert.AreEqual(5, pokemon.Stats.Attack);
@@ -371,7 +371,7 @@ namespace PokemonSystem.Tests.Evolution
             Pokemon pokemonEvolved;
             do
             {
-                pokemonEvolved = new Pokemon(species, Levels.Max);
+                pokemonEvolved = new Pokemon(Guid.NewGuid(), species, Levels.Max);
             } while (pokemonEvolved.PokemonSpecies == pokemon.PokemonSpecies);
 
             Assert.AreEqual(Levels.Max, pokemonEvolved.Level);
