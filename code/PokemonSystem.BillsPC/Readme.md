@@ -1,4 +1,4 @@
-# AWS Lambda Simple SQS Function Project
+# AWS Lambda Empty Function Project
 
 This starter project consists of:
 * Function.cs - class file containing a class with a single function handler method
@@ -6,9 +6,7 @@ This starter project consists of:
 
 You may also have a test project depending on the options selected.
 
-The generated function handler responds to events on an Amazon SQS queue.
-
-After deploying your function you must configure an Amazon SQS queue as an event source to trigger your Lambda function.
+The generated function handler is a simple method accepting a string argument that returns the uppercase equivalent of the input string. Replace the body of this method, and parameters, to suit your needs. 
 
 ## Here are some steps to follow from Visual Studio:
 
@@ -18,7 +16,7 @@ To view your deployed function open its Function View window by double-clicking 
 
 To perform testing against your deployed function use the Test Invoke tab in the opened Function View window.
 
-To configure event sources for your deployed function use the Event Sources tab in the opened Function View window.
+To configure event sources for your deployed function, for example to have your function invoked when an object is created in an Amazon S3 bucket, use the Event Sources tab in the opened Function View window.
 
 To update the runtime configuration of your deployed function use the Configuration tab in the opened Function View window.
 
@@ -40,12 +38,12 @@ If already installed check if new version is available.
 
 Execute unit tests
 ```
-    cd "AWSLambdaSample/test/AWSLambdaSample.Tests"
+    cd "PokemonSystem.BillsPC/test/PokemonSystem.BillsPC.Tests"
     dotnet test
 ```
 
 Deploy function to AWS Lambda
 ```
-    cd "AWSLambdaSample/src/AWSLambdaSample"
+    cd "PokemonSystem.BillsPC/src/PokemonSystem.BillsPC"
     dotnet lambda deploy-function
 ```

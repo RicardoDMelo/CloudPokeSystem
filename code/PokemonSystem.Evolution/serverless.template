@@ -38,7 +38,7 @@
           "SQSEvent": {
             "Type": "SQS",
             "Properties": {
-              "Queue": { "Fn::Sub" :"arn:aws:sqs:${AWS::Region}:${AWS::AccountId}:PokemonCreatedQueue.fifo" },
+              "Queue": { "Fn::Sub" :"arn:aws:sqs:${AWS::Region}:${AWS::AccountId}:EvolutionPokemonCreatedQueue.fifo" },
               "BatchSize": 10
             }
           }

@@ -20,7 +20,7 @@ resource "aws_dynamodb_table" "pokedex-table" {
 }
 
 resource "aws_dynamodb_table" "learning-pokemon-table" {
-    name           = "Learning-PokemonSpecies"
+    name           = "Learning-Pokemon"
     billing_mode   = "PAY_PER_REQUEST"
     hash_key       = "Id"
     stream_enabled = false
@@ -28,6 +28,28 @@ resource "aws_dynamodb_table" "learning-pokemon-table" {
     attribute {
         name = "Id"
         type = "S"
+    }
+
+    point_in_time_recovery {
+        enabled = false
+    }
+}
+
+resource "aws_dynamodb_table" "bills-pc-pokemon-events" {
+    name           = "BillsPC-PokemonEvents"
+    billing_mode   = "PAY_PER_REQUEST"
+    hash_key       = "StreamId"
+    range_key      = "StreamPosition"
+    stream_enabled = false
+
+    attribute {
+        name = "StreamId"
+        type = "S"
+    }
+
+    attribute {
+        name = "StreamPosition"
+        type = "N"
     }
 
     point_in_time_recovery {

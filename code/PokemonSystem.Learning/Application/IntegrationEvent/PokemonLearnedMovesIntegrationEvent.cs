@@ -10,7 +10,6 @@ namespace PokemonSystem.Learning.Application.IntegrationEvent
         public PokemonLearnedMovesIntegrationEvent(Pokemon pokemon)
         {
             Id = pokemon.Id;
-            Level = pokemon.Level.Value;
             LearntMoves = pokemon.LearntMoves.Values.Select(x => new MoveDto(x)).ToList();
         }
 
@@ -20,7 +19,6 @@ namespace PokemonSystem.Learning.Application.IntegrationEvent
         }
 
         public Guid Id { get; private set; }
-        public uint Level { get; private set; }
         public List<MoveDto> LearntMoves { get; private set; }
     }
 

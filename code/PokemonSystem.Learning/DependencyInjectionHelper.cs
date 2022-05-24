@@ -33,8 +33,7 @@ namespace PokemonSystem.Learning
                 .AddEnvironmentVariables()
                 .Build();
 
-            services.AddMediatR(typeof(TeachPokemonMoves));
-            services.AddMediatR(typeof(PokemonLearnedMovesDomainEvent));
+            services.AddMediatR(typeof(DependencyInjectionHelper));
             services.AddLogging(opt =>
             {
                 opt.AddLambdaLogger();

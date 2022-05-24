@@ -81,19 +81,19 @@ resource "aws_codebuild_project" "code_test" {
     }
 }
 
-resource "aws_codebuild_project" "incubator_code_build" {
+resource "aws_codebuild_project" "code_build" {
     badge_enabled          = false
     build_timeout          = 20
     concurrent_build_limit = 1
     encryption_key         = "arn:aws:kms:${var.aws_region}:${var.aws_account_id}:alias/aws/s3"
-    name                   = "PokeCodeBuild-Incubator"
+    name                   = "PokeCodeBuild"
     project_visibility     = "PRIVATE"
     queued_timeout         = 480
     service_role           = aws_iam_role.code_build_role.arn
 
     artifacts {
         encryption_disabled    = false
-        name                   = "PokeCodeBuild-Incubator"
+        name                   = "PokeCodeBuild"
         override_artifact_name = false
         packaging              = "NONE"
         type                   = "CODEPIPELINE"
@@ -149,151 +149,7 @@ resource "aws_codebuild_project" "incubator_code_build" {
         insecure_ssl        = false
         report_build_status = false
         type                = "CODEPIPELINE"
-        buildspec           = "buildspec-incubator.yml"
-    }
-}
-
-resource "aws_codebuild_project" "evolution_code_build" {
-    badge_enabled          = false
-    build_timeout          = 20
-    concurrent_build_limit = 1
-    encryption_key         = "arn:aws:kms:${var.aws_region}:${var.aws_account_id}:alias/aws/s3"
-    name                   = "PokeCodeBuild-Evolution"
-    project_visibility     = "PRIVATE"
-    queued_timeout         = 480
-    service_role           = aws_iam_role.code_build_role.arn
-
-    artifacts {
-        encryption_disabled    = false
-        name                   = "PokeCodeBuild-Evolution"
-        override_artifact_name = false
-        packaging              = "NONE"
-        type                   = "CODEPIPELINE"
-    }
-
-    cache {
-        modes = ["LOCAL_CUSTOM_CACHE"]
-        type  = "LOCAL"
-    }
-
-    environment {
-        compute_type                = "BUILD_GENERAL1_SMALL"
-        image                       = "aws/codebuild/amazonlinux2-x86_64-standard:3.0"
-        image_pull_credentials_type = "CODEBUILD"
-        privileged_mode             = true
-        type                        = "LINUX_CONTAINER"
-
-        environment_variable {
-            name  = "AWS_ACCOUNT_ID"
-            type  = "PLAINTEXT"
-            value = var.aws_account_id
-        }
-        environment_variable {
-            name  = "LAMBDA_ROLE"
-            type  = "PLAINTEXT"
-            value = "LambdaExecutionRole"
-        }
-        environment_variable {
-            name  = "AWS_ACCESS_KEY_ID"
-            type  = "PLAINTEXT"
-            value = var.aws_access_key_id
-        }
-        environment_variable {
-            name  = "AWS_SECRET_ACCESS_KEY"
-            type  = "PLAINTEXT"
-            value = var.aws_secret_access_key
-        }
-    }
-
-    logs_config {
-        cloudwatch_logs {
-            status = "ENABLED"
-        }
-
-        s3_logs {
-            encryption_disabled = false
-            status              = "DISABLED"
-        }
-    }
-
-    source {
-        git_clone_depth     = 0
-        insecure_ssl        = false
-        report_build_status = false
-        type                = "CODEPIPELINE"
-        buildspec           = "buildspec-evolution.yml"
-    }
-}
-
-resource "aws_codebuild_project" "learning_code_build" {
-    badge_enabled          = false
-    build_timeout          = 20
-    concurrent_build_limit = 1
-    encryption_key         = "arn:aws:kms:${var.aws_region}:${var.aws_account_id}:alias/aws/s3"
-    name                   = "PokeCodeBuild-Learning"
-    project_visibility     = "PRIVATE"
-    queued_timeout         = 480
-    service_role           = aws_iam_role.code_build_role.arn
-
-    artifacts {
-        encryption_disabled    = false
-        name                   = "PokeCodeBuild-Learning"
-        override_artifact_name = false
-        packaging              = "NONE"
-        type                   = "CODEPIPELINE"
-    }
-
-    cache {
-        modes = ["LOCAL_CUSTOM_CACHE"]
-        type  = "LOCAL"
-    }
-
-    environment {
-        compute_type                = "BUILD_GENERAL1_SMALL"
-        image                       = "aws/codebuild/amazonlinux2-x86_64-standard:3.0"
-        image_pull_credentials_type = "CODEBUILD"
-        privileged_mode             = true
-        type                        = "LINUX_CONTAINER"
-
-        environment_variable {
-            name  = "AWS_ACCOUNT_ID"
-            type  = "PLAINTEXT"
-            value = var.aws_account_id
-        }
-        environment_variable {
-            name  = "LAMBDA_ROLE"
-            type  = "PLAINTEXT"
-            value = "LambdaExecutionRole"
-        }
-        environment_variable {
-            name  = "AWS_ACCESS_KEY_ID"
-            type  = "PLAINTEXT"
-            value = var.aws_access_key_id
-        }
-        environment_variable {
-            name  = "AWS_SECRET_ACCESS_KEY"
-            type  = "PLAINTEXT"
-            value = var.aws_secret_access_key
-        }
-    }
-
-    logs_config {
-        cloudwatch_logs {
-            status = "ENABLED"
-        }
-
-        s3_logs {
-            encryption_disabled = false
-            status              = "DISABLED"
-        }
-    }
-
-    source {
-        git_clone_depth     = 0
-        insecure_ssl        = false
-        report_build_status = false
-        type                = "CODEPIPELINE"
-        buildspec           = "buildspec-learning.yml"
+        buildspec           = "buildspec.yml"
     }
 }
 
@@ -362,47 +218,13 @@ resource "aws_codepipeline" "code_pipeline" {
         action {
             category         = "Build"
             configuration    = {
-                "ProjectName" = "PokeCodeBuild-Incubator"
+                "ProjectName" = "PokeCodeBuild"
             }
             input_artifacts  = [
                 "SourceArtifact",
             ]
-            name             = "Build-Incubator"
-            namespace        = "IncubatorBuildNamespace"
-            region           = var.aws_region
-            owner            = "AWS"
-            provider         = "CodeBuild"
-            run_order        = 1
-            version          = "1"
-        }
-
-        action {
-            category         = "Build"
-            configuration    = {
-                "ProjectName" = "PokeCodeBuild-Learning"
-            }
-            input_artifacts  = [
-                "SourceArtifact",
-            ]
-            name             = "Build-Learning"
-            namespace        = "LearningBuildNamespace"
-            region           = var.aws_region
-            owner            = "AWS"
-            provider         = "CodeBuild"
-            run_order        = 1
-            version          = "1"
-        }
-
-        action {
-            category         = "Build"
-            configuration    = {
-                "ProjectName" = "PokeCodeBuild-Evolution"
-            }
-            input_artifacts  = [
-                "SourceArtifact",
-            ]
-            name             = "Build-Evolution"
-            namespace        = "EvolutionBuildNamespace"
+            name             = "Build"
+            namespace        = "BuildNamespace"
             region           = var.aws_region
             owner            = "AWS"
             provider         = "CodeBuild"

@@ -33,7 +33,7 @@ namespace PokemonSystem.Incubator
                 .AddEnvironmentVariables()
                 .Build();
 
-            services.AddMediatR(typeof(CreateRandomPokemon));
+            services.AddMediatR(typeof(DependencyInjectionHelper));
             services.AddLogging(opt =>
             {
                 opt.AddLambdaLogger();

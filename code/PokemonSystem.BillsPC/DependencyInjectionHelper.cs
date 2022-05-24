@@ -5,14 +5,18 @@ using MediatR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using PokemonSystem.BillsPC;
+using PokemonSystem.BillsPC.Application;
+using PokemonSystem.BillsPC.Application.Commands;
+using PokemonSystem.BillsPC.Application.Handlers;
+using PokemonSystem.BillsPC.Domain;
+using PokemonSystem.BillsPC.Domain.PokemonAggregate;
+using PokemonSystem.BillsPC.Domain.SpeciesAggregate;
+using PokemonSystem.BillsPC.Infra;
+using PokemonSystem.BillsPC.Infra.Adapters;
 using PokemonSystem.Common.SeedWork;
-using PokemonSystem.Evolution.Application;
-using PokemonSystem.Evolution.Application.Adapters;
-using PokemonSystem.Evolution.Application.Commands;
-using PokemonSystem.Evolution.Infra;
-using PokemonSystem.Evolution.Infra.DataContracts;
 
-namespace PokemonSystem.Evolution
+namespace PokemonSystem.BillsPC
 {
     public static class DependencyInjectionHelper
     {
@@ -57,10 +61,13 @@ namespace PokemonSystem.Evolution
 
         public static IServiceCollection ConfigureDependencyInjection(this IServiceCollection services)
         {
-            services.AddSingleton<IPokemonAdapter, PokemonAdapter>();
-            services.AddTransient<ISpeciesRepository, SpeciesRepository>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IApplicationContext, ApplicationContext>();
+
+            services.AddScoped<ISpeciesRepository, SpeciesRepository>();
+            services.AddScoped<IPokemonRepository, PokemonRepository>();
+            services.AddScoped<IPokemonAdapter, PokemonAdapter>();
+            services.AddScoped<ISpeciesAdapter, SpeciesAdapter>();
 
             return services;
         }
