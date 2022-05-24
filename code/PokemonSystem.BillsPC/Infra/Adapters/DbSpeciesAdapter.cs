@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using PokemonSystem.BillsPC.Domain.SpeciesAggregate;
 using PokemonSystem.BillsPC.Infra.DatabaseDtos;
-using PokemonSystem.Common.Enums;
 using PokemonSystem.Common.ValueObjects;
 
 namespace PokemonSystem.BillsPC.Infra.Adapters
@@ -26,11 +25,11 @@ namespace PokemonSystem.BillsPC.Infra.Adapters
         }
     }
 
-    public class SpeciesAdapter : ISpeciesAdapter
+    public class DbSpeciesAdapter : IDbSpeciesAdapter
     {
         private readonly IMapper _mapper;
 
-        public SpeciesAdapter()
+        public DbSpeciesAdapter()
         {
             var config = new MapperConfiguration(cfg =>
             {

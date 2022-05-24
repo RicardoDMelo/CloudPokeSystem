@@ -5,11 +5,8 @@ using MediatR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using PokemonSystem.BillsPC;
 using PokemonSystem.BillsPC.Application;
-using PokemonSystem.BillsPC.Application.Commands;
-using PokemonSystem.BillsPC.Application.Handlers;
-using PokemonSystem.BillsPC.Domain;
+using PokemonSystem.BillsPC.Application.Adapters;
 using PokemonSystem.BillsPC.Domain.PokemonAggregate;
 using PokemonSystem.BillsPC.Domain.SpeciesAggregate;
 using PokemonSystem.BillsPC.Infra;
@@ -66,8 +63,9 @@ namespace PokemonSystem.BillsPC
 
             services.AddScoped<ISpeciesRepository, SpeciesRepository>();
             services.AddScoped<IPokemonRepository, PokemonRepository>();
+            services.AddScoped<IDbPokemonAdapter, DbPokemonAdapter>();
             services.AddScoped<IPokemonAdapter, PokemonAdapter>();
-            services.AddScoped<ISpeciesAdapter, SpeciesAdapter>();
+            services.AddScoped<IDbSpeciesAdapter, DbSpeciesAdapter>();
 
             return services;
         }

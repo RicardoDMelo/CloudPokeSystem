@@ -15,11 +15,11 @@ namespace PokemonSystem.BillsPC.Infra.Adapters
         }
     }
 
-    public class PokemonAdapter : IPokemonAdapter
+    public class DbPokemonAdapter : IDbPokemonAdapter
     {
         private readonly IMapper _mapper;
 
-        public PokemonAdapter()
+        public DbPokemonAdapter()
         {
             var config = new MapperConfiguration(cfg =>
             {

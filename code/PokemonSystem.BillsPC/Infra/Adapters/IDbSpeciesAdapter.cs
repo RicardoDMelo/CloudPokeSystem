@@ -3,7 +3,7 @@ using PokemonSystem.BillsPC.Infra.DatabaseDtos;
 
 namespace PokemonSystem.BillsPC.Infra.Adapters
 {
-    public interface ISpeciesAdapter
+    public interface IDbSpeciesAdapter
     {
         Species ConvertToModel(SpeciesDynamoDb speciesDynamoDb);
         SpeciesDynamoDb ConvertToDto(Species species);

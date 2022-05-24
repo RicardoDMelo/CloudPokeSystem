@@ -5,6 +5,26 @@
   "Parameters": {},
   "Conditions": {},
   "Resources": {
+    "GetPokemonRest": {
+      "Type": "AWS::Serverless::Function",
+      "Properties": {
+        "Handler": "PokemonSystem.BillsPC::PokemonSystem.BillsPC.Application.Functions.GetPokemonFunction::GetPokemonRestAsync",
+        "Runtime": "dotnet6",
+        "CodeUri": "",
+        "MemorySize": 256,
+        "Timeout": 30,
+        "Role": { "Fn::Sub" : "arn:aws:iam::${AWS::AccountId}:role/LambdaExecutionRole" },
+        "Events": {
+          "CreateRootResource": {
+            "Type": "HttpApi",
+            "Properties": {
+              "Path": "/{id}",
+              "Method": "GET"
+            }
+          }
+        }
+      }
+    },
     "CreatePokemonRest": {
       "Type": "AWS::Serverless::Function",
       "Properties": {

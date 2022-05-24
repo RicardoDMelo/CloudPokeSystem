@@ -10,9 +10,9 @@ namespace PokemonSystem.BillsPC.Infra
     public class PokemonRepository : IPokemonRepository
     {
         private readonly IDynamoDBContext _dynamoDbContext;
-        private readonly IPokemonAdapter _pokemonAdapter;
+        private readonly IDbPokemonAdapter _pokemonAdapter;
 
-        public PokemonRepository(IDynamoDBContext dynamoDbContext, IPokemonAdapter pokemonAdapter)
+        public PokemonRepository(IDynamoDBContext dynamoDbContext, IDbPokemonAdapter pokemonAdapter)
         {
             _dynamoDbContext = dynamoDbContext;
             _pokemonAdapter = pokemonAdapter;
@@ -27,7 +27,7 @@ namespace PokemonSystem.BillsPC.Infra
             await batchWrite.ExecuteAsync();
         }
 
-        public async Task<Pokemon> GetAsync(Guid id)
+        public async Task<Pokemon?> GetAsync(Guid id)
         {
             var query = new QueryOperationConfig();
             query.KeyExpression = new Expression();
@@ -43,6 +43,7 @@ namespace PokemonSystem.BillsPC.Infra
                 eventRecords.AddRange(_pokemonAdapter.ConvertToModel(eventRecordsDb));
             }
 
+            if (!eventRecords.Any()) return null;
             return new Pokemon(id, eventRecords);
         }
     }

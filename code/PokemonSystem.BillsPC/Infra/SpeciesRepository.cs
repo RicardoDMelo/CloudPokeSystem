@@ -8,9 +8,9 @@ namespace PokemonSystem.BillsPC.Infra
     public class SpeciesRepository : ISpeciesRepository
     {
         private readonly IDynamoDBContext _dynamoDbContext;
-        private readonly ISpeciesAdapter _speciesAdapter;
+        private readonly IDbSpeciesAdapter _speciesAdapter;
 
-        public SpeciesRepository(IDynamoDBContext dynamoDbContext, ISpeciesAdapter speciesAdapter)
+        public SpeciesRepository(IDynamoDBContext dynamoDbContext, IDbSpeciesAdapter speciesAdapter)
         {
             _dynamoDbContext = dynamoDbContext;
             _speciesAdapter = speciesAdapter;
