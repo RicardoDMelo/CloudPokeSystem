@@ -3,6 +3,7 @@ using PokemonSystem.BillsPC.Domain.SpeciesAggregate;
 using PokemonSystem.Common.Enums;
 using PokemonSystem.Common.SeedWork.Domain;
 using PokemonSystem.Common.ValueObjects;
+using System.Text.Json.Serialization;
 
 namespace PokemonSystem.BillsPC.Domain.PokemonAggregate
 {
@@ -13,6 +14,8 @@ namespace PokemonSystem.BillsPC.Domain.PokemonAggregate
 
     public class Pokemon : StreamAggregate<Guid>
     {
+        public Pokemon() : base(Guid.Empty) { }
+
         public Pokemon(Guid id, IEnumerable<INotification> @events) : base(id)
         {
             foreach (var @event in @events)

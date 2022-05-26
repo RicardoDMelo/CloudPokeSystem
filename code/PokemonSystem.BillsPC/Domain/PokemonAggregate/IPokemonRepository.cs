@@ -4,5 +4,6 @@
     {
         Task<Pokemon?> GetAsync(Guid id);
         Task AddOrUpdateAsync(Pokemon pokemon);
+        Task<IEnumerable<Pokemon>> GetLastPokemonsAsync();
     }
 }

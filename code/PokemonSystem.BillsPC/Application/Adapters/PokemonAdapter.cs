@@ -14,6 +14,18 @@ namespace PokemonSystem.BillsPC.Application.Adapters
                 .ForMember(dest => dest.Level, opt => opt.MapFrom(src => src.Level!.Value))
                 .ForMember(dest => dest.Gender, opt => opt.MapFrom(src => src.Gender.ToString()))
                 .ForMember(dest => dest.LearntMoves, opt => opt.MapFrom(src => src.LearntMoves!.Values));
+            CreateMap<Pokemon, PokemonLookup>()
+                .ForMember(dest => dest.Name, opt => opt.MapFrom((src, dest) =>
+                {
+                    if (string.IsNullOrEmpty(src.Nickname))
+                    {
+                        return src.PokemonSpecies.Name;
+                    }
+                    else
+                    {
+                        return $"{src.Nickname} - {src.PokemonSpecies.Name}";
+                    }
+                }));
         }
     }
     public class PokemonAdapter : IPokemonAdapter
@@ -34,6 +46,11 @@ namespace PokemonSystem.BillsPC.Application.Adapters
         public PokemonDetail ConvertToDetailViewModel(Pokemon pokemon)
         {
             return _mapper.Map<PokemonDetail>(pokemon);
+        }
+
+        public PokemonLookup ConvertToLookupViewModel(Pokemon pokemon)
+        {
+            return _mapper.Map<PokemonLookup>(pokemon);
         }
     }
 }

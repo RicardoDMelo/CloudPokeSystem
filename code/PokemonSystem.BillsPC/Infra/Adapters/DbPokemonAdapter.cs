@@ -12,6 +12,8 @@ namespace PokemonSystem.BillsPC.Infra.Adapters
         {
             DisableConstructorMapping();
             CreateMap(typeof(EventRecord<>), typeof(EventRecordDb)).ReverseMap();
+            CreateMap<Pokemon, PokemonHistoryDb>()
+                .ForMember(dest => dest.Timestamp, opt => opt.MapFrom(_ => DateTime.Now));
         }
     }
 
@@ -57,6 +59,16 @@ namespace PokemonSystem.BillsPC.Infra.Adapters
                         break;
                 }
             }
+        }
+
+        public PokemonHistoryDb ConvertToDto(Pokemon pokemon)
+        {
+            return _mapper.Map<PokemonHistoryDb>(pokemon);
+        }
+
+        public IEnumerable<Pokemon> ConvertToModel(IEnumerable<PokemonHistoryDb> pokemonsDynamoDb)
+        {
+            return pokemonsDynamoDb.Select(x => _mapper.Map<Pokemon>(x));
         }
     }
 }

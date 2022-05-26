@@ -1,3 +1,3 @@
 {
-  "body": "{            \"Id\": \"6663e00f-ebb5-4f1f-8e72-474e10363f11\",            \"LevelToGrow\": 10,            \"SpeciesId\" : 1, \"Gender\": 1        }"
+  "body": "{            \"Id\": \"6663e00f-ebb5-4f1f-7e72-474e10363f11\", \"Nickname\":\"TESTE AAAA\" ,           \"LevelToGrow\": 10,            \"SpeciesId\" : 1, \"Gender\": 1        }"
 }

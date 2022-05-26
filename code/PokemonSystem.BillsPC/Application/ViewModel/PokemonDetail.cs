@@ -5,6 +5,7 @@ namespace PokemonSystem.BillsPC.Application.ViewModel
 {
     public class PokemonDetail
     {
+        public Guid Id { get; protected set; }
         public string? Nickname { get; protected set; }
         public string Gender { get; protected set; }
         public string SpeciesName { get; protected set; }

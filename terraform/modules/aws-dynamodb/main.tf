@@ -56,3 +56,19 @@ resource "aws_dynamodb_table" "bills-pc-pokemon-events" {
         enabled = false
     }
 }
+
+resource "aws_dynamodb_table" "bills-pc-pokemon-history" {
+    name           = "BillsPC-PokemonHistory"
+    billing_mode   = "PAY_PER_REQUEST"
+    hash_key       = "Id"
+    stream_enabled = false
+
+    attribute {
+        name = "Id"
+        type = "S"
+    }
+
+    point_in_time_recovery {
+        enabled = false
+    }
+}
