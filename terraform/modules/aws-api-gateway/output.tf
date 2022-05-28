@@ -1,5 +1,5 @@
 # Output variable definitions
-output "aws_arn_cert" {
-  description = "ARN of the CERT"
-  value       = aws_acm_certificate.cert.arn
+output "certificate_id" {
+  description = "Id of the Certificate"
+  value       = aws_acm_certificate.cert.id
 }
