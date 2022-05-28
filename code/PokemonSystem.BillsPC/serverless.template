@@ -2,22 +2,41 @@
   "AWSTemplateFormatVersion": "2010-09-09",
   "Transform": "AWS::Serverless-2016-10-31",
   "Description": "An AWS Serverless Application that uses the ASP.NET Core framework running in Amazon Lambda.",
-  "Parameters": {},
+  "Parameters": {
+    "DomainParameter" : {
+      "Type" : "String",
+      "Description" : "Enter your domain. Example: google.com"
+    },
+    "CertificateIdParameter" : {
+      "Type" : "String",
+      "Description" : "Enter your Certificate Id."
+    }
+  },
   "Conditions": {},
   "Resources": {
+    "PokemonApi": {
+      "Type": "AWS::Serverless::HttpApi",
+      "Properties": {
+        "Domain": {
+          "CertificateArn": { "Fn::Sub" : "arn:aws:acm:${AWS::Region}:${AWS::AccountId}:certificate/${CertificateIdParameter}" },
+          "DomainName": { "Fn::Sub" : "pokemon-billspc.${DomainParameter}" }
+        }
+      }
+    },
     "GetLastPokemonsRest": {
       "Type": "AWS::Serverless::Function",
       "Properties": {
         "Handler": "PokemonSystem.BillsPC::PokemonSystem.BillsPC.Application.Functions.GetLastPokemonsFunction::GetLastPokemonsRestAsync",
         "Runtime": "dotnet6",
         "CodeUri": "",
-        "MemorySize": 256,
+        "MemorySize": 512,
         "Timeout": 30,
         "Role": { "Fn::Sub" : "arn:aws:iam::${AWS::AccountId}:role/LambdaExecutionRole" },
         "Events": {
           "CreateRootResource": {
             "Type": "HttpApi",
             "Properties": {
+              "ApiId": { "Ref" : "PokemonApi" },
               "Path": "/",
               "Method": "GET"
             }
@@ -31,13 +50,14 @@
         "Handler": "PokemonSystem.BillsPC::PokemonSystem.BillsPC.Application.Functions.GetPokemonFunction::GetPokemonRestAsync",
         "Runtime": "dotnet6",
         "CodeUri": "",
-        "MemorySize": 256,
+        "MemorySize": 512,
         "Timeout": 30,
         "Role": { "Fn::Sub" : "arn:aws:iam::${AWS::AccountId}:role/LambdaExecutionRole" },
         "Events": {
           "CreateRootResource": {
             "Type": "HttpApi",
             "Properties": {
+              "ApiId": { "Ref" : "PokemonApi" },
               "Path": "/{id}",
               "Method": "GET"
             }
@@ -51,13 +71,14 @@
         "Handler": "PokemonSystem.BillsPC::PokemonSystem.BillsPC.Application.Functions.CreatePokemonFunction::CreatePokemonRestAsync",
         "Runtime": "dotnet6",
         "CodeUri": "",
-        "MemorySize": 256,
+        "MemorySize": 512,
         "Timeout": 30,
         "Role": { "Fn::Sub" : "arn:aws:iam::${AWS::AccountId}:role/LambdaExecutionRole" },
         "Events": {
           "CreateRootResource": {
             "Type": "HttpApi",
             "Properties": {
+              "ApiId": { "Ref" : "PokemonApi" },
               "Path": "/Create",
               "Method": "POST"
             }
@@ -71,7 +92,7 @@
         "Handler": "PokemonSystem.BillsPC::PokemonSystem.BillsPC.Application.Functions.CreatePokemonFunction::CreatePokemonSQSAsync",
         "Runtime": "dotnet6",
         "CodeUri": "",
-        "MemorySize": 256,
+        "MemorySize": 512,
         "Timeout": 30,
         "Role": { "Fn::Sub" : "arn:aws:iam::${AWS::AccountId}:role/LambdaExecutionRole" },
         "Events": {
@@ -91,13 +112,14 @@
         "Handler": "PokemonSystem.BillsPC::PokemonSystem.BillsPC.Application.Functions.EvolvePokemonFunction::EvolvePokemonRestAsync",
         "Runtime": "dotnet6",
         "CodeUri": "",
-        "MemorySize": 256,
+        "MemorySize": 512,
         "Timeout": 30,
         "Role": { "Fn::Sub" : "arn:aws:iam::${AWS::AccountId}:role/LambdaExecutionRole" },
         "Events": {
           "EvolveRootResource": {
             "Type": "HttpApi",
             "Properties": {
+              "ApiId": { "Ref" : "PokemonApi" },
               "Path": "/Evolve",
               "Method": "POST"
             }
@@ -111,7 +133,7 @@
         "Handler": "PokemonSystem.BillsPC::PokemonSystem.BillsPC.Application.Functions.EvolvePokemonFunction::EvolvePokemonSQSAsync",
         "Runtime": "dotnet6",
         "CodeUri": "",
-        "MemorySize": 256,
+        "MemorySize": 512,
         "Timeout": 30,
         "Role": { "Fn::Sub" : "arn:aws:iam::${AWS::AccountId}:role/LambdaExecutionRole" },
         "Events": {
@@ -131,13 +153,14 @@
         "Handler": "PokemonSystem.BillsPC::PokemonSystem.BillsPC.Application.Functions.RaisePokemonLevelFunction::RaisePokemonLevelRestAsync",
         "Runtime": "dotnet6",
         "CodeUri": "",
-        "MemorySize": 256,
+        "MemorySize": 512,
         "Timeout": 30,
         "Role": { "Fn::Sub" : "arn:aws:iam::${AWS::AccountId}:role/LambdaExecutionRole" },
         "Events": {
           "RaiseRootResource": {
             "Type": "HttpApi",
             "Properties": {
+              "ApiId": { "Ref" : "PokemonApi" },
               "Path": "/Raise",
               "Method": "POST"
             }
@@ -151,7 +174,7 @@
         "Handler": "PokemonSystem.BillsPC::PokemonSystem.BillsPC.Application.Functions.RaisePokemonLevelFunction::RaisePokemonLevelSQSAsync",
         "Runtime": "dotnet6",
         "CodeUri": "",
-        "MemorySize": 256,
+        "MemorySize": 512,
         "Timeout": 30,
         "Role": { "Fn::Sub" : "arn:aws:iam::${AWS::AccountId}:role/LambdaExecutionRole" },
         "Events": {
@@ -171,13 +194,14 @@
         "Handler": "PokemonSystem.BillsPC::PokemonSystem.BillsPC.Application.Functions.TeachPokemonMovesFunction::TeachPokemonMovesRestAsync",
         "Runtime": "dotnet6",
         "CodeUri": "",
-        "MemorySize": 256,
+        "MemorySize": 512,
         "Timeout": 30,
         "Role": { "Fn::Sub" : "arn:aws:iam::${AWS::AccountId}:role/LambdaExecutionRole" },
         "Events": {
           "TeachRootResource": {
             "Type": "HttpApi",
             "Properties": {
+              "ApiId": { "Ref" : "PokemonApi" },
               "Path": "/Teach",
               "Method": "POST"
             }
@@ -191,7 +215,7 @@
         "Handler": "PokemonSystem.BillsPC::PokemonSystem.BillsPC.Application.Functions.TeachPokemonMovesFunction::TeachPokemonMovesSQSAsync",
         "Runtime": "dotnet6",
         "CodeUri": "",
-        "MemorySize": 256,
+        "MemorySize": 512,
         "Timeout": 30,
         "Role": { "Fn::Sub" : "arn:aws:iam::${AWS::AccountId}:role/LambdaExecutionRole" },
         "Events": {
@@ -205,13 +229,5 @@
         }
       }
     }    
-  },
-  "Outputs": {
-    "ApiURL": {
-      "Description": "API endpoint URL",
-      "Value": {
-        "Fn::Sub": "https://${ServerlessHttpApi}.execute-api.${AWS::Region}.amazonaws.com/"
-      }
-    }
   }
 }

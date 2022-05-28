@@ -386,3 +386,5 @@ terraform.rc
 *.hcl
 *.db
 terraform/terraform apply.bat
+deploy.bat
+destroy.bat

@@ -2,22 +2,41 @@
   "AWSTemplateFormatVersion": "2010-09-09",
   "Transform": "AWS::Serverless-2016-10-31",
   "Description": "An AWS Serverless Application that uses the ASP.NET Core framework running in Amazon Lambda.",
-  "Parameters": {},
+  "Parameters": {
+    "DomainParameter" : {
+      "Type" : "String",
+      "Description" : "Enter your domain. Example: google.com"
+    },
+    "CertificateIdParameter" : {
+      "Type" : "String",
+      "Description" : "Enter your Certificate Id."
+    }
+  },
   "Conditions": {},
   "Resources": {
+    "PokemonApi": {
+      "Type": "AWS::Serverless::HttpApi",
+      "Properties": {
+        "Domain": {
+          "CertificateArn": { "Fn::Sub" : "arn:aws:acm:${AWS::Region}:${AWS::AccountId}:certificate/${CertificateIdParameter}" },
+          "DomainName": { "Fn::Sub" : "pokemon-evolution.${DomainParameter}" }
+        }
+      }
+    },
     "GrantPokemonLevelRest": {
       "Type": "AWS::Serverless::Function",
       "Properties": {
         "Handler": "PokemonSystem.Evolution::PokemonSystem.Evolution.Application.Functions.EvolutionFunction::GrantPokemonLevelRestAsync",
         "Runtime": "dotnet6",
         "CodeUri": "",
-        "MemorySize": 256,
+        "MemorySize": 512,
         "Timeout": 30,
         "Role": { "Fn::Sub" : "arn:aws:iam::${AWS::AccountId}:role/LambdaExecutionRole" },
         "Events": {
           "RootResource": {
             "Type": "HttpApi",
             "Properties": {
+              "ApiId": { "Ref" : "PokemonApi" },
               "Path": "/",
               "Method": "POST"
             }
@@ -31,7 +50,7 @@
         "Handler": "PokemonSystem.Evolution::PokemonSystem.Evolution.Application.Functions.EvolutionFunction::GrantPokemonLevelSQSAsync",
         "Runtime": "dotnet6",
         "CodeUri": "",
-        "MemorySize": 256,
+        "MemorySize": 512,
         "Timeout": 30,
         "Role": { "Fn::Sub" : "arn:aws:iam::${AWS::AccountId}:role/LambdaExecutionRole" },
         "Events": {
@@ -43,14 +62,6 @@
             }
           }
         }
-      }
-    }
-  },
-  "Outputs": {
-    "ApiURL": {
-      "Description": "API endpoint URL",
-      "Value": {
-        "Fn::Sub": "https://${ServerlessHttpApi}.execute-api.${AWS::Region}.amazonaws.com/"
       }
     }
   }

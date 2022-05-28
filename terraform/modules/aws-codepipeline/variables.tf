@@ -33,3 +33,14 @@ variable "webhook_secret" {
   description = "Webhook secret between AWS and Github"
   sensitive = true
 }
+
+variable "domain_name" {
+  description = "Domain Name"
+  sensitive = true
+}
+
+variable "certificate_id" {
+  description = "Certificate Id"
+  sensitive = true
+}
+

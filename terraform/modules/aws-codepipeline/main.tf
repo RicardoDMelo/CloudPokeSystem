@@ -131,6 +131,16 @@ resource "aws_codebuild_project" "code_build" {
             type  = "PLAINTEXT"
             value = var.aws_secret_access_key
         }
+        environment_variable {
+            name  = "DOMAIN_NAME"
+            type  = "PLAINTEXT"
+            value = var.domain_name
+        }
+        environment_variable {
+            name  = "CERTIFICATE_ID"
+            type  = "PLAINTEXT"
+            value = var.certificate_id
+        }
     }
 
     logs_config {

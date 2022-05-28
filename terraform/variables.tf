@@ -39,8 +39,13 @@ variable "git_repository_name" {
   default     = "CloudPokeSystem"
 }
 
-
 variable "git_repository_branch" {
   description = "Build branch aka Master"
   default     = "dev"
 }
+
+variable "domain_name" {
+  description = "Domain Name"
+  sensitive = true
+}
+
