@@ -28,7 +28,7 @@ namespace PokemonSystem.Evolution.Application.Handlers
             var species = await _speciesRepository.GetSpeciesAsync(request.SpeciesId);
             var pokemon = _pokemonAdapter.ConvertToModel(request, species);
             _applicationContext.Add(pokemon);
-            _unitOfWork.Commit();
+            await _unitOfWork.CommitAsync();
             return pokemon;
         }
     }

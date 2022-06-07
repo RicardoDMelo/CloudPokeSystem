@@ -21,7 +21,7 @@ namespace PokemonSystem.Learning.Application.Handlers
             _logger = logger;
         }
 
-        public Task Handle(PokemonLearnedMovesDomainEvent notification, CancellationToken cancellationToken)
+        public async Task Handle(PokemonLearnedMovesDomainEvent notification, CancellationToken cancellationToken)
         {
             var integrationEvent = new PokemonLearnedMovesIntegrationEvent(notification.Pokemon);
             var message = integrationEvent.ToString();
@@ -33,9 +33,8 @@ namespace PokemonSystem.Learning.Application.Handlers
                 {
                     MessageGroupId = notification.Pokemon.Id.ToString()
                 };
-                _ = _simpleNotificationService.PublishAsync(publishRequest, cancellationToken);
+                await _simpleNotificationService.PublishAsync(publishRequest, cancellationToken);
                 _logger.LogInformation($"Pokemon Learned Move: {notification.Pokemon.Id}");
-                return Task.CompletedTask;
             }
             catch (Exception ex)
             {

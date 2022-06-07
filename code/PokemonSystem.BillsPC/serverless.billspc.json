@@ -3,23 +3,29 @@
   "Transform": "AWS::Serverless-2016-10-31",
   "Description": "An AWS Serverless Application that uses the ASP.NET Core framework running in Amazon Lambda.",
   "Parameters": {
-    "DomainParameter" : {
-      "Type" : "String",
-      "Description" : "Enter your domain. Example: google.com"
+    "DomainParameter": {
+      "Type": "String",
+      "Description": "Enter your domain. Example: google.com"
     },
-    "CertificateIdParameter" : {
-      "Type" : "String",
-      "Description" : "Enter your Certificate Id."
+    "CertificateIdParameter": {
+      "Type": "String",
+      "Description": "Enter your Certificate Id."
     }
   },
   "Conditions": {},
   "Resources": {
     "PokemonApi": {
-      "Type": "AWS::Serverless::HttpApi",
+      "Type": "AWS::Serverless::Api",
       "Properties": {
+        "StageName": "Prod",
+        "Cors": {
+          "AllowHeaders": "'Content-Type'",
+          "AllowMethods": "'GET,POST,OPTIONS'",
+          "AllowOrigin": "'*'"
+        },
         "Domain": {
-          "CertificateArn": { "Fn::Sub" : "arn:aws:acm:${AWS::Region}:${AWS::AccountId}:certificate/${CertificateIdParameter}" },
-          "DomainName": { "Fn::Sub" : "pokemon-billspc.${DomainParameter}" }
+          "CertificateArn": { "Fn::Sub": "arn:aws:acm:${AWS::Region}:${AWS::AccountId}:certificate/${CertificateIdParameter}" },
+          "DomainName": { "Fn::Sub": "pokemon-billspc.${DomainParameter}" }
         }
       }
     },
@@ -31,12 +37,12 @@
         "CodeUri": "",
         "MemorySize": 512,
         "Timeout": 30,
-        "Role": { "Fn::Sub" : "arn:aws:iam::${AWS::AccountId}:role/LambdaExecutionRole" },
+        "Role": { "Fn::Sub": "arn:aws:iam::${AWS::AccountId}:role/LambdaExecutionRole" },
         "Events": {
           "CreateRootResource": {
-            "Type": "HttpApi",
+            "Type": "Api",
             "Properties": {
-              "ApiId": { "Ref" : "PokemonApi" },
+              "RestApiId": { "Ref": "PokemonApi" },
               "Path": "/",
               "Method": "GET"
             }
@@ -52,12 +58,12 @@
         "CodeUri": "",
         "MemorySize": 512,
         "Timeout": 30,
-        "Role": { "Fn::Sub" : "arn:aws:iam::${AWS::AccountId}:role/LambdaExecutionRole" },
+        "Role": { "Fn::Sub": "arn:aws:iam::${AWS::AccountId}:role/LambdaExecutionRole" },
         "Events": {
           "CreateRootResource": {
-            "Type": "HttpApi",
+            "Type": "Api",
             "Properties": {
-              "ApiId": { "Ref" : "PokemonApi" },
+              "RestApiId": { "Ref": "PokemonApi" },
               "Path": "/{id}",
               "Method": "GET"
             }
@@ -73,12 +79,12 @@
         "CodeUri": "",
         "MemorySize": 512,
         "Timeout": 30,
-        "Role": { "Fn::Sub" : "arn:aws:iam::${AWS::AccountId}:role/LambdaExecutionRole" },
+        "Role": { "Fn::Sub": "arn:aws:iam::${AWS::AccountId}:role/LambdaExecutionRole" },
         "Events": {
           "CreateRootResource": {
-            "Type": "HttpApi",
+            "Type": "Api",
             "Properties": {
-              "ApiId": { "Ref" : "PokemonApi" },
+              "RestApiId": { "Ref": "PokemonApi" },
               "Path": "/Create",
               "Method": "POST"
             }
@@ -94,12 +100,12 @@
         "CodeUri": "",
         "MemorySize": 512,
         "Timeout": 30,
-        "Role": { "Fn::Sub" : "arn:aws:iam::${AWS::AccountId}:role/LambdaExecutionRole" },
+        "Role": { "Fn::Sub": "arn:aws:iam::${AWS::AccountId}:role/LambdaExecutionRole" },
         "Events": {
           "PokemonLearnedMoveSQSEvent": {
             "Type": "SQS",
             "Properties": {
-              "Queue": { "Fn::Sub" :"arn:aws:sqs:${AWS::Region}:${AWS::AccountId}:BillsPCPokemonCreatedQueue.fifo" },
+              "Queue": { "Fn::Sub": "arn:aws:sqs:${AWS::Region}:${AWS::AccountId}:BillsPCPokemonCreatedQueue.fifo" },
               "BatchSize": 10
             }
           }
@@ -114,12 +120,12 @@
         "CodeUri": "",
         "MemorySize": 512,
         "Timeout": 30,
-        "Role": { "Fn::Sub" : "arn:aws:iam::${AWS::AccountId}:role/LambdaExecutionRole" },
+        "Role": { "Fn::Sub": "arn:aws:iam::${AWS::AccountId}:role/LambdaExecutionRole" },
         "Events": {
           "EvolveRootResource": {
-            "Type": "HttpApi",
+            "Type": "Api",
             "Properties": {
-              "ApiId": { "Ref" : "PokemonApi" },
+              "RestApiId": { "Ref": "PokemonApi" },
               "Path": "/Evolve",
               "Method": "POST"
             }
@@ -135,12 +141,12 @@
         "CodeUri": "",
         "MemorySize": 512,
         "Timeout": 30,
-        "Role": { "Fn::Sub" : "arn:aws:iam::${AWS::AccountId}:role/LambdaExecutionRole" },
+        "Role": { "Fn::Sub": "arn:aws:iam::${AWS::AccountId}:role/LambdaExecutionRole" },
         "Events": {
           "PokemonLearnedMoveSQSEvent": {
             "Type": "SQS",
             "Properties": {
-              "Queue": { "Fn::Sub" :"arn:aws:sqs:${AWS::Region}:${AWS::AccountId}:BillsPCPokemonEvolvedQueue.fifo" },
+              "Queue": { "Fn::Sub": "arn:aws:sqs:${AWS::Region}:${AWS::AccountId}:BillsPCPokemonEvolvedQueue.fifo" },
               "BatchSize": 10
             }
           }
@@ -155,12 +161,12 @@
         "CodeUri": "",
         "MemorySize": 512,
         "Timeout": 30,
-        "Role": { "Fn::Sub" : "arn:aws:iam::${AWS::AccountId}:role/LambdaExecutionRole" },
+        "Role": { "Fn::Sub": "arn:aws:iam::${AWS::AccountId}:role/LambdaExecutionRole" },
         "Events": {
           "RaiseRootResource": {
-            "Type": "HttpApi",
+            "Type": "Api",
             "Properties": {
-              "ApiId": { "Ref" : "PokemonApi" },
+              "RestApiId": { "Ref": "PokemonApi" },
               "Path": "/Raise",
               "Method": "POST"
             }
@@ -176,12 +182,12 @@
         "CodeUri": "",
         "MemorySize": 512,
         "Timeout": 30,
-        "Role": { "Fn::Sub" : "arn:aws:iam::${AWS::AccountId}:role/LambdaExecutionRole" },
+        "Role": { "Fn::Sub": "arn:aws:iam::${AWS::AccountId}:role/LambdaExecutionRole" },
         "Events": {
           "PokemonLearnedMoveSQSEvent": {
             "Type": "SQS",
             "Properties": {
-              "Queue": { "Fn::Sub" :"arn:aws:sqs:${AWS::Region}:${AWS::AccountId}:BillsPCPokemonLevelRaisedQueue.fifo" },
+              "Queue": { "Fn::Sub": "arn:aws:sqs:${AWS::Region}:${AWS::AccountId}:BillsPCPokemonLevelRaisedQueue.fifo" },
               "BatchSize": 10
             }
           }
@@ -196,12 +202,12 @@
         "CodeUri": "",
         "MemorySize": 512,
         "Timeout": 30,
-        "Role": { "Fn::Sub" : "arn:aws:iam::${AWS::AccountId}:role/LambdaExecutionRole" },
+        "Role": { "Fn::Sub": "arn:aws:iam::${AWS::AccountId}:role/LambdaExecutionRole" },
         "Events": {
           "TeachRootResource": {
-            "Type": "HttpApi",
+            "Type": "Api",
             "Properties": {
-              "ApiId": { "Ref" : "PokemonApi" },
+              "RestApiId": { "Ref": "PokemonApi" },
               "Path": "/Teach",
               "Method": "POST"
             }
@@ -217,17 +223,17 @@
         "CodeUri": "",
         "MemorySize": 512,
         "Timeout": 30,
-        "Role": { "Fn::Sub" : "arn:aws:iam::${AWS::AccountId}:role/LambdaExecutionRole" },
+        "Role": { "Fn::Sub": "arn:aws:iam::${AWS::AccountId}:role/LambdaExecutionRole" },
         "Events": {
           "PokemonLearnedMoveSQSEvent": {
             "Type": "SQS",
             "Properties": {
-              "Queue": { "Fn::Sub" :"arn:aws:sqs:${AWS::Region}:${AWS::AccountId}:BillsPCPokemonLearnedMoveQueue.fifo" },
+              "Queue": { "Fn::Sub": "arn:aws:sqs:${AWS::Region}:${AWS::AccountId}:BillsPCPokemonLearnedMoveQueue.fifo" },
               "BatchSize": 10
             }
           }
         }
       }
-    }    
+    }
   }
 }

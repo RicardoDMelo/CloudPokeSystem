@@ -16,6 +16,15 @@ public class EvolutionFunction
 {
     private readonly IMediator _mediator;
     private readonly ILogger<EvolutionFunction> _logger;
+    private readonly JsonSerializerOptions _serializerOptions = new JsonSerializerOptions
+    {
+        PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+        WriteIndented = true
+    };
+    private readonly Dictionary<string, string> _headers = new Dictionary<string, string> {
+                        {"Access-Control-Allow-Headers", "Content-Type" },
+                        {"Access-Control-Allow-Origin", "*"},
+                        {"Access-Control-Allow-Methods", "OPTIONS,POST"} };
 
     public EvolutionFunction()
     {
@@ -34,14 +43,15 @@ public class EvolutionFunction
         _logger.LogInformation("EVENT: " + JsonSerializer.Serialize(request));
 
         APIGatewayProxyResponse response;
-        var grantPokemonLevel = JsonSerializer.Deserialize<GrantPokemonLevel>(request.Body);
+        var grantPokemonLevel = JsonSerializer.Deserialize<GrantPokemonLevel>(request.Body, _serializerOptions);
 
         if (grantPokemonLevel == null)
         {
             response = new APIGatewayProxyResponse
             {
                 StatusCode = (int)HttpStatusCode.BadRequest,
-                Body = "Invalid Json"
+                Body = "Invalid Json",
+                Headers = _headers
             };
         }
         else
@@ -51,8 +61,8 @@ public class EvolutionFunction
             response = new APIGatewayProxyResponse
             {
                 StatusCode = (int)HttpStatusCode.OK,
-                Body = JsonSerializer.Serialize(pokemon),
-                Headers = new Dictionary<string, string> { { "Content-Type", "application/json" } }
+                Body = JsonSerializer.Serialize(pokemon, _serializerOptions),
+                Headers = _headers
             };
         }
 

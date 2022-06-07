@@ -14,7 +14,7 @@ namespace PokemonSystem.Evolution.Application
             _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
         }
 
-        public void Commit()
+        public async Task CommitAsync()
         {
             var entities = _applicationContext.Entities;
             _applicationContext.Reset();
@@ -23,7 +23,7 @@ namespace PokemonSystem.Evolution.Application
             {
                 foreach (var domainEvent in entity.DomainEvents)
                 {
-                    _mediator.Publish(domainEvent);
+                    await _mediator.Publish(domainEvent);
                 }
             }
         }

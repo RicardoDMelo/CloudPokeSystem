@@ -23,13 +23,13 @@ phases:
     commands:
       - echo Incubator Build started on `date`
       - cd code/PokemonSystem.Incubator/ 
-      - dotnet lambda deploy-serverless --disable-interactive true --stack-name pokemon-incubator --s3-bucket poke-build-bucket --template serverless.template --template-parameters DomainParameter=$DOMAIN_NAME;CertificateIdParameter=$CERTIFICATE_ID
+      - dotnet lambda deploy-serverless --disable-interactive true --stack-name pokemon-incubator --s3-bucket poke-build-bucket --template serverless.incubator.json --template-parameters DomainParameter=$DOMAIN_NAME;CertificateIdParameter=$CERTIFICATE_ID
       - echo Evolution Build started on `date`
       - cd ../PokemonSystem.Evolution/
-      - dotnet lambda deploy-serverless --disable-interactive true --stack-name pokemon-evolution --s3-bucket poke-build-bucket --template serverless.template --template-parameters DomainParameter=$DOMAIN_NAME;CertificateIdParameter=$CERTIFICATE_ID
+      - dotnet lambda deploy-serverless --disable-interactive true --stack-name pokemon-evolution --s3-bucket poke-build-bucket --template serverless.evolution.json --template-parameters DomainParameter=$DOMAIN_NAME;CertificateIdParameter=$CERTIFICATE_ID
       - echo Learning Build started on `date`
       - cd ../PokemonSystem.Learning/
-      - dotnet lambda deploy-serverless --disable-interactive true --stack-name pokemon-learning --s3-bucket poke-build-bucket --template serverless.template --template-parameters DomainParameter=$DOMAIN_NAME;CertificateIdParameter=$CERTIFICATE_ID
+      - dotnet lambda deploy-serverless --disable-interactive true --stack-name pokemon-learning --s3-bucket poke-build-bucket --template serverless.learning.json --template-parameters DomainParameter=$DOMAIN_NAME;CertificateIdParameter=$CERTIFICATE_ID
       - echo Bills PC started on `date`
       - cd ../PokemonSystem.BillsPC/
-      - dotnet lambda deploy-serverless --disable-interactive true --stack-name pokemon-bills-pc --s3-bucket poke-build-bucket --template serverless.template --template-parameters DomainParameter=$DOMAIN_NAME;CertificateIdParameter=$CERTIFICATE_ID
+      - dotnet lambda deploy-serverless --disable-interactive true --stack-name pokemon-bills-pc --s3-bucket poke-build-bucket --template serverless.billspc.json --template-parameters DomainParameter=$DOMAIN_NAME;CertificateIdParameter=$CERTIFICATE_ID

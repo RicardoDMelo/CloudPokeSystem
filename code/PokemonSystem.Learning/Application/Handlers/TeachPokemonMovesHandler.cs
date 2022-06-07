@@ -24,7 +24,7 @@ namespace PokemonSystem.Learning.Application.Handlers
         {
             var pokemon = await _learningService.TeachRandomMovesAsync(request.Id, new Level(request.Level), request.SpeciesId);
             _applicationContext.Add(pokemon);
-            _unitOfWork.Commit();
+            await _unitOfWork.CommitAsync();
             return pokemon;
         }
     }

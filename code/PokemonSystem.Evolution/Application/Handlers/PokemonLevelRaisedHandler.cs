@@ -21,7 +21,7 @@ namespace PokemonSystem.Evolution.Application.Handlers
             _logger = logger;
         }
 
-        public Task Handle(PokemonLevelRaisedDomainEvent notification, CancellationToken cancellationToken)
+        public async Task Handle(PokemonLevelRaisedDomainEvent notification, CancellationToken cancellationToken)
         {
             var integrationEvent = new PokemonLevelRaisedIntegrationEvent(notification.Pokemon);
             var message = integrationEvent.ToString();
@@ -33,9 +33,8 @@ namespace PokemonSystem.Evolution.Application.Handlers
                 {
                     MessageGroupId = notification.Pokemon.Id.ToString()
                 };
-                _= _simpleNotificationService.PublishAsync(publishRequest, cancellationToken);
+                await _simpleNotificationService.PublishAsync(publishRequest, cancellationToken);
                 _logger.LogInformation($"Pokemon Level Raised: {notification.Pokemon.Id}");
-                return Task.CompletedTask;
             }
             catch (Exception ex)
             {

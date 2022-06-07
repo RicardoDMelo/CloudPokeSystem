@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using PokemonSystem.Common.SeedWork;
 using PokemonSystem.Incubator.Application;
+using PokemonSystem.Incubator.Application.Adapters;
 using PokemonSystem.Incubator.Application.Commands;
 using PokemonSystem.Incubator.Domain;
 using PokemonSystem.Incubator.Domain.SpeciesAggregate;
@@ -59,6 +60,7 @@ namespace PokemonSystem.Incubator
 
         public static IServiceCollection ConfigureDependencyInjection(this IServiceCollection services)
         {
+            services.AddSingleton<IPokemonAdapter, PokemonAdapter>();
             services.AddSingleton<ISpeciesAdapter, SpeciesAdapter>();
             services.AddTransient<IIncubatorService, IncubatorService>();
             services.AddTransient<ISpeciesRepository, SpeciesRepository>();

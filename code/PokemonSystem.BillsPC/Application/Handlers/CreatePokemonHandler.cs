@@ -28,7 +28,7 @@ namespace PokemonSystem.BillsPC.Application.Handlers
             var pokemon = new Pokemon(request.Id, request.Nickname, species, request.Gender);
             await _pokemonRepository.AddOrUpdateAsync(pokemon);
             _applicationContext.Add(pokemon);
-            _unitOfWork.Commit();
+            await _unitOfWork.CommitAsync();
         }
     }
 }

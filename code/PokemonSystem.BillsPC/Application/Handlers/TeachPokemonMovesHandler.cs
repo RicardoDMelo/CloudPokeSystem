@@ -22,10 +22,10 @@ namespace PokemonSystem.BillsPC.Application.Handlers
         public async Task Handle(TeachPokemonMoves request, CancellationToken cancellationToken)
         {
             var pokemon = await _pokemonRepository.GetAsync(request.Id);
-            pokemon.Teach(request.Id, request.LearntMoves.Select(x => new Move(x.Name, x.Type, x.Category, x.Power, x.Accuracy, x.PP)).ToList());
+            pokemon!.Teach(request.Id, request.LearntMoves.Select(x => new Move(x.Name, x.Type, x.Category, x.Power, x.Accuracy, x.PP)).ToList());
             await _pokemonRepository.AddOrUpdateAsync(pokemon);
             _applicationContext.Add(pokemon);
-            _unitOfWork.Commit();
+            await _unitOfWork.CommitAsync();
         }
     }
 }

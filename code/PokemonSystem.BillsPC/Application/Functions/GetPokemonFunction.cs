@@ -32,7 +32,7 @@ namespace PokemonSystem.BillsPC.Application.Functions
         /// <returns>A pokemon</returns>
         public async Task<APIGatewayProxyResponse> GetPokemonRestAsync(APIGatewayProxyRequest request)
         {
-            _logger.LogInformation("EVENT: " + JsonSerializer.Serialize(request));
+            _logger.LogInformation("EVENT: " + JsonSerializer.Serialize(request, AppHelpers.SerializerOptions));
 
             APIGatewayProxyResponse response;
 
@@ -41,6 +41,7 @@ namespace PokemonSystem.BillsPC.Application.Functions
                 response = new APIGatewayProxyResponse
                 {
                     StatusCode = (int)HttpStatusCode.BadRequest,
+                    Headers = AppHelpers.Headers,
                     Body = "Invalid Id"
                 };
             }
@@ -53,7 +54,7 @@ namespace PokemonSystem.BillsPC.Application.Functions
                     response = new APIGatewayProxyResponse
                     {
                         StatusCode = (int)HttpStatusCode.NotFound,
-                        Headers = new Dictionary<string, string> { { "Content-Type", "application/json" } }
+                        Headers = AppHelpers.Headers
                     };
                 }
                 else
@@ -62,8 +63,8 @@ namespace PokemonSystem.BillsPC.Application.Functions
                     response = new APIGatewayProxyResponse
                     {
                         StatusCode = (int)HttpStatusCode.OK,
-                        Body = JsonSerializer.Serialize(pokemon),
-                        Headers = new Dictionary<string, string> { { "Content-Type", "application/json" } }
+                        Body = JsonSerializer.Serialize(pokemon, AppHelpers.SerializerOptions),
+                        Headers = AppHelpers.Headers
                     };
                 }
             }

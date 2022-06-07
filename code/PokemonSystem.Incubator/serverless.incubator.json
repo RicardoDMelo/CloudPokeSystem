@@ -3,23 +3,29 @@
   "Transform": "AWS::Serverless-2016-10-31",
   "Description": "An AWS Serverless Application that uses the ASP.NET Core framework running in Amazon Lambda.",
   "Parameters": {
-    "DomainParameter" : {
-      "Type" : "String",
-      "Description" : "Enter your domain. Example: google.com"
+    "DomainParameter": {
+      "Type": "String",
+      "Description": "Enter your domain. Example: google.com"
     },
-    "CertificateIdParameter" : {
-      "Type" : "String",
-      "Description" : "Enter your Certificate Id."
+    "CertificateIdParameter": {
+      "Type": "String",
+      "Description": "Enter your Certificate Id."
     }
   },
   "Conditions": {},
   "Resources": {
     "PokemonApi": {
-      "Type": "AWS::Serverless::HttpApi",
+      "Type": "AWS::Serverless::Api",
       "Properties": {
+        "StageName": "Prod",
+        "Cors": {
+          "AllowHeaders": "'Content-Type'",
+          "AllowMethods": "'POST,OPTIONS'",
+          "AllowOrigin": "'*'"
+        },
         "Domain": {
-          "CertificateArn": { "Fn::Sub" : "arn:aws:acm:${AWS::Region}:${AWS::AccountId}:certificate/${CertificateIdParameter}" },
-          "DomainName": { "Fn::Sub" : "pokemon-incubator.${DomainParameter}" }
+          "CertificateArn": { "Fn::Sub": "arn:aws:acm:${AWS::Region}:${AWS::AccountId}:certificate/${CertificateIdParameter}" },
+          "DomainName": { "Fn::Sub": "pokemon-incubator.${DomainParameter}" }
         }
       }
     },
@@ -31,12 +37,12 @@
         "CodeUri": "",
         "MemorySize": 512,
         "Timeout": 30,
-        "Role": { "Fn::Sub" : "arn:aws:iam::${AWS::AccountId}:role/LambdaExecutionRole" },
+        "Role": { "Fn::Sub": "arn:aws:iam::${AWS::AccountId}:role/LambdaExecutionRole" },
         "Events": {
           "RootResource": {
-            "Type": "HttpApi",
+            "Type": "Api",
             "Properties": {
-              "ApiId": { "Ref" : "PokemonApi" },
+              "RestApiId": { "Ref": "PokemonApi" },
               "Path": "/",
               "Method": "POST"
             }

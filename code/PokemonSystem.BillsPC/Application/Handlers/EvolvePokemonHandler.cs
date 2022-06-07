@@ -30,7 +30,7 @@ namespace PokemonSystem.BillsPC.Application.Handlers
             pokemon.Evolve(request.Id, species, request.Stats);
             await _pokemonRepository.AddOrUpdateAsync(pokemon);
             _applicationContext.Add(pokemon);
-            _unitOfWork.Commit();
+            await _unitOfWork.CommitAsync();
         }
     }
 }

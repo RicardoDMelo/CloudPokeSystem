@@ -17,6 +17,17 @@ namespace PokemonSystem.Incubator.Application.Functions
 
         private readonly IMediator _mediator;
         private readonly ILogger<IncubatorFunction> _logger;
+        private readonly JsonSerializerOptions _serializerOptions = new JsonSerializerOptions
+        {
+            PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+            WriteIndented = true
+        };
+        private readonly Dictionary<string, string> _headers = new()
+        {
+            { "Access-Control-Allow-Headers", "Content-Type" },
+            { "Access-Control-Allow-Origin", "*" },
+            { "Access-Control-Allow-Methods", "OPTIONS,POST" }
+        };
 
         public IncubatorFunction()
         {
@@ -35,14 +46,15 @@ namespace PokemonSystem.Incubator.Application.Functions
             _logger.LogInformation("EVENT: " + JsonSerializer.Serialize(request));
 
             APIGatewayProxyResponse response;
-            var createRandomPokemon = JsonSerializer.Deserialize<CreateRandomPokemon>(request.Body);
+            var createRandomPokemon = JsonSerializer.Deserialize<CreateRandomPokemon>(request.Body, _serializerOptions);
 
             if (createRandomPokemon == null)
             {
                 response = new APIGatewayProxyResponse
                 {
                     StatusCode = (int)HttpStatusCode.BadRequest,
-                    Body = "Invalid Json"
+                    Body = "Invalid Json",
+                    Headers = _headers
                 };
             }
             else
@@ -52,8 +64,8 @@ namespace PokemonSystem.Incubator.Application.Functions
                 response = new APIGatewayProxyResponse
                 {
                     StatusCode = (int)HttpStatusCode.OK,
-                    Body = JsonSerializer.Serialize(pokemon),
-                    Headers = new Dictionary<string, string> { { "Content-Type", "application/json" } }
+                    Body = JsonSerializer.Serialize(pokemon, _serializerOptions),
+                    Headers = _headers
                 };
             }
 

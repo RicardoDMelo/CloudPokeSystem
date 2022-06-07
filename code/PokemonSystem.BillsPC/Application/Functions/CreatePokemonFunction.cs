@@ -35,14 +35,15 @@ namespace PokemonSystem.BillsPC.Application.Functions
             _logger.LogInformation("EVENT: " + JsonSerializer.Serialize(request));
 
             APIGatewayProxyResponse response;
-            var createPokemon = JsonSerializer.Deserialize<CreatePokemon>(request.Body);
+            var createPokemon = JsonSerializer.Deserialize<CreatePokemon>(request.Body, AppHelpers.SerializerOptions);
 
             if (createPokemon == null)
             {
                 response = new APIGatewayProxyResponse
                 {
                     StatusCode = (int)HttpStatusCode.BadRequest,
-                    Body = "Invalid Json"
+                    Body = "Invalid Json",
+                    Headers = AppHelpers.Headers
                 };
             }
             else
@@ -52,7 +53,7 @@ namespace PokemonSystem.BillsPC.Application.Functions
                 response = new APIGatewayProxyResponse
                 {
                     StatusCode = (int)HttpStatusCode.OK,
-                    Headers = new Dictionary<string, string> { { "Content-Type", "application/json" } }
+                    Headers = AppHelpers.Headers
                 };
             }
 

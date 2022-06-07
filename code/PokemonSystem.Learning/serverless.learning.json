@@ -15,11 +15,17 @@
   "Conditions": {},
   "Resources": {
     "PokemonApi": {
-      "Type": "AWS::Serverless::HttpApi",
+      "Type": "AWS::Serverless::Api",
       "Properties": {
+        "StageName": "Prod",
+        "Cors": {
+          "AllowHeaders": "'Content-Type'",
+          "AllowMethods": "'GET,POST,OPTIONS'",
+          "AllowOrigin": "'*'"
+        },
         "Domain": {
-          "CertificateArn": { "Fn::Sub" : "arn:aws:acm:${AWS::Region}:${AWS::AccountId}:certificate/${CertificateIdParameter}" },
-          "DomainName": { "Fn::Sub" : "pokemon-learning.${DomainParameter}" }
+          "CertificateArn": { "Fn::Sub": "arn:aws:acm:${AWS::Region}:${AWS::AccountId}:certificate/${CertificateIdParameter}" },
+          "DomainName": { "Fn::Sub": "pokemon-learning.${DomainParameter}" }
         }
       }
     },
@@ -31,12 +37,12 @@
         "CodeUri": "",
         "MemorySize": 512,
         "Timeout": 30,
-        "Role": { "Fn::Sub" : "arn:aws:iam::${AWS::AccountId}:role/LambdaExecutionRole" },
+        "Role": { "Fn::Sub": "arn:aws:iam::${AWS::AccountId}:role/LambdaExecutionRole" },
         "Events": {
           "RootResource": {
-            "Type": "HttpApi",
+            "Type": "Api",
             "Properties": {
-              "ApiId": { "Ref" : "PokemonApi" },
+              "RestApiId": { "Ref": "PokemonApi" },
               "Path": "/",
               "Method": "POST"
             }
@@ -52,24 +58,24 @@
         "CodeUri": "",
         "MemorySize": 512,
         "Timeout": 30,
-        "Role": { "Fn::Sub" : "arn:aws:iam::${AWS::AccountId}:role/LambdaExecutionRole" },
+        "Role": { "Fn::Sub": "arn:aws:iam::${AWS::AccountId}:role/LambdaExecutionRole" },
         "Events": {
           "PokemonLevelRaisedSQSEvent": {
             "Type": "SQS",
             "Properties": {
-              "Queue": { "Fn::Sub" :"arn:aws:sqs:${AWS::Region}:${AWS::AccountId}:LearningPokemonLevelRaisedQueue.fifo" },
+              "Queue": { "Fn::Sub": "arn:aws:sqs:${AWS::Region}:${AWS::AccountId}:LearningPokemonLevelRaisedQueue.fifo" },
               "BatchSize": 10
             }
           },
           "PokemonEvolvedSQSEvent": {
             "Type": "SQS",
             "Properties": {
-              "Queue": { "Fn::Sub" :"arn:aws:sqs:${AWS::Region}:${AWS::AccountId}:LearningPokemonEvolvedQueue.fifo" },
+              "Queue": { "Fn::Sub": "arn:aws:sqs:${AWS::Region}:${AWS::AccountId}:LearningPokemonEvolvedQueue.fifo" },
               "BatchSize": 10
             }
           }
         }
       }
-    }    
+    }
   }
 }

@@ -31,7 +31,7 @@ namespace PokemonSystem.BillsPC.Application.Functions
         /// <returns>A pokemon</returns>
         public async Task<APIGatewayProxyResponse> GetLastPokemonsRestAsync(APIGatewayProxyRequest request)
         {
-            _logger.LogInformation("EVENT: " + JsonSerializer.Serialize(request));
+            _logger.LogInformation("EVENT: " + JsonSerializer.Serialize(request, AppHelpers.SerializerOptions));
 
             APIGatewayProxyResponse response;
 
@@ -42,7 +42,7 @@ namespace PokemonSystem.BillsPC.Application.Functions
                 response = new APIGatewayProxyResponse
                 {
                     StatusCode = (int)HttpStatusCode.NoContent,
-                    Headers = new Dictionary<string, string> { { "Content-Type", "application/json" } }
+                    Headers = AppHelpers.Headers
                 };
             }
             else
@@ -51,8 +51,8 @@ namespace PokemonSystem.BillsPC.Application.Functions
                 response = new APIGatewayProxyResponse
                 {
                     StatusCode = (int)HttpStatusCode.OK,
-                    Body = JsonSerializer.Serialize(pokemons),
-                    Headers = new Dictionary<string, string> { { "Content-Type", "application/json" } }
+                    Body = JsonSerializer.Serialize(pokemons, AppHelpers.SerializerOptions),
+                    Headers = AppHelpers.Headers
                 };
             }
 

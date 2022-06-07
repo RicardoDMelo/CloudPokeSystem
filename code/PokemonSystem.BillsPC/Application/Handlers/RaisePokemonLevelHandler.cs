@@ -22,10 +22,10 @@ namespace PokemonSystem.BillsPC.Application.Handlers
         public async Task Handle(RaisePokemonLevel request, CancellationToken cancellationToken)
         {
             var pokemon = await _pokemonRepository.GetAsync(request.Id);
-            pokemon.RaiseLevel(request.Id, new Level(request.Level), request.Stats);
+            pokemon!.RaiseLevel(request.Id, new Level(request.Level), request.Stats);
             await _pokemonRepository.AddOrUpdateAsync(pokemon);
             _applicationContext.Add(pokemon);
-            _unitOfWork.Commit();
+            await _unitOfWork.CommitAsync();
         }
     }
 }

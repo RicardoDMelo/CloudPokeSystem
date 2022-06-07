@@ -1,5 +1,4 @@
-﻿using PokemonSystem.Common.Enums;
-using PokemonSystem.Common.ValueObjects;
+﻿using PokemonSystem.Common.ValueObjects;
 
 namespace PokemonSystem.BillsPC.Application.ViewModel
 {
