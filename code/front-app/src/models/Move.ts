@@ -4,5 +4,5 @@ class Move {
     category: MoveCategory;
     power: number | null;
     accuracy: number;
-    pP: number;
+    pp: number;
 }

@@ -24,12 +24,12 @@
           "AllowOrigin": "'*'"
         },
         "Domain": {
-          "CertificateArn": { "Fn::Sub": "arn:aws:acm:${AWS::Region}:${AWS::AccountId}:certificate/${CertificateIdParameter}" },
+          "CertificateArn": { "Fn::Sub": "${CertificateIdParameter}" },
           "DomainName": { "Fn::Sub": "pokemon-api.${DomainParameter}" }
         }
       }
     },
-    "Incubator-CreateRandomPokemon": {
+    "IncubatorCreateRandomPokemon": {
       "Type": "AWS::Serverless::Function",
       "Properties": {
         "Handler": "PokemonSystem.Incubator::PokemonSystem.Incubator.Application.Functions.IncubatorFunction::CreateRandomPokemonRestAsync",
@@ -50,7 +50,7 @@
         }
       }
     },
-    "Evolution-GrantPokemonLevelRest": {
+    "EvolutionGrantPokemonLevelRest": {
       "Type": "AWS::Serverless::Function",
       "Properties": {
         "Handler": "PokemonSystem.Evolution::PokemonSystem.Evolution.Application.Functions.EvolutionFunction::GrantPokemonLevelRestAsync",
@@ -71,7 +71,7 @@
         }
       }
     },
-    "Evolution-GrantPokemonLevelSQS": {
+    "EvolutionGrantPokemonLevelSQS": {
       "Type": "AWS::Serverless::Function",
       "Properties": {
         "Handler": "PokemonSystem.Evolution::PokemonSystem.Evolution.Application.Functions.EvolutionFunction::GrantPokemonLevelSQSAsync",
@@ -91,7 +91,7 @@
         }
       }
     },
-    "Learning-TeachPokemonMovesRest": {
+    "LearningTeachPokemonMovesRest": {
       "Type": "AWS::Serverless::Function",
       "Properties": {
         "Handler": "PokemonSystem.Learning::PokemonSystem.Learning.Application.Functions.LearningFunction::TeachPokemonMovesRestAsync",
@@ -112,7 +112,7 @@
         }
       }
     },
-    "Learning-TeachPokemonMovesSQS": {
+    "LearningTeachPokemonMovesSQS": {
       "Type": "AWS::Serverless::Function",
       "Properties": {
         "Handler": "PokemonSystem.Learning::PokemonSystem.Learning.Application.Functions.LearningFunction::TeachPokemonMovesSQSAsync",
@@ -139,7 +139,7 @@
         }
       }
     },
-    "BillsPC-GetLastPokemonsRest": {
+    "BillsPCGetLastPokemonsRest": {
       "Type": "AWS::Serverless::Function",
       "Properties": {
         "Handler": "PokemonSystem.BillsPC::PokemonSystem.BillsPC.Application.Functions.GetLastPokemonsFunction::GetLastPokemonsRestAsync",
@@ -160,7 +160,7 @@
         }
       }
     },
-    "BillsPC-GetPokemonRest": {
+    "BillsPCGetPokemonRest": {
       "Type": "AWS::Serverless::Function",
       "Properties": {
         "Handler": "PokemonSystem.BillsPC::PokemonSystem.BillsPC.Application.Functions.GetPokemonFunction::GetPokemonRestAsync",
@@ -181,7 +181,7 @@
         }
       }
     },
-    "BillsPC-CreatePokemonRest": {
+    "BillsPCCreatePokemonRest": {
       "Type": "AWS::Serverless::Function",
       "Properties": {
         "Handler": "PokemonSystem.BillsPC::PokemonSystem.BillsPC.Application.Functions.CreatePokemonFunction::CreatePokemonRestAsync",
@@ -202,7 +202,7 @@
         }
       }
     },
-    "BillsPC-CreatePokemonSQS": {
+    "BillsPCCreatePokemonSQS": {
       "Type": "AWS::Serverless::Function",
       "Properties": {
         "Handler": "PokemonSystem.BillsPC::PokemonSystem.BillsPC.Application.Functions.CreatePokemonFunction::CreatePokemonSQSAsync",
@@ -222,7 +222,7 @@
         }
       }
     },
-    "BillsPC-EvolvePokemonRest": {
+    "BillsPCEvolvePokemonRest": {
       "Type": "AWS::Serverless::Function",
       "Properties": {
         "Handler": "PokemonSystem.BillsPC::PokemonSystem.BillsPC.Application.Functions.EvolvePokemonFunction::EvolvePokemonRestAsync",
@@ -243,7 +243,7 @@
         }
       }
     },
-    "BillsPC-EvolvePokemonSQS": {
+    "BillsPCEvolvePokemonSQS": {
       "Type": "AWS::Serverless::Function",
       "Properties": {
         "Handler": "PokemonSystem.BillsPC::PokemonSystem.BillsPC.Application.Functions.EvolvePokemonFunction::EvolvePokemonSQSAsync",
@@ -263,7 +263,7 @@
         }
       }
     },
-    "BillsPC-RaisePokemonLevelRest": {
+    "BillsPCRaisePokemonLevelRest": {
       "Type": "AWS::Serverless::Function",
       "Properties": {
         "Handler": "PokemonSystem.BillsPC::PokemonSystem.BillsPC.Application.Functions.RaisePokemonLevelFunction::RaisePokemonLevelRestAsync",
@@ -284,7 +284,7 @@
         }
       }
     },
-    "BillsPC-RaisePokemonLevelSQS": {
+    "BillsPCRaisePokemonLevelSQS": {
       "Type": "AWS::Serverless::Function",
       "Properties": {
         "Handler": "PokemonSystem.BillsPC::PokemonSystem.BillsPC.Application.Functions.RaisePokemonLevelFunction::RaisePokemonLevelSQSAsync",
@@ -304,7 +304,7 @@
         }
       }
     },
-    "BillsPC-TeachPokemonMovesRest": {
+    "BillsPCTeachPokemonMovesRest": {
       "Type": "AWS::Serverless::Function",
       "Properties": {
         "Handler": "PokemonSystem.BillsPC::PokemonSystem.BillsPC.Application.Functions.TeachPokemonMovesFunction::TeachPokemonMovesRestAsync",
@@ -325,7 +325,7 @@
         }
       }
     },
-    "BillsPC-TeachPokemonMovesSQS": {
+    "BillsPCTeachPokemonMovesSQS": {
       "Type": "AWS::Serverless::Function",
       "Properties": {
         "Handler": "PokemonSystem.BillsPC::PokemonSystem.BillsPC.Application.Functions.TeachPokemonMovesFunction::TeachPokemonMovesSQSAsync",

@@ -26,6 +26,41 @@ export function PokemonView() {
                 <PokemonProp label="Species Name" value={state.value.speciesName} />
                 <PokemonProp label="Level" value={state.value.level} />
                 <PokemonProp label="Gender" value={state.value.gender} />
+
+                <h3>Stats</h3>
+                <PokemonProp label="HP" value={state.value.stats.hp} />
+                <PokemonProp label="Atack" value={state.value.stats.attack} />
+                <PokemonProp label="Defense" value={state.value.stats.defense} />
+                <PokemonProp label="Special Attack" value={state.value.stats.specialAttack} />
+                <PokemonProp label="Special Defense" value={state.value.stats.specialDefense} />
+                <PokemonProp label="Speed" value={state.value.stats.speed} />
+
+                <h3>Moves</h3>
+
+                <table>
+                    <thead>
+                        <th>Name</th>
+                        <th>Type</th>
+                        <th>Category</th>
+                        <th>Power</th>
+                        <th>Accuracy</th>
+                        <th>PP</th>
+                    </thead>
+                    <tbody>
+                        {state.value.learntMoves.map((move: Move) => {
+                            return (
+                                <tr key={move.name}>
+                                    <td>{move.name}</td>
+                                    <td>{move.type}</td>
+                                    <td>{move.category}</td>
+                                    <td>{move.power}</td>
+                                    <td>{move.accuracy}</td>
+                                    <td>{move.pp}</td>
+                                </tr>
+                            );
+                        })}
+                    </tbody>
+                </table>
             </div>
         );
     } else {
