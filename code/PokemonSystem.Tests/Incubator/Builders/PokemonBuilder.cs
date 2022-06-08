@@ -1,4 +1,6 @@
-﻿using PokemonSystem.Common.ValueObjects;
+﻿using AutoMapper;
+using PokemonSystem.Common.ValueObjects;
+using PokemonSystem.Incubator.Application.ViewModel;
 using PokemonSystem.Incubator.Domain.PokemonAggregate;
 using PokemonSystem.Incubator.Domain.SpeciesAggregate;
 
@@ -45,6 +47,31 @@ namespace PokemonSystem.Tests.Incubator.Builders
             var pokemon = new Pokemon(_nickname, _species, _level);
             Reset();
             return pokemon;
+        }
+
+        public PokemonLookup ConvertToViewModel(Pokemon pokemon)
+        {
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<Pokemon, PokemonLookup>()
+                    .ForMember(dest => dest.Level, opt => opt.MapFrom(src => src.LevelToGrow!.Value))
+                    .ForMember(dest => dest.Name, opt => opt.MapFrom((src, dest) =>
+                    {
+                        if (string.IsNullOrEmpty(src.Nickname))
+                        {
+                            return src.PokemonSpecies.Name;
+                        }
+                        else
+                        {
+                            return $"{src.Nickname} - {src.PokemonSpecies.Name}";
+                        }
+                    }));
+            });
+
+            config.AssertConfigurationIsValid();
+            var mapper = config.CreateMapper();
+
+            return mapper.Map<PokemonLookup>(pokemon);
         }
     }
 }
