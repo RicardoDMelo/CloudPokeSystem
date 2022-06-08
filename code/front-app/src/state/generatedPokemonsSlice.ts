@@ -30,7 +30,7 @@ export const generateNewPokemonAsync: AsyncThunk<PokemonLookup, GeneratePokemonR
 export const getLastPokemonsAsync: AsyncThunk<Array<PokemonLookup>, void, {}> = createAsyncThunk<Array<PokemonLookup>>(
   'getLastPokemonsAsync',
   async () => {
-    const response: Array<PokemonLookup> = await api.get<Array<PokemonLookup>>(null)
+    const response: Array<PokemonLookup> = await api.get<Array<PokemonLookup>>('billspc')
       .then((response) => {
         if (response.status === 204) {
           return initialState.list;

@@ -14,7 +14,7 @@ export function PokemonView() {
     const state = useSelector((state: RootState) => state.pokemonDetail);
 
     useEffect(() => {
-        if (state.value.id !== params.pokemonId || !state.isLoaded) {
+        if (state.value?.id !== params.pokemonId || !state.isLoaded) {
             dispatch(getPokemonAsync(params.pokemonId));
         }
     });
@@ -38,12 +38,14 @@ export function PokemonView() {
                 <h3>Moves</h3>
                 <table>
                     <thead>
-                        <th>Name</th>
-                        <th>Type</th>
-                        <th>Category</th>
-                        <th>Power</th>
-                        <th>Accuracy</th>
-                        <th>PP</th>
+                        <tr>
+                            <th>Name</th>
+                            <th>Type</th>
+                            <th>Category</th>
+                            <th>Power</th>
+                            <th>Accuracy</th>
+                            <th>PP</th>
+                        </tr>
                     </thead>
                     <tbody>
                         {state.value.learntMoves.map((move: Move) => {

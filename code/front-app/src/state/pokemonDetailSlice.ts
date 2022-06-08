@@ -14,7 +14,7 @@ const initialState: PokemonDetailState = {
 export const getPokemonAsync: AsyncThunk<PokemonDetail, string, {}> = createAsyncThunk<PokemonDetail, string>(
   'getPokemonAsync',
   async (pokemonId) => {
-    return await api.get<PokemonDetail>(pokemonId)
+    return await api.get<PokemonDetail>('billspc/' + pokemonId)
       .then((response) => {
         if (response.status === 404) {
           return null;
