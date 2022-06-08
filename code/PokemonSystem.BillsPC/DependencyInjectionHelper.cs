@@ -28,7 +28,7 @@ namespace PokemonSystem.BillsPC
         {
             IConfiguration config = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json")
+                .AddJsonFile("appsettings.billspc.json")
                 .AddEnvironmentVariables()
                 .Build();
 

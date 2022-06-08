@@ -29,7 +29,7 @@ namespace PokemonSystem.Learning
         {
             IConfiguration config = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json")
+                .AddJsonFile("appsettings.learning.json")
                 .AddEnvironmentVariables()
                 .Build();
 

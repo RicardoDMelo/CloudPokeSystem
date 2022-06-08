@@ -29,7 +29,7 @@
 		<ProjectReference Include="..\PokemonSystem.Common\PokemonSystem.Common.csproj" />
 	</ItemGroup>
 	<ItemGroup>
-	  <None Update="appsettings.json">
+	  <None Update="appsettings.evolution.json">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </None>
 	</ItemGroup>

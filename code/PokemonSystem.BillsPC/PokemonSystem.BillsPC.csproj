@@ -42,7 +42,7 @@
 	  </EmbeddedResource>
 	</ItemGroup>
 	<ItemGroup>
-	  <None Update="appsettings.json">
+	  <None Update="appsettings.billspc.json">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </None>
 	</ItemGroup>

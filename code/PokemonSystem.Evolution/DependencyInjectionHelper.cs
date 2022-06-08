@@ -27,7 +27,7 @@ namespace PokemonSystem.Evolution
         {
             IConfiguration config = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json")
+                .AddJsonFile("appsettings.evolution.json")
                 .AddEnvironmentVariables()
                 .Build();
 
