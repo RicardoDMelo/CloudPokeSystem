@@ -2,7 +2,6 @@ version: 0.2
 env:
   variables:
     DOTNET_ROOT: /root/.dotnet
-    TEMPLATE_PARAMS: CertificateIdParameter="$CERTIFICATE_ID";DomainParameter="$DOMAIN_NAME"
 cache:
   paths:
     - '/root/.nuget/**/*'
@@ -22,7 +21,11 @@ phases:
       - dotnet tool install -g Amazon.Lambda.Tools
   build:
     commands:
-      - echo Build started on `date`
+      - TEMPLATE_PARAMS="CertificateIdParameter=${CERTIFICATE_ID};DomainParameter=${DOMAIN_NAME}";
+      - echo $CERTIFICATE_ID
+      - echo $DOMAIN_NAME
+      - echo $TEMPLATE_PARAMS
+      - echo Build started on $(date +%Y-%m-%d) 
       - dotnet publish ./code/PokemonSystem.Publish.sln --configuration "Release" --framework "net6.0" /p:GenerateRuntimeConfigurationFiles=true --runtime linux-x64 --self-contained false --output dist
       - cp serverless.json dist
       - dotnet lambda deploy-serverless --disable-interactive true --project-location dist --stack-name pokemon-api --s3-bucket poke-build-bucket --template serverless.json --template-parameters $TEMPLATE_PARAMS
