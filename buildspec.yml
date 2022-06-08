@@ -24,4 +24,4 @@ phases:
       - echo Build started on `date`
       - dotnet publish ./code/PokemonSystem.Publish.sln --configuration "Release" --framework "net6.0" /p:GenerateRuntimeConfigurationFiles=true --runtime linux-x64 --self-contained false --output dist
       - cp serverless.json dist
-      - dotnet lambda deploy-serverless --disable-interactive true --project-location dist --stack-name pokemon-api --s3-bucket poke-build-bucket --template serverless.json --template-parameters DomainParameter=$DOMAIN_NAME;CertificateIdParameter=$CERTIFICATE_ID
+      - dotnet lambda deploy-serverless --disable-interactive true --project-location dist --stack-name pokemon-api --s3-bucket poke-build-bucket --template serverless.json --template-parameters DomainParameter="$DOMAIN_NAME";CertificateIdParameter="$CERTIFICATE_ID"

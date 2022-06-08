@@ -1,5 +1,5 @@
 import { AsyncThunk, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import axios from 'axios';
+import { api } from './apiService';
 
 interface PokemonDetailState {
   isLoaded: boolean;
@@ -11,12 +11,10 @@ const initialState: PokemonDetailState = {
   value: null
 }
 
-const BILLSPC_API_URL: string = "https://pokemon-billspc.ricardomelo.dev/";
-
 export const getPokemonAsync: AsyncThunk<PokemonDetail, string, {}> = createAsyncThunk<PokemonDetail, string>(
   'getPokemonAsync',
   async (pokemonId) => {
-    return await axios.get<PokemonDetail>(BILLSPC_API_URL + pokemonId)
+    return await api.get<PokemonDetail>(pokemonId)
       .then((response) => {
         if (response.status === 404) {
           return null;

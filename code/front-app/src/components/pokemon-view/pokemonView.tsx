@@ -36,7 +36,6 @@ export function PokemonView() {
                 <PokemonProp label="Speed" value={state.value.stats.speed} />
 
                 <h3>Moves</h3>
-
                 <table>
                     <thead>
                         <th>Name</th>

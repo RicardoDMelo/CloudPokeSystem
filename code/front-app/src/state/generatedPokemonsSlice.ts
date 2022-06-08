@@ -1,5 +1,5 @@
 import { AsyncThunk, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import axios from 'axios';
+import { api } from './apiService';
 
 interface GeneratedPokemonsState {
   isGenerating: boolean;
@@ -13,13 +13,10 @@ const initialState: GeneratedPokemonsState = {
   list: new Array<PokemonLookup>()
 }
 
-const INCUBATOR_API_URL: string = "https://pokemon-incubator.ricardomelo.dev";
-const BILLSPC_API_URL: string = "https://pokemon-billspc.ricardomelo.dev";
-
 export const generateNewPokemonAsync: AsyncThunk<PokemonLookup, GeneratePokemonRequest, {}> = createAsyncThunk<PokemonLookup, GeneratePokemonRequest>(
   'generatePokemonAsync',
   async (pokemonRequest) => {
-    return await axios.post<PokemonLookup>(INCUBATOR_API_URL, pokemonRequest)
+    return await api.post<PokemonLookup>('incubator', pokemonRequest)
       .then((response) => {
         return response.data;
       })
@@ -33,7 +30,7 @@ export const generateNewPokemonAsync: AsyncThunk<PokemonLookup, GeneratePokemonR
 export const getLastPokemonsAsync: AsyncThunk<Array<PokemonLookup>, void, {}> = createAsyncThunk<Array<PokemonLookup>>(
   'getLastPokemonsAsync',
   async () => {
-    const response: Array<PokemonLookup> = await axios.get<Array<PokemonLookup>>(BILLSPC_API_URL)
+    const response: Array<PokemonLookup> = await api.get<Array<PokemonLookup>>(null)
       .then((response) => {
         if (response.status === 204) {
           return initialState.list;
