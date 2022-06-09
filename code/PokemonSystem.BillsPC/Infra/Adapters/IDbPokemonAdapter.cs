@@ -1,6 +1,6 @@
 ﻿using MediatR;
 using PokemonSystem.BillsPC.Domain.PokemonAggregate;
-using PokemonSystem.Common.SeedWork.Domain;
+using PokemonSystem.BillsPC.Infra.DatabaseDtos;
 
 namespace PokemonSystem.BillsPC.Infra.Adapters
 {

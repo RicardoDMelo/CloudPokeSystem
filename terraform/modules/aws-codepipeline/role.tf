@@ -299,6 +299,23 @@ resource "aws_iam_role" "lambda_execution_role" {
     max_session_duration  = 3600
     name                  = "LambdaExecutionRole"
     path                  = "/"
+}
 
-    inline_policy {}
+resource "aws_s3_bucket_policy" "image_bucket_policy" {
+    bucket = aws_s3_bucket.images_bucket.id
+    policy = jsonencode(
+        {
+            Id        = "Policy1654727343240"
+            Statement = [
+                {
+                    Action    = "s3:GetObject"
+                    Effect    = "Allow"
+                    Principal = "*"
+                    Resource  = "arn:aws:s3:::poke-images/*"
+                    Sid       = "Allo Public Read"
+                },
+            ]
+            Version   = "2012-10-17"
+        }
+    )
 }

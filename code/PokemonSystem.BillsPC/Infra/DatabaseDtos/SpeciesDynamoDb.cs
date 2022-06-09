@@ -10,5 +10,6 @@ namespace PokemonSystem.BillsPC.Infra.DatabaseDtos
 
         [DynamoDBLocalSecondaryIndexRangeKey]
         public string Name { get; set; } = string.Empty;
+        public TypingDynamoDb? Typing { get; set; }
     }
 }

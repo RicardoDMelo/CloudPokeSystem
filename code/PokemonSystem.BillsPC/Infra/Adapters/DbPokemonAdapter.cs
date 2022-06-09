@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using MediatR;
 using PokemonSystem.BillsPC.Domain.PokemonAggregate;
+using PokemonSystem.BillsPC.Infra.DatabaseDtos;
 using PokemonSystem.Common.SeedWork.Domain;
 using System.Text.Json;
 

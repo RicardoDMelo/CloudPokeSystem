@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using PokemonSystem.BillsPC.Domain.SpeciesAggregate;
 using PokemonSystem.BillsPC.Infra.DatabaseDtos;
+using PokemonSystem.Common.Enums;
 using PokemonSystem.Common.ValueObjects;
 
 namespace PokemonSystem.BillsPC.Infra.Adapters
@@ -11,6 +12,8 @@ namespace PokemonSystem.BillsPC.Infra.Adapters
         {
             CreateMap<SpeciesDynamoDb, Species>()
                 .ForMember(dest => dest.DomainEvents, opt => opt.Ignore())
+                .ReverseMap();
+            CreateMap<TypingDynamoDb, Typing>()
                 .ReverseMap();
             CreateMap<uint?, Level?>()
                 .ConstructUsing((source, context) => source is null ? null : new Level(source.Value))
@@ -45,22 +48,16 @@ namespace PokemonSystem.BillsPC.Infra.Adapters
             return _mapper.Map<Species>(speciesDynamoDb);
         }
 
-        public SpeciesDynamoDb ConvertToDto(Species species)
+        private Typing ConvertToTyping(TypingDynamoDb source, ResolutionContext context)
         {
-            return _mapper.Map<SpeciesDynamoDb>(species);
-        }
-
-        private Species ConvertToSpecies(SpeciesDynamoDb source, ResolutionContext context)
-        {
-            return new Species(source.Id, source.Name);
-        }
-        private SpeciesDynamoDb ConvertToSpeciesDynamoDb(Species source, ResolutionContext context)
-        {
-            return new SpeciesDynamoDb()
+            if (source.Type2 is null)
             {
-                Id = source.Id,
-                Name = source.Name,
-            };
+                return new Typing((PokemonType)source.Type1);
+            }
+            else
+            {
+                return new Typing((PokemonType)source.Type1, (PokemonType)source.Type2);
+            }
         }
     }
 }

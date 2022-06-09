@@ -1,14 +1,3 @@
-resource "aws_s3_bucket" "build_bucket" {
-    bucket        = "poke-build-bucket"
-    request_payer = "BucketOwner"
-    force_destroy = true
-
-    versioning {
-        enabled    = false
-        mfa_delete = false
-    }
-}
-
 resource "aws_codebuild_project" "code_test" {
     badge_enabled          = false
     build_timeout          = 20

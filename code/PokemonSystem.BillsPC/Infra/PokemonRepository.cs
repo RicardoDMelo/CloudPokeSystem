@@ -3,7 +3,7 @@ using Amazon.DynamoDBv2.DocumentModel;
 using MediatR;
 using PokemonSystem.BillsPC.Domain.PokemonAggregate;
 using PokemonSystem.BillsPC.Infra.Adapters;
-using PokemonSystem.Common.SeedWork.Domain;
+using PokemonSystem.BillsPC.Infra.DatabaseDtos;
 
 namespace PokemonSystem.BillsPC.Infra
 {

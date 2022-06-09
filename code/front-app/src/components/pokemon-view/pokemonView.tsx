@@ -52,8 +52,8 @@ export function PokemonView() {
                             return (
                                 <tr key={move.name}>
                                     <td>{move.name}</td>
-                                    <td>{move.type}</td>
-                                    <td>{move.category}</td>
+                                    <td>{move.type.toString()}</td>
+                                    <td>{move.category.toString()}</td>
                                     <td>{move.power}</td>
                                     <td>{move.accuracy}</td>
                                     <td>{move.pp}</td>
