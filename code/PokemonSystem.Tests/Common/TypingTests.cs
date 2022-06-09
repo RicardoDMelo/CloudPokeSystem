@@ -11,7 +11,7 @@ namespace PokemonSystem.Tests.Common
         {
             PokemonType type1 = PokemonType.Dragon;
 
-            var typing = new Typing(type1);
+            var typing = new Typing(type1, null);
 
             Assert.AreEqual(type1, typing.Type1);
             Assert.IsNull(typing.Type2);

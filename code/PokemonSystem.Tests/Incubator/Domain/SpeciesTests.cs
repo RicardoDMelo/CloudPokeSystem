@@ -23,7 +23,7 @@ namespace PokemonSystem.Tests.Incubator.Domain
         {
             var number = 128u;
             var name = "Tauros";
-            var type = new Typing(PokemonType.Normal);
+            var type = new Typing(PokemonType.Normal, null);
             var baseStats = new Stats(1, 2, 3, 4, 5, 6);
             List<EvolutionCriteria> evolutionCriteria = new List<EvolutionCriteria>();
             var maleFactor = 0.6;
@@ -39,7 +39,7 @@ namespace PokemonSystem.Tests.Incubator.Domain
         {
             var number = 128u;
             var name = "Tauros";
-            var type = new Typing(PokemonType.Normal);
+            var type = new Typing(PokemonType.Normal, null);
             var baseStats = new Stats(1, 2, 3, 4, 5, 6);
             var maleFactor = 0.6;
             var moveset = _moveSetBuilder!.Build();

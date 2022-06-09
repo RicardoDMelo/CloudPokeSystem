@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using PokemonSystem.BillsPC.Domain.SpeciesAggregate;
 using PokemonSystem.BillsPC.Infra.DatabaseDtos;
-using PokemonSystem.Common.Enums;
 using PokemonSystem.Common.ValueObjects;
 
 namespace PokemonSystem.BillsPC.Infra.Adapters

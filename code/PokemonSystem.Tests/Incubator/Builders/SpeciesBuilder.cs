@@ -13,7 +13,7 @@ namespace PokemonSystem.Tests.Incubator.Builders
     {
         private uint _number = 128;
         private string _name = "Tauros";
-        private Typing _type = new Typing(PokemonType.Normal);
+        private Typing _type = new Typing(PokemonType.Normal, null);
         private Stats _baseStats = new Stats(1, 2, 3, 4, 5, 6);
         private List<EvolutionCriteria> _evolutionCriterias = new List<EvolutionCriteria>();
         private double? _maleFactor = 0.6;
@@ -29,7 +29,7 @@ namespace PokemonSystem.Tests.Incubator.Builders
         {
             _number = 128;
             _name = "Tauros";
-            _type = new Typing(PokemonType.Normal);
+            _type = new Typing(PokemonType.Normal, null);
             _baseStats = new Stats(1, 2, 3, 4, 5, 6);
             _evolutionCriterias = new List<EvolutionCriteria>();
             _maleFactor = 0.6;

@@ -52,14 +52,7 @@ namespace PokemonSystem.Incubator.Infra.Adapters
 
         private Typing ConvertToTyping(TypingDynamoDb source, ResolutionContext context)
         {
-            if (source.Type2 is null)
-            {
-                return new Typing((PokemonType)source.Type1);
-            }
-            else
-            {
-                return new Typing((PokemonType)source.Type1, (PokemonType)source.Type2);
-            }
+            return new Typing((PokemonType)source.Type1, source.Type2 is null ? null : (PokemonType)source.Type2);
         }
 
         private Stats ConvertToStats(StatsDynamoDb source, ResolutionContext context)
