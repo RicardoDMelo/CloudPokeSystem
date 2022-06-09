@@ -18,6 +18,7 @@ namespace PokemonSystem.BillsPC.Application.Adapters
                 .ForMember(dest => dest.Gender, opt => opt.MapFrom(src => src.Gender.ToString()))
                 .ForMember(dest => dest.LearntMoves, opt => opt.MapFrom(src => src.LearntMoves!.Values));
             CreateMap<Pokemon, PokemonLookup>()
+                .ForMember(dest => dest.SpeciesId, opt => opt.MapFrom(src => src.PokemonSpecies.Id))
                 .ForMember(dest => dest.Level, opt => opt.MapFrom(src => src.Level!.Value))
                 .ForMember(dest => dest.Name, opt => opt.MapFrom((src, dest) =>
                 {

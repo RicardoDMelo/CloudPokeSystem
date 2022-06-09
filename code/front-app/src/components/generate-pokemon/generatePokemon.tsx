@@ -1,5 +1,6 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
+import { GeneratePokemonRequest } from '../../models/GeneratePokemonRequest';
 import { generateNewPokemonAsync } from '../../state/generatedPokemonsSlice';
 import { AppDispatch } from '../../state/store';
 import { AsyncButton } from '../common/async-button/asyncButton';

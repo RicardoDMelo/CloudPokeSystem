@@ -1,4 +1,7 @@
-class Move {
+import { MoveCategory } from "./MoveCategory";
+import { PokemonType } from "./PokemonType";
+
+export class Move {
     name: string;
     type: PokemonType;
     category: MoveCategory;

@@ -1,4 +1,4 @@
-enum PokemonType {
+export enum PokemonType {
     Normal = 1,
     Grass = 2,
     Electric = 3,

@@ -4,6 +4,7 @@ import { AppDispatch, RootState } from '../../state/store';
 import { getLastPokemonsAsync } from '../../state/generatedPokemonsSlice';
 import { Link } from 'react-router-dom';
 import { Loading } from '../common/loading/loading';
+import { PokemonLookup } from '../../models/PokemonLookup';
 
 export function LastPokemons() {
 
@@ -25,7 +26,10 @@ export function LastPokemons() {
                         {state.list.map((pokemon: PokemonLookup) => {
                             return (
                                 <tr key={pokemon.id}>
-                                    <td><Link to={pokemon.id}>{pokemon.name}</Link></td>
+                                    <td>
+                                        <img src={`https://poke-images.s3.sa-east-1.amazonaws.com/${pokemon.speciesId}.png`}></img>
+                                        <Link to={pokemon.id}>{pokemon.name}</Link>
+                                    </td>
                                     <td>{pokemon.level}</td>
                                 </tr>
                             );

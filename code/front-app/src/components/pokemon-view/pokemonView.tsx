@@ -2,6 +2,10 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
+import { Move } from '../../models/Move';
+import { MoveCategory } from '../../models/MoveCategory';
+import { PokemonDetail } from '../../models/PokemonDetail';
+import { PokemonType } from '../../models/PokemonType';
 import { getPokemonAsync } from '../../state/pokemonDetailSlice';
 import { AppDispatch, RootState } from '../../state/store';
 import { Loading } from '../common/loading/loading';
@@ -19,13 +23,23 @@ export function PokemonView() {
         }
     });
 
+    const getTypeText = (pokemon: PokemonDetail) => {
+        if (pokemon.type2 === null) {
+            return PokemonType[pokemon.type1];
+        } else {
+            return `${PokemonType[pokemon.type1]} | ${PokemonType[pokemon.type2]}`;
+        }
+    }
+
     if (state.isLoaded) {
         return (
             <div>
                 <h2>{state.value.nickname === '' ? state.value.speciesName : state.value.nickname}</h2>
+                <img src={`https://poke-images.s3.sa-east-1.amazonaws.com/${state.value.speciesId}.png`}></img>
                 <PokemonProp label="Species Name" value={state.value.speciesName} />
                 <PokemonProp label="Level" value={state.value.level} />
                 <PokemonProp label="Gender" value={state.value.gender} />
+                <PokemonProp label="Type" value={getTypeText(state.value)} />
 
                 <h3>Stats</h3>
                 <PokemonProp label="HP" value={state.value.stats.hp} />
@@ -52,8 +66,8 @@ export function PokemonView() {
                             return (
                                 <tr key={move.name}>
                                     <td>{move.name}</td>
-                                    <td>{move.type.toString()}</td>
-                                    <td>{move.category.toString()}</td>
+                                    <td>{PokemonType[move.type]}</td>
+                                    <td>{MoveCategory[move.category]}</td>
                                     <td>{move.power}</td>
                                     <td>{move.accuracy}</td>
                                     <td>{move.pp}</td>

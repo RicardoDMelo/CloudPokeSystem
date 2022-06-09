@@ -1,4 +1,5 @@
 import { AsyncThunk, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { PokemonDetail } from '../models/PokemonDetail';
 import { api } from './apiService';
 
 interface PokemonDetailState {

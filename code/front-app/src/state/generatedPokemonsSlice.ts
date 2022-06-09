@@ -1,4 +1,6 @@
 import { AsyncThunk, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { GeneratePokemonRequest } from '../models/GeneratePokemonRequest';
+import { PokemonLookup } from '../models/PokemonLookup';
 import { api } from './apiService';
 
 interface GeneratedPokemonsState {
