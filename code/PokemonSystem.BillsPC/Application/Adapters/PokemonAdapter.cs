@@ -10,7 +10,7 @@ namespace PokemonSystem.BillsPC.Application.Adapters
         {
             DisableConstructorMapping();
             CreateMap<Pokemon, PokemonDetail>()
-                .ForMember(dest => dest.SpeciesId, opt => opt.MapFrom(src => src.PokemonSpecies.Name))
+                .ForMember(dest => dest.SpeciesId, opt => opt.MapFrom(src => src.PokemonSpecies.Id))
                 .ForMember(dest => dest.SpeciesName, opt => opt.MapFrom(src => src.PokemonSpecies.Name))
                 .ForMember(dest => dest.Type1, opt => opt.MapFrom(src => src.PokemonSpecies.Typing.Type1))
                 .ForMember(dest => dest.Type2, opt => opt.MapFrom(src => src.PokemonSpecies.Typing.Type2))

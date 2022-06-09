@@ -47,17 +47,5 @@ namespace PokemonSystem.BillsPC.Infra.Adapters
         {
             return _mapper.Map<Species>(speciesDynamoDb);
         }
-
-        private Typing ConvertToTyping(TypingDynamoDb source, ResolutionContext context)
-        {
-            if (source.Type2 is null)
-            {
-                return new Typing((PokemonType)source.Type1);
-            }
-            else
-            {
-                return new Typing((PokemonType)source.Type1, (PokemonType)source.Type2);
-            }
-        }
     }
 }
