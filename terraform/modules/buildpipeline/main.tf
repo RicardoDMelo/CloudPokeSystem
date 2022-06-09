@@ -27,27 +27,6 @@ resource "aws_codebuild_project" "code_test" {
         image_pull_credentials_type = "CODEBUILD"
         privileged_mode             = true
         type                        = "LINUX_CONTAINER"
-
-        environment_variable {
-            name  = "AWS_ACCOUNT_ID"
-            type  = "PLAINTEXT"
-            value = var.aws_account_id
-        }
-        environment_variable {
-            name  = "LAMBDA_ROLE"
-            type  = "PLAINTEXT"
-            value = "LambdaExecutionRole"
-        }
-        environment_variable {
-            name  = "AWS_ACCESS_KEY_ID"
-            type  = "PLAINTEXT"
-            value = var.aws_access_key_id
-        }
-        environment_variable {
-            name  = "AWS_SECRET_ACCESS_KEY"
-            type  = "PLAINTEXT"
-            value = var.aws_secret_access_key
-        }
     }
 
     logs_config {
@@ -70,19 +49,19 @@ resource "aws_codebuild_project" "code_test" {
     }
 }
 
-resource "aws_codebuild_project" "code_build" {
+resource "aws_codebuild_project" "dotnet_code_build" {
     badge_enabled          = false
     build_timeout          = 20
     concurrent_build_limit = 1
     encryption_key         = "arn:aws:kms:${var.aws_region}:${var.aws_account_id}:alias/aws/s3"
-    name                   = "PokeCodeBuild"
+    name                   = "PokeDotNetCodeBuild"
     project_visibility     = "PRIVATE"
     queued_timeout         = 480
     service_role           = aws_iam_role.code_build_role.arn
 
     artifacts {
         encryption_disabled    = false
-        name                   = "PokeCodeBuild"
+        name                   = "PokeDotNetCodeBuild"
         override_artifact_name = false
         packaging              = "NONE"
         type                   = "CODEPIPELINE"
@@ -104,11 +83,6 @@ resource "aws_codebuild_project" "code_build" {
             name  = "AWS_ACCOUNT_ID"
             type  = "PLAINTEXT"
             value = var.aws_account_id
-        }
-        environment_variable {
-            name  = "LAMBDA_ROLE"
-            type  = "PLAINTEXT"
-            value = "LambdaExecutionRole"
         }
         environment_variable {
             name  = "AWS_ACCESS_KEY_ID"
@@ -148,7 +122,69 @@ resource "aws_codebuild_project" "code_build" {
         insecure_ssl        = false
         report_build_status = false
         type                = "CODEPIPELINE"
-        buildspec           = "buildspec.yml"
+        buildspec           = "dotnet-buildspec.yml"
+    }
+}
+
+resource "aws_codebuild_project" "react_code_build" {
+    badge_enabled          = false
+    build_timeout          = 20
+    concurrent_build_limit = 1
+    encryption_key         = "arn:aws:kms:${var.aws_region}:${var.aws_account_id}:alias/aws/s3"
+    name                   = "PokeReactCodeBuild"
+    project_visibility     = "PRIVATE"
+    queued_timeout         = 480
+    service_role           = aws_iam_role.code_build_role.arn
+
+    artifacts {
+        encryption_disabled    = false
+        name                   = "PokeReactCodeBuild"
+        override_artifact_name = false
+        packaging              = "NONE"
+        type                   = "CODEPIPELINE"
+    }
+
+    cache {
+        modes = ["LOCAL_CUSTOM_CACHE"]
+        type  = "LOCAL"
+    }
+
+    environment {
+        compute_type                = "BUILD_GENERAL1_SMALL"
+        image                       = "aws/codebuild/amazonlinux2-x86_64-standard:3.0"
+        image_pull_credentials_type = "CODEBUILD"
+        privileged_mode             = true
+        type                        = "LINUX_CONTAINER"
+
+        environment_variable {
+            name  = "DEPLOY_BUCKET"
+            type  = "PLAINTEXT"
+            value = var.front_bucket_name
+        }
+        environment_variable {
+            name  = "DISTRIBUTION"
+            type  = "PLAINTEXT"
+            value = var.cloudfront_distribution_id
+        }
+    }
+
+    logs_config {
+        cloudwatch_logs {
+            status = "ENABLED"
+        }
+
+        s3_logs {
+            encryption_disabled = false
+            status              = "DISABLED"
+        }
+    }
+
+    source {
+        git_clone_depth     = 0
+        insecure_ssl        = false
+        report_build_status = false
+        type                = "CODEPIPELINE"
+        buildspec           = "react-buildspec.yml"
     }
 }
 
@@ -179,9 +215,7 @@ resource "aws_codepipeline" "code_pipeline" {
             }
             name             = "Source"
             namespace        = "SourceVariables"
-            output_artifacts = [
-                "SourceArtifact",
-            ]
+            output_artifacts = ["SourceArtifact"]
             region           = var.aws_region
             owner            = "AWS"
             provider         = "CodeStarSourceConnection"
@@ -198,9 +232,7 @@ resource "aws_codepipeline" "code_pipeline" {
             configuration    = {
                 "ProjectName" = "PokeCodeTest"
             }
-            input_artifacts  = [
-                "SourceArtifact",
-            ]
+            input_artifacts  = ["SourceArtifact"]
             name             = "Test"
             namespace        = "TestNamespace"
             region           = var.aws_region
@@ -217,12 +249,25 @@ resource "aws_codepipeline" "code_pipeline" {
         action {
             category         = "Build"
             configuration    = {
-                "ProjectName" = "PokeCodeBuild"
+                "ProjectName" = "PokeDotNetCodeBuild"
             }
-            input_artifacts  = [
-                "SourceArtifact",
-            ]
-            name             = "Build"
+            input_artifacts  = ["SourceArtifact"]
+            name             = "Dotnet Build"
+            namespace        = "BuildNamespace"
+            region           = var.aws_region
+            owner            = "AWS"
+            provider         = "CodeBuild"
+            run_order        = 1
+            version          = "1"
+        }
+        
+        action {
+            category         = "Build"
+            configuration    = {
+                "ProjectName" = "PokeReactCodeBuild"
+            }
+            input_artifacts  = ["SourceArtifact"]
+            name             = "Front Build"
             namespace        = "BuildNamespace"
             region           = var.aws_region
             owner            = "AWS"

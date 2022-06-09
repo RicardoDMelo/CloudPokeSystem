@@ -17,7 +17,7 @@ resource "aws_iam_role" "code_build_role" {
     managed_policy_arns   = [
         "arn:aws:iam::aws:policy/AWSCodeBuildAdminAccess",
         "arn:aws:iam::aws:policy/AWSCodeBuildDeveloperAccess",
-        "arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess",
+        "arn:aws:iam::aws:policy/AmazonS3FullAccess",
         "arn:aws:iam::aws:policy/CloudWatchLogsFullAccess",
     ]
     max_session_duration  = 3600
@@ -299,23 +299,4 @@ resource "aws_iam_role" "lambda_execution_role" {
     max_session_duration  = 3600
     name                  = "LambdaExecutionRole"
     path                  = "/"
-}
-
-resource "aws_s3_bucket_policy" "image_bucket_policy" {
-    bucket = aws_s3_bucket.images_bucket.id
-    policy = jsonencode(
-        {
-            Id        = "Policy1654727343240"
-            Statement = [
-                {
-                    Action    = "s3:GetObject"
-                    Effect    = "Allow"
-                    Principal = "*"
-                    Resource  = "arn:aws:s3:::poke-images/*"
-                    Sid       = "Allo Public Read"
-                },
-            ]
-            Version   = "2012-10-17"
-        }
-    )
 }

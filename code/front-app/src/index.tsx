@@ -1,12 +1,12 @@
+import 'milligram/dist/milligram.min.css';
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
-import { store } from './state/store';
-import { App } from './app/App';
-import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from "react-router-dom";
+import { App } from './app/App';
 import './index.scss';
-import 'milligram/dist/milligram.min.css'
+import reportWebVitals from './reportWebVitals';
+import { store } from './state/store';
 
 const container = document.getElementById('root');
 const root = createRoot(container);
