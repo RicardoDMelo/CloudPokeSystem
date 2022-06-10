@@ -6,7 +6,7 @@ resource "aws_s3_bucket" "images_bucket" {
 }
 
 resource "aws_s3_bucket_versioning" "images_bucket_versioning" {
-  bucket = aws_s3_bucket.images_bucket.id
+  bucket = aws_s3_bucket.images_bucket.bucket
   versioning_configuration {
     status = "Disabled"
   }
@@ -18,11 +18,11 @@ resource "aws_s3_bucket_request_payment_configuration" "images_bucket_payment" {
 }
 
 resource "aws_s3_object" "image_objects" {
-    for_each = fileset("images/", "*")
-    bucket = aws_s3_bucket.images_bucket.id
+    for_each = fileset("${path.module}/images", "*")
+    bucket = aws_s3_bucket.images_bucket.bucket
     key = each.value
-    source = "images/${each.value}"
-    etag = filemd5("images/${each.value}")
+    source = "${path.module}/images/${each.value}"
+    etag = filemd5("${path.module}/images/${each.value}")
 }
 
 resource "aws_s3_bucket_policy" "image_bucket_policy" {

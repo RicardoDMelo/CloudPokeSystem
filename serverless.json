@@ -14,39 +14,6 @@
   },
   "Conditions": {},
   "Resources": {
-    "DeployBucket": {
-      "Type": "AWS::S3::Bucket",
-      "Properties": {
-        "WebsiteConfiguration": {
-          "IndexDocument": "index.html"
-        }
-      }
-    },
-    "Distribution": {
-      "Type": "AWS::CloudFront::Distribution",
-      "Properties": {
-        "Origins": [
-          {
-            "DomainName": { "Fn::GetAtt": [ "DeployBucket", "DomainName" ] },
-            "Id": { "Ref": "DeployBucket" },
-            "S3OriginConfig": {
-              "OriginAccessIdentity": ""
-            }
-          }
-        ],
-        "DefaultCacheBehavior": {
-          "MinTTL": 86400,
-          "MaxTTL": 31536000,
-          "TargetOriginId": { "Ref": "DeployBucket" },
-          "ViewerProtocolPolicy": "redirect-to-https",
-          "ForwardedValues": {
-            "QueryString": true
-          }
-        },
-        "DefaultRootObject": "index.html",
-        "Enabled": true
-      }
-    },
     "PokemonApi": {
       "Type": "AWS::Serverless::Api",
       "Properties": {

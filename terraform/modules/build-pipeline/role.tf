@@ -19,6 +19,7 @@ resource "aws_iam_role" "code_build_role" {
         "arn:aws:iam::aws:policy/AWSCodeBuildDeveloperAccess",
         "arn:aws:iam::aws:policy/AmazonS3FullAccess",
         "arn:aws:iam::aws:policy/CloudWatchLogsFullAccess",
+        "arn:aws:iam::aws:policy/CloudFrontFullAccess"
     ]
     max_session_duration  = 3600
 }

@@ -5,6 +5,8 @@ locals {
 
 resource "aws_cloudfront_distribution" "s3_distribution" {
   origin {
+    connection_attempts = 3
+    connection_timeout  = 10
     domain_name = aws_s3_bucket.front_app_bucket.bucket_regional_domain_name
     origin_id   = local.s3_origin_id
 
