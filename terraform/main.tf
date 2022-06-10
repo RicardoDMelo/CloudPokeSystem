@@ -16,25 +16,29 @@ provider "github" {
   token = var.github_token
 }
 
-module "aws_dynamodb" {
-  source = "./modules/aws-dynamodb"
+module "dynamodb" {
+  source = "./modules/dynamodb"
 }
 
-module "aws_api_gateway" {
-  source = "./modules/aws-api-gateway"
+module "api_gateway" {
+  source = "./modules/api-gateway"
 
   domain_name = var.domain_name
 }
 
-module "aws_sns_sqs" {
-  source = "./modules/aws-sns-sqs"
+module "sns_sqs" {
+  source = "./modules/sns-sqs"
 
   aws_account_id = var.aws_account_id
   aws_region = var.aws_region
 }
 
-module "aws_codepipeline" {
-  source = "./modules/aws-codepipeline"
+module "front_app" {
+  source = "./modules/front-app"
+}
+
+module "build_pipeline" {
+  source = "./modules/build-pipeline"
 
   aws_account_id = var.aws_account_id
   aws_access_key_id = var.aws_access_key_id
@@ -45,5 +49,7 @@ module "aws_codepipeline" {
   git_repository_name = var.git_repository_name
   git_repository_branch = var.git_repository_branch
   domain_name = var.domain_name
-  certificate_id = module.aws_api_gateway.certificate_id
+  certificate_id = module.api_gateway.certificate_id
+  front_bucket_name = module.front_app.aws_front_bucket_name
+  cloudfront_distribution_id = module.front_app.aws_cloudfront_id
 }

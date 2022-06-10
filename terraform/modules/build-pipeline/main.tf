@@ -252,8 +252,8 @@ resource "aws_codepipeline" "code_pipeline" {
                 "ProjectName" = "PokeDotNetCodeBuild"
             }
             input_artifacts  = ["SourceArtifact"]
-            name             = "Dotnet Build"
-            namespace        = "BuildNamespace"
+            name             = "DotnetBuild"
+            namespace        = "DotnetBuildNamespace"
             region           = var.aws_region
             owner            = "AWS"
             provider         = "CodeBuild"
@@ -267,8 +267,8 @@ resource "aws_codepipeline" "code_pipeline" {
                 "ProjectName" = "PokeReactCodeBuild"
             }
             input_artifacts  = ["SourceArtifact"]
-            name             = "Front Build"
-            namespace        = "BuildNamespace"
+            name             = "FrontBuild"
+            namespace        = "FrontBuildNamespace"
             region           = var.aws_region
             owner            = "AWS"
             provider         = "CodeBuild"

@@ -19,10 +19,28 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
   default_cache_behavior {
     min_ttl                = 0
     max_ttl                = 86400
+
     forwarded_values {
       query_string = true
+
+      cookies {
+        forward = "none"
+      }
     }
+
     target_origin_id = local.s3_origin_id
     viewer_protocol_policy = "redirect-to-https"
+    allowed_methods  = ["GET", "HEAD"]    
+    cached_methods   = ["GET", "HEAD"]
+  }
+  
+  restrictions {
+    geo_restriction {
+      restriction_type = "none"
+    }
+  }
+
+  viewer_certificate {
+    cloudfront_default_certificate = true
   }
 }
