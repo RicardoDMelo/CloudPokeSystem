@@ -1,0 +1,27 @@
+version: 0.2
+cache:
+  paths:
+    - /root/.npm/**/*
+phases:
+  pre_build:
+    commands:
+      - cd code/front-app
+      - echo Installing source NPM dependencies...
+      - npm install
+  build:
+    commands:
+      - echo Build started on `date`
+      - npm run build
+  post_build:
+    commands:
+      - echo $DEPLOY_BUCKET
+      - echo $DISTRIBUTION
+      # copy the contents of /build to S3
+      - aws s3 cp --recursive --acl public-read ./build s3://$DEPLOY_BUCKET/ 
+
+      # set the cache-control headers for index.html to prevent
+      # browser caching
+      - aws s3 cp --acl public-read --cache-control="max-age=0, no-cache, no-store, must-revalidate" ./build/index.html s3://$DEPLOY_BUCKET/
+      # invalidate the CloudFront cache for index.html 
+      # to force CloudFront to update its edge locations with the new versions
+      - aws cloudfront create-invalidation --distribution-id $DISTRIBUTION --paths /index.html

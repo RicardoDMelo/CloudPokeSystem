@@ -1,0 +1,25 @@
+.pokemons-table {
+    .link-cell a {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        font-size: 22px;
+        line-break: anywhere;
+
+        img {
+            width: 64px;
+            height: 64px;
+            margin-right: 20px;
+        }
+    }
+
+    .level-cell {
+        text-align: center;
+    }
+}
+
+.loading-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

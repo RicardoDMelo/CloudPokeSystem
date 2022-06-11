@@ -12,19 +12,34 @@ It's business rules are based on DDD, made from techniques like event storming a
 
 ### Dependencies
 
+* .NET (Net Core 3.1 and .NET 6)
+* Terraform
 * AWS Lambda
+* AWS CodePipeline
 * AWS CodeBuild
+* AWS DynamoDB
+* GitHub
 
-### Installing
+### Running local
 
-* TODO
-
-### Executing program
-
-* TODO
+You need to run a DynamoDB locally. You can use the docker-compose.yml to achieve that.
 ```
-TODO
+cd dynamodb
+docker-compose up
 ```
+Run the PokedexInjector to inject all data necessary on DynamoDB.
+
+Run each service as you like on Visual Studio.
+
+
+### Installing on AWS
+
+You need to terraform your AWS account using the following command:
+```
+cd terraform
+terraform apply
+```
+This procedure can take some minutes to end.
 
 ## Help
 

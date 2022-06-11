@@ -1,0 +1,3 @@
+terraform import -var-file="custom.tfvars" aws_cloudfront_distribution.s3_distribution2 E1MNVTDJ5WOZ35
+terraform state show aws_cloudfront_distribution.s3_distribution2
+terraform state rm aws_cloudfront_distribution.s3_distribution2
