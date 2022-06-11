@@ -1,0 +1,21 @@
+.view-container {
+    display: flex;
+    flex-direction: column;
+
+    .back-button {
+        max-width: 300px;
+    }
+
+    .align-center {
+        align-self: center;
+    }
+
+    h2 {
+        word-break: break-all;
+        text-align: center;
+    }
+
+    h3 {
+        text-align: left;
+    }
+}

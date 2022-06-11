@@ -1,8 +1,8 @@
 import './loading.scss';
 import React from 'react'
 
-export function Loading() {
+export function Loading({ className = '' }) {
     return (
-        <div className='lds-dual-ring'></div>
+        <div className={`lds-dual-ring ${className}`}></div>
     );
 }

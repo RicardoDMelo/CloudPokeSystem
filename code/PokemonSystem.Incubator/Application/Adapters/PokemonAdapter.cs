@@ -10,6 +10,7 @@ namespace PokemonSystem.Incubator.Application.Adapters
         {
             DisableConstructorMapping();
             CreateMap<Pokemon, PokemonLookup>()
+                .ForMember(dest => dest.SpeciesId, opt => opt.MapFrom(src => src.PokemonSpecies.Id))
                 .ForMember(dest => dest.Level, opt => opt.MapFrom(src => src.LevelToGrow!.Value))
                 .ForMember(dest => dest.Name, opt => opt.MapFrom((src, dest) =>
                 {

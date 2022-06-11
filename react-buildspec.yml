@@ -1,4 +1,7 @@
 version: 0.2
+cache:
+  paths:
+    - /root/.npm/**/*
 phases:
   pre_build:
     commands:

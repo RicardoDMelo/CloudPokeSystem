@@ -1,5 +1,13 @@
+terraform {
+    required_providers {
+        aws = {
+          source  = "hashicorp/aws"
+          version = "~> 4.17.1"
+        }
+    }
+}
 resource "aws_acm_certificate" "certificate" {
-  domain_name       = "*.${var.domain_name}"
+  domain_name       = "pokemon-api.${var.domain_name}"
   validation_method = "DNS"
 
   lifecycle {

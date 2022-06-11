@@ -1,10 +1,11 @@
 import React from 'react';
+import './pokemonProp.scss'
 
 export function PokemonProp(props: any) {
     return (
-        <div>
-            <span>{props.label}</span>
-            <span>{props.value}</span>
+        <div className="row prop-container">
+            <span className='column prop-label'>{props.label}</span>
+            <span className='column prop-value'>{props.value}</span>
         </div>
     );
 }

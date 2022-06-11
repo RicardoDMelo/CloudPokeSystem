@@ -1,3 +1,12 @@
+terraform {
+    required_providers {
+        aws = {
+          source  = "hashicorp/aws"
+          version = "~> 4.17.1"
+        }
+    }
+}
+
 resource "aws_codebuild_project" "code_test" {
     badge_enabled          = false
     build_timeout          = 20

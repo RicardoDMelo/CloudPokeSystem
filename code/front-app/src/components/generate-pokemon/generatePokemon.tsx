@@ -4,6 +4,7 @@ import { GeneratePokemonRequest } from '../../models/GeneratePokemonRequest';
 import { generateNewPokemonAsync } from '../../state/generatedPokemonsSlice';
 import { AppDispatch } from '../../state/store';
 import { AsyncButton } from '../common/async-button/asyncButton';
+import './generatePokemon.scss'
 
 
 export function GeneratePokemon() {
@@ -25,18 +26,24 @@ export function GeneratePokemon() {
     }
 
     return (
-        <form onSubmit={submitForm}>
-            <label htmlFor="nickname">Nickname</label>
-            <input aria-label="Nickname" name="nickname"
-                onChange={(ev) => setState({ ...state, nickname: ev.target.value })}
-                value={state.nickname}></input>
+        <section className="generate-section">
 
-            <label htmlFor="levelToGrow">Level</label>
-            <input name="levelToGrow" type="number"
-                onChange={(ev) => setState({ ...state, levelToGrow: parseInt(ev.target.value) })}
-                value={state.levelToGrow}></input>
+            <h2>Generate a Random Pokemon</h2>
+            <p>Want to try your luck? Give a nickname and a desired level, and get a new random pokemon!</p>
 
-            <AsyncButton isLoading={showLoading} type="submit" value="Generate Pokemon" aria-label="Generate Pokemon" />
-        </form>
+            <form onSubmit={submitForm}>
+                <label htmlFor="nickname">Nickname</label>
+                <input aria-label="Nickname Input" name="nickname"
+                    onChange={(ev) => setState({ ...state, nickname: ev.target.value })}
+                    value={state.nickname}></input>
+
+                <label htmlFor="levelToGrow">Level</label>
+                <input name="levelToGrow" type="number" aria-label="Level To Grow Input"
+                    onChange={(ev) => setState({ ...state, levelToGrow: parseInt(ev.target.value) })}
+                    value={state.levelToGrow}></input>
+
+                <AsyncButton isLoading={showLoading} type="submit" value="Generate Pokemon" aria-label="Generate Pokemon Button" />
+            </form>
+        </section>
     );
 }

@@ -1,3 +1,11 @@
+terraform {
+    required_providers {
+        aws = {
+          source  = "hashicorp/aws"
+          version = "~> 4.17.1"
+        }
+    }
+}
 
 resource "aws_dynamodb_table" "pokedex-table" {
     name           = "PokemonSpecies"

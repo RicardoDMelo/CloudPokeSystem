@@ -1,2 +1,3 @@
-terraform import -var-file="custom.tfvars" aws_s3_bucket_policy.image_bucket_policy poke-images
-terraform state show aws_s3_bucket_policy.image_bucket_policy
+terraform import -var-file="custom.tfvars" aws_cloudfront_distribution.s3_distribution2 E1MNVTDJ5WOZ35
+terraform state show aws_cloudfront_distribution.s3_distribution2
+terraform state rm aws_cloudfront_distribution.s3_distribution2

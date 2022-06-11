@@ -1,3 +1,12 @@
+terraform {
+    required_providers {
+        aws = {
+          source  = "hashicorp/aws"
+          version = "~> 4.17.1"
+        }
+    }
+}
+
 resource "aws_sns_topic" "pokemon_created_topic" {
     content_based_deduplication              = true
     fifo_topic                               = true

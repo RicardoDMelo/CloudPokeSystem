@@ -3,7 +3,20 @@ locals {
   s3_origin_id = "front_app_bucket_origin"
 }
 
+resource "aws_acm_certificate" "certificate" {
+  provider = aws.us
+  domain_name       = "pokemon-app.${var.domain_name}"
+  validation_method = "DNS"
+
+  lifecycle {
+    create_before_destroy = true
+  }
+}
+
 resource "aws_cloudfront_distribution" "s3_distribution" {
+  aliases                        = [
+    "pokemon-app.ricardomelo.dev",
+  ]
   origin {
     connection_attempts = 3
     connection_timeout  = 10
@@ -41,8 +54,25 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
       restriction_type = "none"
     }
   }
+  
+  custom_error_response {
+    error_caching_min_ttl = 0
+    error_code            = 403
+    response_code         = 200
+    response_page_path    = "/index.html"
+  }
+
+  custom_error_response {
+    error_caching_min_ttl = 0
+    error_code            = 404
+    response_code         = 200
+    response_page_path    = "/index.html"
+  }
 
   viewer_certificate {
-    cloudfront_default_certificate = true
+    acm_certificate_arn            = aws_acm_certificate.certificate.arn
+    cloudfront_default_certificate = false
+    minimum_protocol_version       = "TLSv1.2_2021"
+    ssl_support_method             = "sni-only"
   }
 }

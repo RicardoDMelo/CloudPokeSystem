@@ -14,10 +14,6 @@ phases:
       - echo Restore started on `date`
       - export PATH="$PATH:/root/.dotnet/tools"
       - pip install --upgrade awscli
-      #- aws configure set profile default
-      #- aws configure set region $AWS_REGION
-      #- aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
-      #- aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
       - dotnet tool install -g Amazon.Lambda.Tools
   build:
     commands:

@@ -5,6 +5,7 @@ import { getLastPokemonsAsync } from '../../state/generatedPokemonsSlice';
 import { Link } from 'react-router-dom';
 import { Loading } from '../common/loading/loading';
 import { PokemonLookup } from '../../models/PokemonLookup';
+import './lastPokemons.scss'
 
 export function LastPokemons() {
 
@@ -17,20 +18,36 @@ export function LastPokemons() {
         }
     });
 
+    const getImageName = (speciesId: number): string => {
+        return ('000' + speciesId).slice(-4);
+    }
+
     if (state.isLoaded) {
         return (
             <section>
                 <h2>Last Pokemons</h2>
-                <table>
+                <table className='pokemons-table'>
+                    <thead>
+                        <tr>
+                            <th>Pokemon</th>
+                            <th className='level-cell'>Level</th>
+                        </tr>
+                    </thead>
                     <tbody>
                         {state.list.map((pokemon: PokemonLookup) => {
                             return (
                                 <tr key={pokemon.id}>
-                                    <td>
-                                        <img src={`https://poke-images.s3.sa-east-1.amazonaws.com/${pokemon.speciesId}.png`}></img>
-                                        <Link to={pokemon.id}>{pokemon.name}</Link>
+                                    <td className='link-cell'>
+                                        <Link to={pokemon.id}>
+                                            <img
+                                                alt={pokemon.name}
+                                                src={`https://poke-images.s3.sa-east-1.amazonaws.com/${getImageName(pokemon.speciesId)}.png`}></img>
+                                            {pokemon.name}
+                                        </Link>
                                     </td>
-                                    <td>{pokemon.level}</td>
+                                    <td className='level-cell'>
+                                        {pokemon.level}
+                                    </td>
                                 </tr>
                             );
                         })}
@@ -39,6 +56,10 @@ export function LastPokemons() {
             </section>
         );
     } else {
-        return <Loading />;
+        return (
+            <section className='loading-container'>
+                <Loading />
+            </section>
+        );
     }
 }
