@@ -1,5 +1,5 @@
 {
-  "short_name": "Poke Incubator",
+  "short_name": "Pokemon Incubator",
   "name": "Incubate a new Pokemon",
   "icons": [
     {
@@ -21,5 +21,5 @@
   "start_url": ".",
   "display": "standalone",
   "theme_color": "#DC2222",
-  "background_color": "#D7CDCC"
+  "background_color": "#F9F9F9"
 }
