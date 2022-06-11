@@ -7,7 +7,7 @@ using PokemonSystem.Incubator.Domain.SpeciesAggregate;
 namespace PokemonSystem.Tests.Incubator.Builders
 {
     public class PokemonBuilder
-    { 
+    {
         private string _nickname = "Tito";
         private Level _level = new Level(1);
         private Species _species = new SpeciesBuilder().Build();
@@ -54,6 +54,7 @@ namespace PokemonSystem.Tests.Incubator.Builders
             var config = new MapperConfiguration(cfg =>
             {
                 cfg.CreateMap<Pokemon, PokemonLookup>()
+                    .ForMember(dest => dest.SpeciesId, opt => opt.MapFrom(src => src.PokemonSpecies.Id))
                     .ForMember(dest => dest.Level, opt => opt.MapFrom(src => src.LevelToGrow!.Value))
                     .ForMember(dest => dest.Name, opt => opt.MapFrom((src, dest) =>
                     {
